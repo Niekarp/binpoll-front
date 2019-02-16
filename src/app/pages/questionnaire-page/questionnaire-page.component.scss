@@ -1,0 +1,17 @@
+.question {
+	width: 100%;
+	line-height: 75px;
+}
+
+.answer {
+	width: 60%;
+	font-size: 18px;
+}
+
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 24px;
+}
+
+.mat-raised-button ~ .mat-raised-button {
+	margin-right: 16px;
+}

@@ -4,7 +4,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { 
   MatIconModule,
-  MatButtonModule
+  MatButtonModule,
+  MatGridListModule,
+  MatFormFieldModule,
+  MatSelectModule,
+  MatRadioModule
 } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -23,7 +27,11 @@ import { QuestionnairePageComponent } from './pages/questionnaire-page/questionn
     AppRoutingModule,
     BrowserAnimationsModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    MatGridListModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatRadioModule
   ],
   providers: [],
   bootstrap: [AppComponent]

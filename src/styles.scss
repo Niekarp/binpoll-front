@@ -22,13 +22,14 @@ $primary-color-light: rgb(91, 155, 213);
 
 .page-navigation {
 	width: 100%;
+	display: flex;
+	flex-direction: row-reverse;
 	// border: 5px solid blue;
 }
 
 .navigation-button {
 	width: 250px;
 	height: 50px;
-	float: right;
 	background-color: $primary-color-light;
 	font-size: 28px;
 	color: white;
