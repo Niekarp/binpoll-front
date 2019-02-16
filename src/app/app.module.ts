@@ -6,10 +6,12 @@ import { MatDialogModule } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { WelcomePageComponent } from './pages/welcome-page/welcome-page.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    WelcomePageComponent
   ],
   imports: [
     BrowserModule,
