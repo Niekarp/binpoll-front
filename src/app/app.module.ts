@@ -16,13 +16,15 @@ import { AppComponent } from './app.component';
 import { WelcomePageComponent } from './pages/welcome-page/welcome-page.component';
 import { QuestionnairePageComponent } from './pages/questionnaire-page/questionnaire-page.component';
 import { PollDescriptionPageComponent } from './pages/poll-description-page/poll-description-page.component';
+import { TermsSoundsPageComponent } from './pages/terms-sounds-page/terms-sounds-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     WelcomePageComponent,
     QuestionnairePageComponent,
-    PollDescriptionPageComponent
+    PollDescriptionPageComponent,
+    TermsSoundsPageComponent
   ],
   imports: [
     BrowserModule,
