@@ -15,12 +15,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { WelcomePageComponent } from './pages/welcome-page/welcome-page.component';
 import { QuestionnairePageComponent } from './pages/questionnaire-page/questionnaire-page.component';
+import { PollDescriptionPageComponent } from './pages/poll-description-page/poll-description-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     WelcomePageComponent,
-    QuestionnairePageComponent
+    QuestionnairePageComponent,
+    PollDescriptionPageComponent
   ],
   imports: [
     BrowserModule,
