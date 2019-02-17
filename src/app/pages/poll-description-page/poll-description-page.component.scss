@@ -1,0 +1,18 @@
+#acoustic-scenes-container {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	margin-top: 20px;
+}
+
+#acoustic-scenes-container > div {
+	height: 295px;
+	flex: 1;
+	margin-left: 5px;
+	margin-right: 5px;
+	background-color: gold;
+}
+
+.mat-raised-button ~ .mat-raised-button {
+	margin-right: 16px;
+}
