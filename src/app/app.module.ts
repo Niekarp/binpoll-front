@@ -22,6 +22,7 @@ import { TermsBackScenePageComponent } from './pages/terms-back-scene-page/terms
 import { TermsAllAroundScenePageComponent } from './pages/terms-all-around-scene-page/terms-all-around-scene-page.component';
 import { HeadphonesTestComponent } from './pages/headphones-test/headphones-test.component';
 import { PollPageComponent } from './pages/poll-page/poll-page.component';
+import { FinishPageComponent } from './pages/finish-page/finish-page.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { PollPageComponent } from './pages/poll-page/poll-page.component';
     TermsBackScenePageComponent,
     TermsAllAroundScenePageComponent,
     HeadphonesTestComponent,
-    PollPageComponent
+    PollPageComponent,
+    FinishPageComponent
   ],
   imports: [
     BrowserModule,
