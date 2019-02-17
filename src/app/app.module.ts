@@ -8,7 +8,9 @@ import {
   MatGridListModule,
   MatFormFieldModule,
   MatSelectModule,
-  MatRadioModule
+  MatRadioModule,
+  MatInputModule,
+  MatCardModule
 } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -47,7 +49,9 @@ import { FinishPageComponent } from './pages/finish-page/finish-page.component';
     MatGridListModule,
     MatFormFieldModule,
     MatSelectModule,
-    MatRadioModule
+    MatRadioModule,
+    MatInputModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
