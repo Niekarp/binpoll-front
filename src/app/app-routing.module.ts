@@ -7,6 +7,7 @@ import { TermsSoundsPageComponent } from './pages/terms-sounds-page/terms-sounds
 import { TermsFrontScenePageComponent } from './pages/terms-front-scene-page/terms-front-scene-page.component';
 import { TermsBackScenePageComponent } from './pages/terms-back-scene-page/terms-back-scene-page.component';
 import { TermsAllAroundScenePageComponent } from './pages/terms-all-around-scene-page/terms-all-around-scene-page.component';
+import { HeadphonesTestComponent } from './pages/headphones-test/headphones-test.component';
 
 const routes: Routes = [
   { path: '', component: WelcomePageComponent },
@@ -15,7 +16,8 @@ const routes: Routes = [
   { path: 'terms-sounds', component: TermsSoundsPageComponent },
   { path: 'terms-front-scene', component: TermsFrontScenePageComponent },
   { path: 'terms-back-scene', component: TermsBackScenePageComponent },
-  { path: 'terms-all-around-scene', component: TermsAllAroundScenePageComponent }
+  { path: 'terms-all-around-scene', component: TermsAllAroundScenePageComponent },
+  { path: 'headphones-test', component: HeadphonesTestComponent }
 ];
 
 @NgModule({

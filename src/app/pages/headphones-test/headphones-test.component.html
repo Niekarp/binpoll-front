@@ -1,0 +1,29 @@
+<header class="page-header">
+  Now, put your headphones on…
+</header>
+<section class="page-content">
+  and listen to the audio clips by pressing the buttons below. Adjust the volume to a comfortable level. Make sure that the headphones are placed correctly. 
+  <div id="channel-test-container">
+    <div class="channel-test-element">
+      <button mat-raised-button class="navigation-button" (click)="playLeftChannelTest()">
+        <mat-icon class="play-icon">play_circle_outline</mat-icon>
+      </button>
+      <div>Left channel</div>
+    </div>
+    <div class="channel-test-element" style="height: 280px; background-color: gold;"></div>
+    <div class="channel-test-element">
+      <button mat-raised-button class="navigation-button" (click)="playRightChannelTest()">
+        <mat-icon class="play-icon">play_circle_outline</mat-icon>
+      </button>
+      <div>Right channel</div>
+    </div>
+  </div>
+  Please keep your headphones on during all the tests. Adjust the volume at any time so that the clips are played back at a comfortable level. 
+</section>
+<nav class="page-navigation">
+  <a mat-raised-button class="navigation-button" routerLink="/headphones-test">Next</a>
+  <a mat-raised-button class="navigation-button" routerLink="/terms-all-around-scene">Previous</a>
+  <div id="help-note">
+    If you encounter problems with the audio playback, check your audio setting on your device, and refresh this page. <a href="">Further help</a>
+  </div>
+</nav>
