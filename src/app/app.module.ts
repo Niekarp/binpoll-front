@@ -17,6 +17,7 @@ import { WelcomePageComponent } from './pages/welcome-page/welcome-page.componen
 import { QuestionnairePageComponent } from './pages/questionnaire-page/questionnaire-page.component';
 import { PollDescriptionPageComponent } from './pages/poll-description-page/poll-description-page.component';
 import { TermsSoundsPageComponent } from './pages/terms-sounds-page/terms-sounds-page.component';
+import { TermsFrontScenePageComponent } from './pages/terms-front-scene-page/terms-front-scene-page.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { TermsSoundsPageComponent } from './pages/terms-sounds-page/terms-sounds
     WelcomePageComponent,
     QuestionnairePageComponent,
     PollDescriptionPageComponent,
-    TermsSoundsPageComponent
+    TermsSoundsPageComponent,
+    TermsFrontScenePageComponent
   ],
   imports: [
     BrowserModule,
