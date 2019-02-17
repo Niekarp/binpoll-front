@@ -8,6 +8,7 @@ import { TermsFrontScenePageComponent } from './pages/terms-front-scene-page/ter
 import { TermsBackScenePageComponent } from './pages/terms-back-scene-page/terms-back-scene-page.component';
 import { TermsAllAroundScenePageComponent } from './pages/terms-all-around-scene-page/terms-all-around-scene-page.component';
 import { HeadphonesTestComponent } from './pages/headphones-test/headphones-test.component';
+import { PollPageComponent } from './pages/poll-page/poll-page.component';
 
 const routes: Routes = [
   { path: '', component: WelcomePageComponent },
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'terms-front-scene', component: TermsFrontScenePageComponent },
   { path: 'terms-back-scene', component: TermsBackScenePageComponent },
   { path: 'terms-all-around-scene', component: TermsAllAroundScenePageComponent },
-  { path: 'headphones-test', component: HeadphonesTestComponent }
+  { path: 'headphones-test', component: HeadphonesTestComponent },
+  { path: 'poll', component: PollPageComponent }
 ];
 
 @NgModule({
