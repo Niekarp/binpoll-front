@@ -1,3 +1,10 @@
+#progress-bar {
+	width: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+
 .page-header {
 	width: 100%;
 	height: 100px;
@@ -18,6 +25,12 @@
 
 .scene-select-button:hover {
 	background-color: green;
+}
+
+#test-counter {
+	text-align: right;
+	font-weight: bold;
+	color: rgb(46, 117, 182);
 }
 
 .mat-raised-button ~ .mat-raised-button {

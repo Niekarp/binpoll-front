@@ -11,7 +11,8 @@ import {
   MatSelectModule,
   MatRadioModule,
   MatInputModule,
-  MatCardModule
+  MatCardModule,
+  MatProgressBarModule
 } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -53,7 +54,8 @@ import { FinishPageComponent } from './pages/finish-page/finish-page.component';
     MatSelectModule,
     MatRadioModule,
     MatInputModule,
-    MatCardModule
+    MatCardModule,
+    MatProgressBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

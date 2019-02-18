@@ -1,3 +1,4 @@
+<mat-progress-bar id="progress-bar" [value]="currentTestNumber * (100 / testCount)"></mat-progress-bar>
 <header class="page-header">
   OK, let’s start. You should here the music clip now. Indicate the direction from which the FOREGROUND sounds come from and press the Next button.
 </header>
@@ -13,11 +14,11 @@
       <button mat-fab class="scene-select-button" (click)="selectScene($event.currentTarget)">All-around</button>
     </div>
   </div>
-  <div style="text-align: right; color: rgb(46, 117, 182); font-weight: bold;">Test X out of 28</div>
+  <div id="test-counter">Test {{ currentTestNumber }} out of {{ testCount }}</div>
 </section>
 <nav class="page-navigation">
-  <a mat-raised-button class="navigation-button" routerLink="/finish">Next</a>
-  <a mat-raised-button class="navigation-button" routerLink="/headphones-test">Previous</a>
+  <a mat-raised-button class="navigation-button" (click)="goToNextTest()">Next</a>
+  <a mat-raised-button class="navigation-button" (click)="goToPreviousTest()">Previous</a>
   <div id="help-note">
     If you encounter problems with the audio playback, check your audio setting on your device, and refresh this page. <a href="">Further help</a>
   </div>
