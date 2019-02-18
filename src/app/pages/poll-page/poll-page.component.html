@@ -2,7 +2,17 @@
   OK, let’s start. You should here the music clip now. Indicate the direction from which the FOREGROUND sounds come from and press the Next button.
 </header>
 <section class="page-content">
-  <div style="height: 400px;"></div>
+  <div id="scene-select-container" fxLayout="row">
+    <div fxFlex fxLayoutAlign="center center">
+      <button mat-fab class="scene-select-button" (click)="selectScene($event.currentTarget)">Front</button>
+    </div>
+    <div fxFlex fxLayoutAlign="center center">
+      <button mat-fab class="scene-select-button" (click)="selectScene($event.currentTarget)">Back</button>
+    </div>
+    <div fxFlex fxLayoutAlign="center center">
+      <button mat-fab class="scene-select-button" (click)="selectScene($event.currentTarget)">All-around</button>
+    </div>
+  </div>
   <div style="text-align: right; color: rgb(46, 117, 182); font-weight: bold;">Test X out of 28</div>
 </section>
 <nav class="page-navigation">

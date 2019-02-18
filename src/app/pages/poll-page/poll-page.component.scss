@@ -6,6 +6,20 @@
 	font-weight: bold;
 }
 
+#scene-select-container {
+	height: 400px;
+}
+
+.scene-select-button {
+	width: 150px;
+	height: 150px;
+	background-color: gray;
+}
+
+.scene-select-button:hover {
+	background-color: green;
+}
+
 .mat-raised-button ~ .mat-raised-button {
 	margin-right: 16px;
 }

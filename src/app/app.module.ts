@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { 
   MatIconModule,
@@ -44,6 +45,7 @@ import { FinishPageComponent } from './pages/finish-page/finish-page.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    FlexLayoutModule,
     MatIconModule,
     MatButtonModule,
     MatGridListModule,
