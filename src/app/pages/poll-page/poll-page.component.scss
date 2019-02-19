@@ -1,3 +1,5 @@
+// @import '../../../styles.scss';
+
 #progress-bar {
 	width: 100%;
 	position: absolute;
@@ -14,7 +16,7 @@
 }
 
 #scene-select-container {
-	height: 400px;
+	height: 410px;
 }
 
 .scene-select-button {
@@ -38,5 +40,6 @@
 }
 
 #help-note {
-	width: 404px;
+	width: 394px;
+	padding-right: 10px;
 }
