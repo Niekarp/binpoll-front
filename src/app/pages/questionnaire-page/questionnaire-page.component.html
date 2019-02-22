@@ -1,5 +1,5 @@
 <header class="page-header">
-  First, we need to ask you three questions
+  First, we need to ask you four questions
 </header>
 <section class="page-content">
   <mat-grid-list cols="10" rowHeight="75px">
@@ -8,7 +8,7 @@
     </mat-grid-tile>
     <mat-grid-tile rowspan="1" colspan="3">
       <mat-form-field class="answer">
-        <mat-select placeholder="Please select">
+        <mat-select placeholder="Please select" [(ngModel)]="selectedAge">
           <mat-option *ngFor="let age of ages" [value]="age.value">
             {{ age.viewValue }}
           </mat-option>
@@ -19,7 +19,7 @@
       <div class="question">Do you have difficulties with your hearing?</div>
     </mat-grid-tile>
     <mat-grid-tile rowspan="1" colspan="3">
-      <mat-radio-group class="answer">
+      <mat-radio-group class="answer" [(ngModel)]="selectedHearingDifficulties">
         <mat-radio-button value="1">Yes</mat-radio-button>
         <mat-radio-button value="2">No</mat-radio-button>
       </mat-radio-group>
@@ -28,14 +28,24 @@
       <div class="question">Have you ever participated in a listening test?</div>
     </mat-grid-tile>
     <mat-grid-tile rowspan="1" colspan="3">
-      <mat-radio-group class="answer">
+      <mat-radio-group class="answer" [(ngModel)]="selectedListeningTestParticipation">
         <mat-radio-button value="1">Yes</mat-radio-button>
         <mat-radio-button value="2">No</mat-radio-button>
       </mat-radio-group>
     </mat-grid-tile>
+    <mat-grid-tile rowspan="1" colspan="10">
+      <div class="question">What is the make and model of your headphones?</div>
+    </mat-grid-tile>
+    <mat-grid-tile rowspan="2" colspan="10">
+      <mat-card id="headphones-answer-area">
+        <mat-form-field>
+          <textarea matInput placeholder="type in your make and model there" [(ngModel)]="typedHeadphonesMakeAndModel"></textarea>
+        </mat-form-field>
+      </mat-card>
+    </mat-grid-tile>
   </mat-grid-list>
 </section>
 <nav class="page-navigation">
-  <a mat-raised-button class="navigation-button" routerLink="/poll-description">Next</a>
+  <a mat-raised-button class="navigation-button" (click)="validateForm()">Next</a>
   <a mat-raised-button class="navigation-button" routerLink="/">Previous</a>
 </nav>
