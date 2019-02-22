@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { SharedConfig } from '../../config/shared-config';
 
 @Component({
   selector: 'app-poll-page',
@@ -8,13 +9,15 @@ import { Router } from '@angular/router';
 })
 export class PollPageComponent implements OnInit {
 
-  public testCount: number = 28;
+  public testCount: number;
   public currentTestNumber: number = 1;
   private audio = new Audio();
   private selectedScene: string = null;
   private selectedAudio: string[] = new Array(this.testCount);
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, public sharedConfig: SharedConfig) {
+    this.testCount = sharedConfig.testCount;
+   }
 
   ngOnInit() {
     for(let i = 0; i < this.testCount + 1; ++i) {

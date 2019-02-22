@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SharedConfig } from '../../config/shared-config';
 
 @Component({
   selector: 'app-welcome-page',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WelcomePageComponent implements OnInit {
 
-  constructor() { }
+  private testCount: number;
+
+  constructor(public sharedConfig: SharedConfig) { 
+    this.testCount = sharedConfig.testCount;
+   }
 
   ngOnInit() {
   }

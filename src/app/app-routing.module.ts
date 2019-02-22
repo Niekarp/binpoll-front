@@ -10,9 +10,11 @@ import { TermsAllAroundScenePageComponent } from './pages/terms-all-around-scene
 import { HeadphonesTestComponent } from './pages/headphones-test/headphones-test.component';
 import { PollPageComponent } from './pages/poll-page/poll-page.component';
 import { FinishPageComponent } from './pages/finish-page/finish-page.component';
+import { PolicyPageComponent } from './pages/policy-page/policy-page.component';
 
 const routes: Routes = [
   { path: '', component: WelcomePageComponent },
+  { path: 'policy', component: PolicyPageComponent },
   { path: 'questionnaire', component: QuestionnairePageComponent },
   { path: 'poll-description', component: PollDescriptionPageComponent },
   { path: 'terms-sounds', component: TermsSoundsPageComponent },
