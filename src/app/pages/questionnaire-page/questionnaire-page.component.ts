@@ -32,7 +32,7 @@ export class QuestionnairePageComponent implements OnInit {
   ngOnInit() {
   }
   
-  public validateForm() {
+  public validateForm(): boolean {
     if (this.selectedAge == undefined || 
       this.selectedHearingDifficulties == undefined ||
       this.selectedListeningTestParticipation == undefined ||
@@ -44,19 +44,39 @@ export class QuestionnairePageComponent implements OnInit {
           verticalPosition: "top",
           panelClass: ['my-snackbar']
         });
+        return false;
     }
     else {
-      this.router.navigate(['/poll-description']);
+      return true;
     }
+  }
+
+  goToNextPageIfFormIsValid() {
+    if (this.validateForm()) {
+      this.gotoNextPage();
+    }
+  }
+
+  goToPreviousPage() {
+    this.router.navigate(['/']);
+  }
+
+  gotoNextPage() {
+    this.router.navigate(['/poll-description']);
   }
 
   @HostListener('window:keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {
+    if ((event.target as HTMLTextAreaElement).localName === 'textarea') {
+      return;
+    }
     if (event.key === 'ArrowLeft') {
-      this.router.navigate(['/']);
+      this.goToPreviousPage();
     }
     else if (event.key === 'ArrowRight') {
-      this.validateForm();
+      if (this.validateForm()) {
+        this.gotoNextPage();
+      }
     }
   }
 }

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { SharedConfig } from '../../config/shared-config';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-welcome-page',
@@ -10,11 +11,21 @@ export class WelcomePageComponent implements OnInit {
 
   private testCount: number;
 
-  constructor(public sharedConfig: SharedConfig) { 
+  constructor(private router: Router, public sharedConfig: SharedConfig) { 
     this.testCount = sharedConfig.testCount;
    }
 
   ngOnInit() {
   }
 
+  gotoNextPage() {
+    this.router.navigate(['/questionnaire']);
+  }
+
+  @HostListener('window:keydown', ['$event'])
+  onKeyDown(event: KeyboardEvent) {
+    if (event.key === 'ArrowRight') {
+      this.gotoNextPage();
+    }
+  }
 }

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-terms-back-scene-page',
@@ -7,9 +8,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TermsBackScenePageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
+  goToPreviousPage() {
+    this.router.navigate(['/terms-front-scene']);
+  }
+
+  gotoNextPage() {
+    this.router.navigate(['/terms-all-around-scene']);
+  }
+
+  @HostListener('window:keydown', ['$event'])
+  onKeyDown(event: KeyboardEvent) {
+    if (event.key === 'ArrowLeft') {
+      this.goToPreviousPage();
+    }
+    else if (event.key === 'ArrowRight') {
+      this.gotoNextPage();
+    }
+  }
 }

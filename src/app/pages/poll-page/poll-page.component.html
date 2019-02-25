@@ -1,6 +1,11 @@
 <mat-progress-bar id="progress-bar" [value]="currentTestNumber * (100 / testCount)"></mat-progress-bar>
 <header class="page-header">
-  OK, let’s start. You should here the music clip now. Indicate the direction from which the FOREGROUND sounds come from and press the Next button.
+  <span *ngIf="currentTestNumber === 1; else regularHeader">
+    OK, let’s start. You should here the music clip now. Indicate the scene which fits best what you hear and press the Next button.
+  </span>
+  <ng-template #regularHeader>
+    Indicate the scene which fits best what you hear.
+  </ng-template>
 </header>
 <section class="page-content">
   <div id="scene-select-container" fxLayout="row">

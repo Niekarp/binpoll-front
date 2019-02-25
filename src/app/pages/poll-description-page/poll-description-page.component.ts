@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
+import { Router } from '@angular/router';
+import { SharedConfig } from 'src/app/config/shared-config';
 
 @Component({
   selector: 'app-poll-description-page',
@@ -7,9 +9,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PollDescriptionPageComponent implements OnInit {
 
-  constructor() { }
+  private testCount: number;
+
+  constructor(private router: Router, public sharedConfig: SharedConfig) {
+    this.testCount = sharedConfig.testCount;
+  }
 
   ngOnInit() {
   }
 
+  goToPreviousPage() {
+    this.router.navigate(['/questionnaire']);
+  }
+
+  gotoNextPage() {
+    this.router.navigate(['/terms-front-scene']);
+  }
+
+  @HostListener('window:keydown', ['$event'])
+  onKeyDown(event: KeyboardEvent) {
+    if (event.key === 'ArrowLeft') {
+      this.goToPreviousPage();
+    }
+    else if (event.key === 'ArrowRight') {
+      this.gotoNextPage();
+    }
+  }
 }

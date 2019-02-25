@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { SharedConfig } from '../../config/shared-config';
 
@@ -72,6 +72,16 @@ export class PollPageComponent implements OnInit {
     let selectSceneButtons = document.getElementsByClassName('scene-select-button');
     for (let i = 0; i < selectSceneButtons.length; ++i) {
       selectSceneButtons.item(i).setAttribute('style', 'background-color: gray');
+    }
+  }
+
+  @HostListener('window:keydown', ['$event'])
+  onKeyDown(event: KeyboardEvent) {
+    if (event.key === 'ArrowLeft') {
+      this.goToPreviousTest();
+    }
+    else if (event.key === 'ArrowRight') {
+      this.goToNextTest();
     }
   }
 

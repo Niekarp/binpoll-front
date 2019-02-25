@@ -46,6 +46,6 @@
   </mat-grid-list>
 </section>
 <nav class="page-navigation">
-  <a mat-raised-button class="navigation-button" (click)="validateForm()">Next</a>
-  <a mat-raised-button class="navigation-button" routerLink="/">Previous</a>
+  <a mat-raised-button class="navigation-button" (click)="goToNextPageIfFormIsValid()">Next</a>
+  <a mat-raised-button class="navigation-button" (click)="goToPreviousPage()">Previous</a>
 </nav>

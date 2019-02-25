@@ -2,14 +2,15 @@
   What will happen during the test?
 </header>
 <section class="page-content">
-  You will be presented with 28 short audio recordings. Each of them will represent one of three “acoustic scenes”, depending on the directions from which the foreground sounds arrive, as illustrated below.
+  You will be presented with {{ testCount }} short audio recordings. Each of them will represent one of three scenarios, depending on the location of an ensemble of musicians with respect to your head, as illustrated below.
   <div id="acoustic-scenes-container" fxLayout="row">
-    <div fxFlex="33%"><img class="acoustic-scene-img" src="../../../assets/acoustic scenes/front scene.jpg"></div>
-    <div fxFlex="33%"><img class="acoustic-scene-img" src="../../../assets/acoustic scenes/back scene.jpg"></div>
-    <div fxFlex="33%"><img class="acoustic-scene-img" src="../../../assets/acoustic scenes/all around.jpg"></div>
+    <div fxFlex="33%"><img class="acoustic-scene-img" src="../../../assets/acoustic scenes/front scene.png"></div>
+    <div fxFlex="33%"><img class="acoustic-scene-img" src="../../../assets/acoustic scenes/back scene.png"></div>
+    <div fxFlex="33%"><img class="acoustic-scene-img" src="../../../assets/acoustic scenes/all around.png"></div>
   </div>
+  Your task is to indicate which scene represents the best what your hear.
 </section>
 <nav class="page-navigation">
-  <a mat-raised-button class="navigation-button" routerLink="/terms-sounds">Next</a>
-  <a mat-raised-button class="navigation-button" routerLink="/questionnaire">Previous</a>
+  <a mat-raised-button class="navigation-button" (click)="gotoNextPage()">Next</a>
+  <a mat-raised-button class="navigation-button" (click)="goToPreviousPage()">Previous</a>
 </nav>
