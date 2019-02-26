@@ -8,15 +8,25 @@
   </ng-template>
 </header>
 <section class="page-content">
+  <button mat-stroked-button class="navigation-button" (click)="toggleAudio()">
+    <span *ngIf="audioOn; else audioOff">Stop</span>
+    <ng-template #audioOff>Play</ng-template>
+  </button>
   <div id="scene-select-container" fxLayout="row">
-    <div fxFlex fxLayoutAlign="center center">
-      <button mat-fab class="scene-select-button" (click)="selectScene($event.currentTarget)">Front</button>
+    <div fxFlex="33%" fxLayoutAlign="center center">
+      <button mat-button class="scene-select-button" (click)="selectScene($event.currentTarget)">
+        <img class="grayscale" src="../../../assets/acoustic scenes/front scene.png">
+      </button>
     </div>
-    <div fxFlex fxLayoutAlign="center center">
-      <button mat-fab class="scene-select-button" (click)="selectScene($event.currentTarget)">Back</button>
+    <div fxFlex="33%" fxLayoutAlign="center center">
+      <button mat-button class="scene-select-button" (click)="selectScene($event.currentTarget)">
+        <img class="grayscale" src="../../../assets/acoustic scenes/back scene.png">
+      </button>
     </div>
-    <div fxFlex fxLayoutAlign="center center">
-      <button mat-fab class="scene-select-button" (click)="selectScene($event.currentTarget)">All-around</button>
+    <div fxFlex="33%" fxLayoutAlign="center center">
+      <button mat-button class="scene-select-button" (click)="selectScene($event.currentTarget)">
+        <img class="grayscale" src="../../../assets/acoustic scenes/all around.png">
+      </button>
     </div>
   </div>
   <div id="test-counter">Test {{ currentTestNumber }} out of {{ testCount }}</div>

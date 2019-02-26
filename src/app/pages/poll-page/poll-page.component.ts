@@ -11,6 +11,7 @@ export class PollPageComponent implements OnInit {
 
   public testCount: number;
   public currentTestNumber: number = 1;
+  public audioOn = false;
   private audio = new Audio();
   private selectedScene: string = null;
   private selectedAudio: string[] = new Array(this.testCount);
@@ -28,9 +29,20 @@ export class PollPageComponent implements OnInit {
     this.updateCurrentAudio();
   }
 
+  public toggleAudio() {
+    if (this.audioOn) {
+      this.audio.pause();
+      this.audioOn = false;
+    }
+    else {
+      this.audio.play();
+      this.audioOn = true;
+    }
+  }
+
   public selectScene(selectedSceneButton: HTMLElement): void {
     this.unselectScenes();
-    selectedSceneButton.style.backgroundColor = 'green';
+    // selectedSceneButton.style.backgroundColor = 'green';
 
     this.selectedScene = selectedSceneButton.textContent;
   }
@@ -65,13 +77,15 @@ export class PollPageComponent implements OnInit {
     this.audio.pause();
     this.audio.src = this.selectedAudio[this.currentTestNumber];
     this.audio.load();
-    this.audio.play();
+    if (this.audioOn) {
+      this.audio.play();
+    }
   }
 
   private unselectScenes(): void {
     let selectSceneButtons = document.getElementsByClassName('scene-select-button');
     for (let i = 0; i < selectSceneButtons.length; ++i) {
-      selectSceneButtons.item(i).setAttribute('style', 'background-color: gray');
+      // selectSceneButtons.item(i).setAttribute('style', 'background-color: gray');
     }
   }
 
@@ -82,6 +96,9 @@ export class PollPageComponent implements OnInit {
     }
     else if (event.key === 'ArrowRight') {
       this.goToNextTest();
+    }
+    else if (event.key === ' ') {
+      this.toggleAudio();
     }
   }
 
