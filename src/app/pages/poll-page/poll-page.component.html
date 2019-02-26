@@ -1,7 +1,7 @@
 <mat-progress-bar id="progress-bar" [value]="currentTestNumber * (100 / testCount)"></mat-progress-bar>
 <header class="page-header">
   <span *ngIf="currentTestNumber === 1; else regularHeader">
-    OK, let’s start. You should here the music clip now. Indicate the scene which fits best what you hear and press the Next button.
+    OK, let’s start. Click Play or press spacebar to hear the music clip. Then indicate the scene which fits best what you hear and press the Next button.
   </span>
   <ng-template #regularHeader>
     Indicate the scene which fits best what you hear.
@@ -14,17 +14,17 @@
   </button>
   <div id="scene-select-container" fxLayout="row">
     <div fxFlex="33%" fxLayoutAlign="center center">
-      <button mat-button class="scene-select-button" (click)="selectScene($event.currentTarget)">
+      <button mat-button id="front" class="scene-select-button" (click)="selectScene($event.currentTarget)">
         <img class="grayscale" src="../../../assets/acoustic scenes/front scene.png">
       </button>
     </div>
     <div fxFlex="33%" fxLayoutAlign="center center">
-      <button mat-button class="scene-select-button" (click)="selectScene($event.currentTarget)">
+      <button mat-button id="back" class="scene-select-button" (click)="selectScene($event.currentTarget)">
         <img class="grayscale" src="../../../assets/acoustic scenes/back scene.png">
       </button>
     </div>
     <div fxFlex="33%" fxLayoutAlign="center center">
-      <button mat-button class="scene-select-button" (click)="selectScene($event.currentTarget)">
+      <button mat-button id="front-back" class="scene-select-button" (click)="selectScene($event.currentTarget)">
         <img class="grayscale" src="../../../assets/acoustic scenes/all around.png">
       </button>
     </div>

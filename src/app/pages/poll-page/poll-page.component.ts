@@ -1,6 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { SharedConfig } from '../../config/shared-config';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-poll-page',
@@ -14,16 +15,46 @@ export class PollPageComponent implements OnInit {
   public audioOn = false;
   private audio = new Audio();
   private selectedScene: string = null;
+  private answers: string[] = new Array(this.testCount);
   private selectedAudio: string[] = new Array(this.testCount);
 
-  constructor(private router: Router, public sharedConfig: SharedConfig) {
+  constructor(private router: Router, public sharedConfig: SharedConfig, public snackbar: MatSnackBar) {
     this.testCount = sharedConfig.testCount;
-   }
+  }
 
   ngOnInit() {
     for(let i = 0; i < this.testCount + 1; ++i) {
-      this.selectedAudio[i] = this.soundsFilenames[Math.floor(Math.random() * this.soundsFilenames.length)];
+      // this.selectedAudio[i] = this.soundsFilenames[Math.floor(Math.random() * this.soundsFilenames.length)];
+      this.answers[i] = 'none';
+      this.selectedAudio[i] = 'none';
     }
+
+    console.log(this.selectedAudio);
+    this.selectedAudio = this.shuffle(this.soundsFilenames).concat(this.shuffle(this.soundsFilenames));
+    console.log(this.selectedAudio);
+
+    /* let randedRands = new Array(15);
+    for (let i = 0; i < 15;) {
+      let newRand = this.soundsFilenames[Math.floor(Math.random() * this.soundsFilenames.length)];
+      console.log(newRand, '::', randedRands)
+      if (newRand.includes(newRand) === false) {
+        randedRands.push(newRand);
+        this.selectedAudio[i] = newRand;
+        ++i;
+        console.log(i);
+      }
+    }
+
+    randedRands = new Array(15);
+    for (let i = 15; i < 30; ++i) {
+      let newRand = this.soundsFilenames[Math.floor(Math.random() * this.soundsFilenames.length)];
+      if (newRand.includes(newRand) === false) {
+        randedRands.push(newRand);
+        this.selectedAudio[i] = newRand;
+        ++i;
+      }
+    }
+ */
 
     this.audio.loop = true;
     this.updateCurrentAudio();
@@ -43,11 +74,23 @@ export class PollPageComponent implements OnInit {
   public selectScene(selectedSceneButton: HTMLElement): void {
     this.unselectScenes();
     // selectedSceneButton.style.backgroundColor = 'green';
+    selectedSceneButton.getElementsByTagName('img').item(0).classList.remove('grayscale');
+    console.log(selectedSceneButton.classList);
 
-    this.selectedScene = selectedSceneButton.textContent;
+    this.selectedScene = selectedSceneButton.id;
+    this.answers[this.currentTestNumber] = this.selectedScene;
   }
 
   public goToNextTest(): void {
+    if (this.answers[this.currentTestNumber] === 'none') {
+      this.snackbar.open('select answer', null, {
+        duration: 2000,
+        verticalPosition: "top",
+        panelClass: ['my-snackbar']
+      });
+      return;
+    }
+
     this.unselectScenes();
     this.currentTestNumber += 1;
 
@@ -58,6 +101,12 @@ export class PollPageComponent implements OnInit {
       return;
     }
     this.updateCurrentAudio();
+    
+    if (this.answers[this.currentTestNumber] !== 'none') {
+      this.selectScene(document.getElementById(this.answers[this.currentTestNumber]));
+    }
+
+    console.log(this.answers);
   }
 
   public goToPreviousTest(): void {
@@ -71,6 +120,10 @@ export class PollPageComponent implements OnInit {
       return;
     }
     this.updateCurrentAudio();
+
+    if (this.answers[this.currentTestNumber] !== 'none') {
+      this.selectScene(document.getElementById(this.answers[this.currentTestNumber]));
+    }
   }
 
   private updateCurrentAudio(): void {
@@ -86,6 +139,7 @@ export class PollPageComponent implements OnInit {
     let selectSceneButtons = document.getElementsByClassName('scene-select-button');
     for (let i = 0; i < selectSceneButtons.length; ++i) {
       // selectSceneButtons.item(i).setAttribute('style', 'background-color: gray');
+      selectSceneButtons.item(i).getElementsByTagName('img').item(0).classList.add('grayscale');
     }
   }
 
@@ -102,7 +156,23 @@ export class PollPageComponent implements OnInit {
     }
   }
 
-  private soundsFilenames: string[] = [ " ./../../assets/poll sounds/AloneWithYou_brir1_scene1_FB.wav",
+  private soundsFilenames: string[] = [ 
+    "./../../assets/poll sounds/Place2Be_brir1_scene3_FF.wav",
+    "./../../assets/poll sounds/RumbaChonta_brir1_scene1_FB.wav",
+    "./../../assets/poll sounds/RumbaChonta_brir1_scene2_BF.wav",
+    "./../../assets/poll sounds/RumbaChonta_brir1_scene3_FF.wav",
+    "./../../assets/poll sounds/Scar_brir1_scene1_FB.wav",
+    "./../../assets/poll sounds/Scar_brir1_scene2_BF.wav",
+    "./../../assets/poll sounds/Scar_brir1_scene3_FF.wav",
+    "./../../assets/poll sounds/SchoolboyFascination_brir1_scene1_FB.wav",
+    "./../../assets/poll sounds/SchoolboyFascination_brir1_scene2_BF.wav",
+    "./../../assets/poll sounds/SchoolboyFascination_brir1_scene3_FF.wav",
+    "./../../assets/poll sounds/GhostlyBeard_brir1_scene1_FB.wav",
+    "./../../assets/poll sounds/GhostlyBeard_brir1_scene2_BF.wav",
+    "./../../assets/poll sounds/GhostlyBeard_brir1_scene3_FF.wav",
+    "./../../assets/poll sounds/Place2Be_brir1_scene1_FB.wav",
+    "./../../assets/poll sounds/Place2Be_brir1_scene2_BF.wav"];
+  /* [ " ./../../assets/poll sounds/AloneWithYou_brir1_scene1_FB.wav",
   " ./../../assets/poll sounds/AloneWithYou_brir1_scene1_FB.wav",
   " ./../../assets/poll sounds/AloneWithYou_brir1_scene2_BF.wav",
   " ./../../assets/poll sounds/AloneWithYou_brir1_scene2_BF.wav",
@@ -341,5 +411,24 @@ export class PollPageComponent implements OnInit {
   " ./../../assets/poll sounds/AllTheGinIsGone_brir1_scene2_BF.wav",
   " ./../../assets/poll sounds/AllTheGinIsGone_brir1_scene2_BF.wav",
   " ./../../assets/poll sounds/AllTheGinIsGone_brir1_scene3_FF.wav",
-  " ./../../assets/poll sounds/AllTheGinIsGone_brir1_scene3_FF.wav"];
+  " ./../../assets/poll sounds/AllTheGinIsGone_brir1_scene3_FF.wav"]; */
+
+  private shuffle(array): Array<any> {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+  
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+  
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+  
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+  
+    return array;
+  }
 }
