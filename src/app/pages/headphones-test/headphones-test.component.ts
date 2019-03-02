@@ -1,6 +1,10 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 
+enum CHANNELS {
+  left, right, none
+}
+
 @Component({
   selector: 'app-headphones-test',
   templateUrl: './headphones-test.component.html',
@@ -8,44 +12,86 @@ import { Router } from '@angular/router';
 })
 export class HeadphonesTestComponent implements OnInit {
 
-  private audio = new Audio();
-  private currentChannel: string;
+  private leftChannelAudio = new Audio();
+  private rightChannelAudio = new Audio();
+  private currentChannel = CHANNELS.none;
 
   constructor(private router: Router) { }
 
   ngOnInit() {
+    this.loadTestAudio(this.leftChannelAudio, "Hungarian_1_hrtf4_sector2.wav");
+    this.loadTestAudio(this.rightChannelAudio, "Hungarian_1_hrtf4_sector4.wav");
+    this.leftChannelAudio.onended = () => {
+      this.toggleTestAudioIcon(CHANNELS.left);
+    }
+    this.rightChannelAudio.onended = () => {
+      this.toggleTestAudioIcon(CHANNELS.right);
+    }
   }
 
-  public playLeftChannelTest(): void {
-    if (this.currentChannel !== 'left') {
-      this.playTestAudio("Hungarian_1_hrtf4_sector2.wav");
-      this.currentChannel = 'left';
+  public toggleLeftChannelTest(): void {
+    if (this.currentChannel !== CHANNELS.left) {
+      if (this.rightChannelAudio.paused === false) {
+        this.toggleTestAudio(CHANNELS.right);
+        this.toggleTestAudioIcon(CHANNELS.right);
+      }
+      this.currentChannel = CHANNELS.left;
     }
-    else if (this.audio.paused) {
-      this.audio.play();
+    this.toggleTestAudio(CHANNELS.left);
+    this.toggleTestAudioIcon(CHANNELS.left);
+  }
+
+  public toggleRightChannelTest(): void {
+    if (this.currentChannel !== CHANNELS.right) {
+      if (this.leftChannelAudio.paused === false) {
+        this.toggleTestAudio(CHANNELS.left);
+        this.toggleTestAudioIcon(CHANNELS.left);
+      }
+      this.currentChannel = CHANNELS.right;
+    }
+    this.toggleTestAudio(CHANNELS.right);
+    this.toggleTestAudioIcon(CHANNELS.right);
+  }
+
+  private toggleTestAudio(channel: CHANNELS): void {
+    if (channel === CHANNELS.left) {
+      if (this.leftChannelAudio.paused) {
+        this.leftChannelAudio.play();
+      }
+      else {
+        this.leftChannelAudio.pause();
+      }
     }
     else {
-      this.audio.pause();
+      if (this.rightChannelAudio.paused) {
+        this.rightChannelAudio.play();
+      }
+      else {
+        this.rightChannelAudio.pause();
+      }
     }
   }
 
-  public playRightChannelTest(): void {
-    if (this.currentChannel !== 'right') {
-      this.playTestAudio("Hungarian_1_hrtf4_sector4.wav");
-      this.currentChannel = 'right';
-    }
-    else if (this.audio.paused) {
-      this.audio.play();
+  private toggleTestAudioIcon(channel: CHANNELS): void {
+    let iconId;
+    if (channel === CHANNELS.left) {
+      iconId = 'left-icon';
     }
     else {
-      this.audio.pause();
+      iconId = 'right-icon';
+    }
+
+    if (document.getElementById(iconId).textContent === 'play_circle_outline') {
+      document.getElementById(iconId).textContent = 'pause';
+    }
+    else {
+      document.getElementById(iconId).textContent = 'play_circle_outline';
     }
   }
 
-  private playTestAudio(filename: string): void {
-    this.audio.src = './../../assets/headphones test sounds/' + filename;
-    this.audio.load();
-    this.audio.play();
+  private loadTestAudio(audio: HTMLAudioElement, filename: string): void {
+    audio.src = './../../assets/headphones test sounds/' + filename;
+    audio.load();
   }
 
   goToPreviousPage() {

@@ -11,8 +11,7 @@ import { MatSnackBar } from '@angular/material';
 export class PollPageComponent implements OnInit {
 
   public testCount: number;
-  public currentTestNumber: number = 1;
-  public audioOn = false;
+  public currentTestIndex: number = 0;
   private audio = new Audio();
   private selectedScene: string = null;
   private answers: string[] = new Array(this.testCount);
@@ -23,15 +22,10 @@ export class PollPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    for(let i = 0; i < this.testCount + 1; ++i) {
-      // this.selectedAudio[i] = this.soundsFilenames[Math.floor(Math.random() * this.soundsFilenames.length)];
+    for(let i = 0; i < this.testCount; ++i) {
       this.answers[i] = 'none';
-      this.selectedAudio[i] = 'none';
     }
-
-    console.log(this.selectedAudio);
     this.selectedAudio = this.shuffle(this.soundsFilenames).concat(this.shuffle(this.soundsFilenames));
-    console.log(this.selectedAudio);
 
     /* let randedRands = new Array(15);
     for (let i = 0; i < 15;) {
@@ -60,14 +54,21 @@ export class PollPageComponent implements OnInit {
     this.updateCurrentAudio();
   }
 
-  public toggleAudio() {
-    if (this.audioOn) {
-      this.audio.pause();
-      this.audioOn = false;
+  public toggleAudio(): void {
+    if (this.audio.paused) {
+      this.audio.play();
+      // this.audioOn = false;
     }
     else {
-      this.audio.play();
-      this.audioOn = true;
+      this.audio.pause();
+      // this.audioOn = true;
+    }
+    const iconId = 'audio-icon';
+    if (document.getElementById(iconId).textContent === 'play_circle_outline') {
+      document.getElementById(iconId).textContent = 'pause';
+    }
+    else {
+      document.getElementById(iconId).textContent = 'play_circle_outline';
     }
   }
 
@@ -75,15 +76,15 @@ export class PollPageComponent implements OnInit {
     this.unselectScenes();
     // selectedSceneButton.style.backgroundColor = 'green';
     selectedSceneButton.getElementsByTagName('img').item(0).classList.remove('grayscale');
-    console.log(selectedSceneButton.classList);
+    selectedSceneButton.getElementsByTagName('img').item(0).classList.add('selected-border');
 
     this.selectedScene = selectedSceneButton.id;
-    this.answers[this.currentTestNumber] = this.selectedScene;
+    this.answers[this.currentTestIndex] = this.selectedScene;
   }
 
   public goToNextTest(): void {
-    if (this.answers[this.currentTestNumber] === 'none') {
-      this.snackbar.open('select answer', null, {
+    if (this.answers[this.currentTestIndex] === 'none') {
+      this.snackbar.open('choose scenario', null, {
         duration: 2000,
         verticalPosition: "top",
         panelClass: ['my-snackbar']
@@ -92,9 +93,9 @@ export class PollPageComponent implements OnInit {
     }
 
     this.unselectScenes();
-    this.currentTestNumber += 1;
+    this.currentTestIndex += 1;
 
-    if (this.currentTestNumber == this.testCount + 1) {
+    if (this.currentTestIndex === this.testCount) {
       // save results
       this.audio.pause();
       this.router.navigate(['finish']);
@@ -102,18 +103,16 @@ export class PollPageComponent implements OnInit {
     }
     this.updateCurrentAudio();
     
-    if (this.answers[this.currentTestNumber] !== 'none') {
-      this.selectScene(document.getElementById(this.answers[this.currentTestNumber]));
+    if (this.answers[this.currentTestIndex] !== 'none') {
+      this.selectScene(document.getElementById(this.answers[this.currentTestIndex]));
     }
-
-    console.log(this.answers);
   }
 
   public goToPreviousTest(): void {
     this.unselectScenes();
-    this.currentTestNumber -= 1;
+    this.currentTestIndex -= 1;
 
-    if (this.currentTestNumber == 0) {
+    if (this.currentTestIndex === -1) {
       // save results
       this.audio.pause();
       this.router.navigate(['headphones-test']);
@@ -121,16 +120,17 @@ export class PollPageComponent implements OnInit {
     }
     this.updateCurrentAudio();
 
-    if (this.answers[this.currentTestNumber] !== 'none') {
-      this.selectScene(document.getElementById(this.answers[this.currentTestNumber]));
+    if (this.answers[this.currentTestIndex] !== 'none') {
+      this.selectScene(document.getElementById(this.answers[this.currentTestIndex]));
     }
   }
 
   private updateCurrentAudio(): void {
+    const state = this.audio.paused;
     this.audio.pause();
-    this.audio.src = this.selectedAudio[this.currentTestNumber];
+    this.audio.src = this.selectedAudio[this.currentTestIndex];
     this.audio.load();
-    if (this.audioOn) {
+    if (state === false) {
       this.audio.play();
     }
   }
@@ -140,6 +140,7 @@ export class PollPageComponent implements OnInit {
     for (let i = 0; i < selectSceneButtons.length; ++i) {
       // selectSceneButtons.item(i).setAttribute('style', 'background-color: gray');
       selectSceneButtons.item(i).getElementsByTagName('img').item(0).classList.add('grayscale');
+      selectSceneButtons.item(i).getElementsByTagName('img').item(0).classList.remove('selected-border');
     }
   }
 
@@ -152,6 +153,11 @@ export class PollPageComponent implements OnInit {
       this.goToNextTest();
     }
     else if (event.key === ' ') {
+      document.getElementById('audio-button').blur();
+      
+      for (let i = 0; i < document.getElementsByClassName('scene-select-button').length; ++i) {
+        (document.getElementsByClassName('scene-select-button').item(i) as HTMLElement).blur();
+      }
       this.toggleAudio();
     }
   }

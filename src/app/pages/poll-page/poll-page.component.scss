@@ -15,7 +15,7 @@
 }
 
 #scene-select-container {
-	height: 360px;
+	height: 280px;
 }
 
 #front {}
@@ -32,7 +32,7 @@
 }
 
 .scene-select-button:hover {
-	// background-color: green !important;
+	// background-color: green !important;	
 }
 
 .test {
@@ -47,10 +47,16 @@ img.grayscale {
 
 img.grayscale:hover {
   filter: none;
-  -webkit-filter: grayscale(0%);
+	-webkit-filter: grayscale(0%);
+	border: 2px dashed green;
+}
+
+.selected-border {
+	border: 5px solid green;
 }
 
 #test-counter {
+	padding-top: 30px;
 	text-align: right;
 	font-weight: bold;
 	color: rgb(46, 117, 182);
@@ -78,4 +84,16 @@ img.grayscale:hover {
 	justify-content: center;
 	font-size: 24px;
 	color: white;
+}
+
+#audio-toggle-button-container {
+	padding-top: 30px;
+	padding-bottom: 20px;
+}
+
+.play-icon {
+	width: 36px;
+	height: 36px;
+	font-size: 36px;
+	margin-bottom: 5px;
 }

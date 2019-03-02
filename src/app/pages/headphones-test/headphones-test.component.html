@@ -5,8 +5,8 @@
   and listen to the audio clips by pressing the buttons below. Adjust the volume to a comfortable level. Make sure that the headphones are placed correctly and work fine.
   <div id="channel-test-container">
     <div class="channel-test-element">
-      <button mat-raised-button class="navigation-button" (click)="playLeftChannelTest()">
-        <mat-icon class="play-icon">play_circle_outline</mat-icon>
+      <button mat-raised-button class="navigation-button" (click)="toggleLeftChannelTest()">
+        <mat-icon id="left-icon" class="play-icon">play_circle_outline</mat-icon>
       </button>
       <div>Left channel</div>
     </div>
@@ -14,8 +14,8 @@
       <mat-icon style="width: 300px; height: 280px; font-size: 306px; color: gray;">headset</mat-icon>
     </div>
     <div class="channel-test-element">
-      <button mat-raised-button class="navigation-button" (click)="playRightChannelTest()">
-        <mat-icon class="play-icon">play_circle_outline</mat-icon>
+      <button mat-raised-button class="navigation-button" (click)="toggleRightChannelTest()">
+        <mat-icon id="right-icon" class="play-icon">play_circle_outline</mat-icon>
       </button>
       <div>Right channel</div>
     </div>
