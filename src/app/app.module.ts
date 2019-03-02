@@ -14,7 +14,9 @@ import {
   MatInputModule,
   MatCardModule,
   MatProgressBarModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatDialogModule,
+  MatListModule
 } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -30,6 +32,7 @@ import { HeadphonesTestComponent } from './pages/headphones-test/headphones-test
 import { PollPageComponent } from './pages/poll-page/poll-page.component';
 import { FinishPageComponent } from './pages/finish-page/finish-page.component';
 import { PolicyPageComponent } from './pages/policy-page/policy-page.component';
+import { FurtherHelpDialogComponent } from './pages/headphones-test/further-help-dialog/further-help-dialog.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +47,8 @@ import { PolicyPageComponent } from './pages/policy-page/policy-page.component';
     HeadphonesTestComponent,
     PollPageComponent,
     FinishPageComponent,
-    PolicyPageComponent
+    PolicyPageComponent,
+    FurtherHelpDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -61,9 +65,14 @@ import { PolicyPageComponent } from './pages/policy-page/policy-page.component';
     MatInputModule,
     MatCardModule,
     MatProgressBarModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDialogModule,
+    MatListModule
   ],
   providers: [],
+  entryComponents: [
+    FurtherHelpDialogComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

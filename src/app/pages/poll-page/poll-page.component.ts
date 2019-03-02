@@ -1,7 +1,8 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { SharedConfig } from '../../config/shared-config';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialog } from '@angular/material';
+import { FurtherHelpDialogComponent } from '../headphones-test/further-help-dialog/further-help-dialog.component';
 
 @Component({
   selector: 'app-poll-page',
@@ -17,7 +18,10 @@ export class PollPageComponent implements OnInit {
   private answers: string[] = new Array(this.testCount);
   private selectedAudio: string[] = new Array(this.testCount);
 
-  constructor(private router: Router, public sharedConfig: SharedConfig, public snackbar: MatSnackBar) {
+  constructor(private router: Router, 
+              public sharedConfig: SharedConfig, 
+              public snackbar: MatSnackBar,
+              public dialog: MatDialog) {
     this.testCount = sharedConfig.testCount;
   }
 
@@ -142,6 +146,13 @@ export class PollPageComponent implements OnInit {
       selectSceneButtons.item(i).getElementsByTagName('img').item(0).classList.add('grayscale');
       selectSceneButtons.item(i).getElementsByTagName('img').item(0).classList.remove('selected-border');
     }
+  }
+
+  private onFurtherHelpClick() {
+    this.dialog.open(FurtherHelpDialogComponent, {
+      height: '600px',
+      width: '400px',
+    });
   }
 
   @HostListener('window:keydown', ['$event'])

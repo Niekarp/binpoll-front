@@ -1,5 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material';
+import { FurtherHelpDialogComponent } from './further-help-dialog/further-help-dialog.component';
 
 enum CHANNELS {
   left, right, none
@@ -16,7 +18,7 @@ export class HeadphonesTestComponent implements OnInit {
   private rightChannelAudio = new Audio();
   private currentChannel = CHANNELS.none;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private dialog: MatDialog) { }
 
   ngOnInit() {
     this.loadTestAudio(this.leftChannelAudio, "Hungarian_1_hrtf4_sector2.wav");
@@ -93,6 +95,14 @@ export class HeadphonesTestComponent implements OnInit {
     audio.src = './../../assets/headphones test sounds/' + filename;
     audio.load();
   }
+
+  private onFurtherHelpClick() {
+    this.dialog.open(FurtherHelpDialogComponent, {
+      height: '600px',
+      width: '400px',
+    });
+  }
+
 
   goToPreviousPage() {
     this.router.navigate(['/terms-all-around-scene']);
