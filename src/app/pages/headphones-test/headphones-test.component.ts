@@ -105,10 +105,12 @@ export class HeadphonesTestComponent implements OnInit {
 
 
   goToPreviousPage() {
+    this.leftChannelAudio.pause();
     this.router.navigate(['/terms-all-around-scene']);
   }
 
   gotoNextPage() {
+    this.rightChannelAudio.pause();
     this.router.navigate(['/poll']);
   }
 

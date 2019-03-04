@@ -17,6 +17,7 @@ export class PollPageComponent implements OnInit {
   private selectedScene: string = null;
   private answers: string[] = new Array(this.testCount);
   private selectedAudio: string[] = new Array(this.testCount);
+  private wasAudioPlayed = false;
 
   constructor(private router: Router, 
               public sharedConfig: SharedConfig, 
@@ -61,6 +62,7 @@ export class PollPageComponent implements OnInit {
   public toggleAudio(): void {
     if (this.audio.paused) {
       this.audio.play();
+      this.wasAudioPlayed = true;
       // this.audioOn = false;
     }
     else {
@@ -95,6 +97,14 @@ export class PollPageComponent implements OnInit {
       });
       return;
     }
+    else if (this.wasAudioPlayed === false) {
+      this.snackbar.open("audio wasn't played", null, {
+        duration: 2000,
+        verticalPosition: "top",
+        panelClass: ['my-snackbar']
+      });
+      return;
+    }
 
     this.unselectScenes();
     this.currentTestIndex += 1;
@@ -107,8 +117,19 @@ export class PollPageComponent implements OnInit {
     }
     this.updateCurrentAudio();
     
+    console.log(this.audio.paused);
     if (this.answers[this.currentTestIndex] !== 'none') {
       this.selectScene(document.getElementById(this.answers[this.currentTestIndex]));
+      this.wasAudioPlayed = true;
+      // console.log('if');
+    }
+    else if (this.audio.paused === false) {
+      this.wasAudioPlayed = true;
+      // console.log('else if');
+    }
+    else {
+      this.wasAudioPlayed = false;
+      // console.log('else');
     }
   }
 
@@ -126,6 +147,7 @@ export class PollPageComponent implements OnInit {
 
     if (this.answers[this.currentTestIndex] !== 'none') {
       this.selectScene(document.getElementById(this.answers[this.currentTestIndex]));
+      this.wasAudioPlayed = true;
     }
   }
 
