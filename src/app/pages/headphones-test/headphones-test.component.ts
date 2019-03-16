@@ -96,24 +96,33 @@ export class HeadphonesTestComponent implements OnInit {
     audio.load();
   }
 
+  private turnOffTheAudio() {
+    this.leftChannelAudio.pause();
+    this.rightChannelAudio.pause();
+    document.getElementById('left-icon').textContent = 'play_circle_outline';
+    document.getElementById('right-icon').textContent = 'play_circle_outline';
+  }
+
   private onFurtherHelpClick() {
+    this.turnOffTheAudio();
     const dialogRef = this.dialog.open(FurtherHelpDialogComponent, {
       height: '600px',
       width: '400px',
     });
     dialogRef.afterClosed().subscribe(() => {
-      this.leftChannelAudio.pause();
-      this.rightChannelAudio.pause();
+      this.turnOffTheAudio();
     });
   }
 
 
   goToPreviousPage() {
     this.leftChannelAudio.pause();
+    this.rightChannelAudio.pause();
     this.router.navigate(['/terms-all-around-scene']);
   }
 
   gotoNextPage() {
+    this.leftChannelAudio.pause();
     this.rightChannelAudio.pause();
     this.router.navigate(['/poll']);
   }
