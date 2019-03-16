@@ -97,9 +97,13 @@ export class HeadphonesTestComponent implements OnInit {
   }
 
   private onFurtherHelpClick() {
-    this.dialog.open(FurtherHelpDialogComponent, {
+    const dialogRef = this.dialog.open(FurtherHelpDialogComponent, {
       height: '600px',
       width: '400px',
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.leftChannelAudio.pause();
+      this.rightChannelAudio.pause();
     });
   }
 
