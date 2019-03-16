@@ -10,7 +10,7 @@
 
 #headphones-answer-area {
 	width: 100%;
-	height: 95%;
+	height: 90%;
 	padding: 0px;
 	background-color: rgb(189, 215, 238);
 	border: 1px solid rgb(65, 113, 156);
@@ -48,4 +48,8 @@
 	justify-content: center;
 	font-size: 24px;
 	color: white;
+}
+
+::ng-deep .mat-figure:last-child {
+	align-items: baseline !important;
 }
