@@ -32,14 +32,14 @@ export class QuestionnairePageComponent implements OnInit {
   ngOnInit() {
   }
   
+  // this.typedHeadphonesMakeAndModel == undefined ||
+  // this.typedHeadphonesMakeAndModel == "" || 
+  // this.typedHeadphonesMakeAndModel.replace(/\s/g, '').length == 0
   public validateForm(): boolean {
     if (this.selectedAge == undefined || 
       this.selectedHearingDifficulties == undefined ||
-      this.selectedListeningTestParticipation == undefined ||
-      this.typedHeadphonesMakeAndModel == undefined ||
-      this.typedHeadphonesMakeAndModel == "" || 
-      this.typedHeadphonesMakeAndModel.replace(/\s/g, '').length == 0) {
-        this.snackbar.open('all fields are required', null, {
+      this.selectedListeningTestParticipation == undefined) {
+        this.snackbar.open('the first three fields are required', null, {
           duration: 2000,
           verticalPosition: "top",
           panelClass: ['my-snackbar']

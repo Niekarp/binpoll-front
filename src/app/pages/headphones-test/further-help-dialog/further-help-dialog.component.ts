@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-further-help-dialog',
@@ -8,7 +9,7 @@ import { MatDialogRef } from '@angular/material';
 })
 export class FurtherHelpDialogComponent implements OnInit {
 
-  constructor(public dialogRef: MatDialogRef<FurtherHelpDialogComponent>) { }
+  constructor(public dialogRef: MatDialogRef<FurtherHelpDialogComponent>, private router: Router) { }
 
   ngOnInit() {
     this.dialogRef.afterOpen().subscribe(() => {
@@ -18,5 +19,10 @@ export class FurtherHelpDialogComponent implements OnInit {
 
   onBackButtonClick() {
     this.dialogRef.close();
+  }
+
+  onReportProblemClick() {
+    this.dialogRef.close();
+    this.router.navigate(['/finish']);
   }
 }

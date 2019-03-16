@@ -1,7 +1,7 @@
 <div style="overflow-x: hidden;">
   <p><b>Make sure to check the folowing issues</b></p><a href=""></a>
   <mat-list>
-    <mat-list-item>1. Check headphones cable connectivity</mat-list-item>
+    <mat-list-item>1. Check headphones cable connections</mat-list-item>
     <mat-list-item>2. Check whether your headphones are muted</mat-list-item>
     <mat-list-item>3. Try to increase the volume level</mat-list-item>
     <mat-list-item>4. Check if the headphones are placed correctly on your head</mat-list-item>
@@ -17,6 +17,6 @@
     <mat-list-item>14. Try to use different browser</mat-list-item>
     <mat-list-item>15. Unplug and plug your headphones</mat-list-item>
   </mat-list>
-  <p>In case of the hints above don't help you, try further help here <a href="http://www.google.com">click!</a></p>
+  <p>In case of the hints above don't help you, fell free to <a class="link-like" (click)="onReportProblemClick()">report us the problem</a></p>
   <button mat-button class="navigation-button" (click)="onBackButtonClick()">Back</button>
 </div>
