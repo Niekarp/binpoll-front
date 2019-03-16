@@ -33,6 +33,7 @@ import { PollPageComponent } from './pages/poll-page/poll-page.component';
 import { FinishPageComponent } from './pages/finish-page/finish-page.component';
 import { PolicyPageComponent } from './pages/policy-page/policy-page.component';
 import { FurtherHelpDialogComponent } from './pages/headphones-test/further-help-dialog/further-help-dialog.component';
+import { ReportProblemPageComponent } from './pages/report-problem-page/report-problem-page.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { FurtherHelpDialogComponent } from './pages/headphones-test/further-help
     PollPageComponent,
     FinishPageComponent,
     PolicyPageComponent,
-    FurtherHelpDialogComponent
+    FurtherHelpDialogComponent,
+    ReportProblemPageComponent
   ],
   imports: [
     BrowserModule,

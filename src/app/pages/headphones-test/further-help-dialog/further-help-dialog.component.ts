@@ -23,6 +23,6 @@ export class FurtherHelpDialogComponent implements OnInit {
 
   onReportProblemClick() {
     this.dialogRef.close();
-    this.router.navigate(['/finish']);
+    this.router.navigate(['/report-problem']);
   }
 }

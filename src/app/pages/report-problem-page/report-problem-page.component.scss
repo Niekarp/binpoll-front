@@ -1,0 +1,42 @@
+#finish-page-content {
+	height: 300px;
+}
+
+.mat-card {
+	margin: 0px;
+	padding: 0px;
+}
+
+#comment-area {
+	width: 100%;
+	height: 200px;
+	margin-top: 20px;
+	background-color: rgb(189, 215, 238);
+	border: 1px solid rgb(65, 113, 156);
+	textarea {
+		height: 120px;
+		resize: none;
+	}
+}
+
+#comment-area > .mat-form-field {
+	width: 90%;
+	height: 100%;
+	padding: 20px;
+	font-size: 24px;
+}
+
+::ng-deep .my-snackbar {
+	min-width: 250px !important;
+	height: 50px;
+	display: block;
+	margin-top: 330px !important;
+	background: green;
+	text-align: center;
+}
+
+::ng-deep .my-snackbar .mat-simple-snackbar {
+	justify-content: center;
+	font-size: 24px;
+	color: white;
+}

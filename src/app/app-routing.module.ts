@@ -11,6 +11,7 @@ import { HeadphonesTestComponent } from './pages/headphones-test/headphones-test
 import { PollPageComponent } from './pages/poll-page/poll-page.component';
 import { FinishPageComponent } from './pages/finish-page/finish-page.component';
 import { PolicyPageComponent } from './pages/policy-page/policy-page.component';
+import { ReportProblemPageComponent } from './pages/report-problem-page/report-problem-page.component';
 
 const routes: Routes = [
   { path: '', component: WelcomePageComponent },
@@ -23,7 +24,8 @@ const routes: Routes = [
   { path: 'terms-all-around-scene', component: TermsAllAroundScenePageComponent },
   { path: 'headphones-test', component: HeadphonesTestComponent },
   { path: 'poll', component: PollPageComponent },
-  { path: 'finish', component: FinishPageComponent }
+  { path: 'finish', component: FinishPageComponent },
+  { path: 'report-problem', component: ReportProblemPageComponent },
 ];
 
 @NgModule({
