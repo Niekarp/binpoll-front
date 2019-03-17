@@ -90,7 +90,7 @@ export class PollPageComponent implements OnInit {
 
   public goToNextTest(): void {
     if (this.answers[this.currentTestIndex] === 'none') {
-      this.snackbar.open('choose scenario', null, {
+      this.snackbar.open('select acoustic scene', null, {
         duration: 2000,
         verticalPosition: "top",
         panelClass: ['my-snackbar']
