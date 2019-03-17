@@ -170,13 +170,21 @@ export class PollPageComponent implements OnInit {
     }
   }
 
+  private turnOffTheAudio() {
+    this.audio.pause();
+    document.getElementById('audio-icon').textContent = 'play_circle_outline';
+  }
+
+
   private onFurtherHelpClick() {
+    this.turnOffTheAudio();
     const dialogRef = this.dialog.open(FurtherHelpDialogComponent, {
       height: '600px',
       width: '400px',
     });
     dialogRef.afterClosed().subscribe(() => {
-      this.audio.pause();
+      // this.audio.pause();
+      this.turnOffTheAudio();
     });
   }
 
