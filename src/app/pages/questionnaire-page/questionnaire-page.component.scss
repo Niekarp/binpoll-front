@@ -50,6 +50,6 @@
 	color: white;
 }
 
-::ng-deep .mat-figure:last-child {
+::ng-deep mat-grid-tile:last-of-type > .mat-figure {
 	align-items: baseline !important;
 }
