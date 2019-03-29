@@ -10,8 +10,10 @@ import { Router } from '@angular/router';
 export class WelcomePageComponent implements OnInit {
 
   private testCount: number;
+  private appVersion: number;
 
   constructor(private router: Router, public sharedConfig: SharedConfig) { 
+    this.appVersion = sharedConfig.appVersion;
     this.testCount = sharedConfig.testCount;
    }
 
