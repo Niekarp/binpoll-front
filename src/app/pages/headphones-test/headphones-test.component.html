@@ -3,17 +3,17 @@
 </header>
 <section class="page-content">
   and listen to the audio clips by pressing the buttons below. Adjust the volume to a comfortable level. Make sure that the headphones are placed correctly and work fine.
-  <div id="channel-test-container">
-    <div class="channel-test-element">
+  <div id="headset-channels-container" fxLayout="row">
+    <div class="channel-container" fxFlex="33%" fxLayoutAlign="center center" fxLayout="column">
       <button mat-raised-button class="navigation-button" (click)="toggleLeftChannelTest()">
         <mat-icon id="left-icon" class="play-icon">play_circle_outline</mat-icon>
       </button>
       <div>Left channel</div>
     </div>
-    <div class="channel-test-element">
+    <div fxFlex="33%" fxLayoutAlign="center center">
       <mat-icon id="headset-image">headset</mat-icon>
     </div>
-    <div class="channel-test-element">
+    <div class="channel-container" fxFlex="33%" fxLayoutAlign="center center" fxLayout="column">
       <button mat-raised-button class="navigation-button" (click)="toggleRightChannelTest()">
         <mat-icon id="right-icon" class="play-icon">play_circle_outline</mat-icon>
       </button>

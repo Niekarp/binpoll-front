@@ -1,14 +1,9 @@
-#channel-test-container {
-	display: flex;
-	flex-direction: row;
+#headset-channels-container {
+	height: 290px;
 }
 
-.channel-test-element {
-	flex: 1;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+.channel-container {
+	padding-top: 15px;
 }
 
 #headset-image {
