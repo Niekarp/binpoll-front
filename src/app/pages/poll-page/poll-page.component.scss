@@ -2,6 +2,7 @@
 
 #progress-bar {
 	width: 100%;
+	height: 10px;
 	position: absolute;
 	left: 0;
 	top: 0;
@@ -16,6 +17,7 @@
 
 #scene-select-container {
 	height: 280px;
+	margin-top: 10px;
 }
 
 #front {}
@@ -24,7 +26,7 @@
 
 .scene-select-button {
 	width: 100%;
-	height: 260px;
+	height: 303px;
 	// background-color: gray;
 	img {
 		width: 100%;
@@ -40,14 +42,26 @@
 }
 
 img.grayscale {
-  filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale"); /* Firefox 3.5+ */
-  filter: gray; /* IE6-9 */
-	-webkit-filter: grayscale(100%); /* Chrome 19+ & Safari 6+ */
+	filter: grayscale(100%);
+  // filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale"); /* Firefox 3.5+ */
+  // filter: gray; /* IE6-9 */
+	// -webkit-filter: grayscale(100%); /* Chrome 19+ & Safari 6+ */
 }
 
-img.grayscale:hover {
-  filter: none;
-	-webkit-filter: grayscale(0%);
+button:hover img.grayscale {
+	filter: grayscale(0%);
+  // filter: none;
+	// -webkit-filter: grayscale(0%);
+	// transform: scale(1.1);
+	// @include grayscale(0%);
+	// -webkit-filter: grayscale(0%);
+  // -moz-filter: grayscale(0%);
+  // -ms-filter: grayscale(0%);
+  // -o-filter: grayscale(0%);
+	// filter: grayscale(0%) !important;
+	// filter:grayscale(0%); 
+  // -webkit-filter: grayscale(0%);
+  // filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'1 0 0 0 0, 0 1 0 0 0, 0 0 1 0 0, 0 0 0 1 0\'/></filter></svg>#grayscale");
 	// border: 2px dashed green;
 }
 
@@ -61,10 +75,6 @@ img.grayscale:hover {
 	text-align: right;
 	font-weight: bold;
 	color: rgb(46, 117, 182);
-}
-
-.mat-raised-button ~ .mat-raised-button {
-	margin-right: 16px;
 }
 
 #help-note {

@@ -1,10 +1,11 @@
 <mat-progress-bar id="progress-bar" [value]="(currentTestIndex + 1) * (100 / testCount)"></mat-progress-bar>
+
 <header class="page-header">
   <span *ngIf="currentTestIndex === 0; else regularHeader">
     OK, let’s start. Click Play button or press spacebar to hear the music clip. Then indicate the scene which fits best what you hear and press the Next button.
   </span>
   <ng-template #regularHeader>
-    Indicate the scene which fits best what you hear.
+    Indicate the scene which fits best what you hear. You can use the spacebar to turn the audio off and on.
   </ng-template>
 </header>
 <section class="page-content">

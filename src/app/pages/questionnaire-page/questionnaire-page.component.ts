@@ -37,8 +37,9 @@ export class QuestionnairePageComponent implements OnInit {
   // this.typedHeadphonesMakeAndModel.replace(/\s/g, '').length == 0
   public validateForm(): boolean {
     if (this.selectedAge == undefined || 
-      this.selectedHearingDifficulties == undefined ||
-      this.selectedListeningTestParticipation == undefined) {
+        this.selectedHearingDifficulties == undefined ||
+        this.selectedListeningTestParticipation == undefined)
+    {
         this.snackbar.open('the first three fields are required', null, {
           duration: 2000,
           verticalPosition: "top",

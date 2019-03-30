@@ -16,7 +16,8 @@ import {
   MatProgressBarModule,
   MatSnackBarModule,
   MatDialogModule,
-  MatListModule
+  MatListModule,
+  MatCheckboxModule
 } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -69,7 +70,8 @@ import { ReportProblemPageComponent } from './pages/report-problem-page/report-p
     MatProgressBarModule,
     MatSnackBarModule,
     MatDialogModule,
-    MatListModule
+    MatListModule,
+    MatCheckboxModule
   ],
   providers: [],
   entryComponents: [

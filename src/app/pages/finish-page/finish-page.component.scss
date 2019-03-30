@@ -17,21 +17,12 @@
 		height: 120px;
 		resize: none;
 	}
-}
-
-#comment-area > .mat-form-field {
-	width: 90%;
-	height: 100%;
-	padding: 20px;
-	font-size: 24px;
-}
-
-ul {
-	margin-top: 7px;
-}
-
-li {
-	margin-bottom: 4px;
+	.mat-form-field {
+		width: 90%;
+		height: 100%;
+		padding: 20px;
+		font-size: 24px;
+	}
 }
 
 ::ng-deep .my-snackbar {

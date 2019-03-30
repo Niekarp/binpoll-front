@@ -1,8 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
-
-$primary-color-dark: rgb(46, 117, 182);
-$primary-color-light: rgb(91, 155, 213);
+@import "sass/colors.scss";
 
 .page-header {
 	height: 100px;
@@ -13,7 +11,8 @@ $primary-color-light: rgb(91, 155, 213);
 
 .page-content {
 	height: 460px;
-	font-size: 28px;
+	// font-size: 28px;
+	font-size: 26px;
 }
 
 .page-navigation {
@@ -31,4 +30,47 @@ $primary-color-light: rgb(91, 155, 213);
 	span { 
 		line-height: $nav-button-height;
 	}
+}
+
+.textarea {
+	width: 100%;
+	height: 90%;
+	padding: 0px !important;
+	background-color: $textarea-background-color;
+	border: 1px solid $textarea-border-color;
+	textarea {
+		height: 60px;
+		resize: none;
+	}
+	.mat-form-field {
+		width: 90%;
+		height: 100%;
+		padding: 20px;
+		font-size: 24px;
+	}
+}
+
+.mat-raised-button ~ .mat-raised-button {
+	margin-right: 16px;
+}
+
+.credits-list {
+	ul {
+		margin-top: 7px;
+	}
+	
+	li {
+		margin-bottom: 4px;
+	}
+}
+
+.terms-image {
+	width: 300px;
+	height: 300px;
+	margin-left: 45px;
+	float: right;
+}
+
+.disabled {
+	background-color: gray;
 }

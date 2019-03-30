@@ -1,38 +1,41 @@
+@import "../../../sass/colors.scss";
+
 .question {
 	width: 100%;
-	line-height: 75px;
+	// line-height: 75px;
 }
 
 .answer {
-	width: 60%;
+	width: 55%;
 	font-size: 18px;
 }
 
-#headphones-answer-area {
+/* #headphones-answer-area {
 	width: 100%;
 	height: 90%;
 	padding: 0px;
-	background-color: rgb(189, 215, 238);
-	border: 1px solid rgb(65, 113, 156);
+	background-color: $textarea-background-color;
+	border: 1px solid $textarea-border-color;
 	textarea {
 		height: 60px;
 		resize: none;
 	}
-}
-
-#headphones-answer-area > .mat-form-field {
-	width: 90%;
-	height: 100%;
-	padding: 20px;
-	font-size: 24px;
+	.mat-form-field {
+		width: 90%;
+		height: 100%;
+		padding: 20px;
+		font-size: 24px;
+	}
+} */
+.textarea {
 }
 
 .mat-radio-button ~ .mat-radio-button {
   margin-left: 24px;
 }
 
-.mat-raised-button ~ .mat-raised-button {
-	margin-right: 16px;
+::ng-deep mat-grid-tile:last-of-type > .mat-figure {
+	align-items: baseline !important;
 }
 
 ::ng-deep .my-snackbar {
@@ -48,8 +51,4 @@
 	justify-content: center;
 	font-size: 24px;
 	color: white;
-}
-
-::ng-deep mat-grid-tile:last-of-type > .mat-figure {
-	align-items: baseline !important;
 }

@@ -11,15 +11,18 @@
 	align-items: center;
 }
 
+#headset-image {
+	width: 300px;
+	height: 100%;
+	font-size: 306px;
+	color: gray;
+}
+
 .play-icon {
 	width: 36px;
 	height: 36px;
 	font-size: 36px;
 	margin-bottom: 2px;
-}
-
-.mat-raised-button ~ .mat-raised-button {
-	margin-right: 16px;
 }
 
 #help-note {
