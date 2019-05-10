@@ -103,7 +103,7 @@ export class HeadphonesTestComponent implements OnInit {
     document.getElementById('right-icon').textContent = 'play_circle_outline';
   }
 
-  private onFurtherHelpClick() {
+  public onFurtherHelpClick() {
     this.turnOffTheAudio();
     const dialogRef = this.dialog.open(FurtherHelpDialogComponent, {
       height: '600px',

@@ -11,8 +11,8 @@ import { MatCheckboxChange, MatSnackBar } from '@angular/material';
 export class WelcomePageComponent implements OnInit {
 
   public consentChecked: boolean = false;
-  private testCount: number;
-  private appVersion: string;
+  public testCount: number;
+  public appVersion: string;
 
   constructor(private router: Router, public sharedConfig: SharedConfig, public snackbar: MatSnackBar) { 
     this.appVersion = sharedConfig.appVersion;

@@ -18,7 +18,7 @@ export class QuestionnairePageComponent implements OnInit {
   public selectedHearingDifficulties: boolean;
   public selectedListeningTestParticipation: boolean;
   public typedHeadphonesMakeAndModel: string;
-  private ages: Age[] = [
+  public ages: Age[] = [
     { value: 'Under 18', viewValue: 'Under 18' },
     { value: '18-24', viewValue: '18-24' },
     { value: '25-34', viewValue: '25-34' },

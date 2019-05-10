@@ -176,7 +176,7 @@ export class PollPageComponent implements OnInit {
   }
 
 
-  private onFurtherHelpClick() {
+  public onFurtherHelpClick() {
     this.turnOffTheAudio();
     const dialogRef = this.dialog.open(FurtherHelpDialogComponent, {
       height: '600px',
