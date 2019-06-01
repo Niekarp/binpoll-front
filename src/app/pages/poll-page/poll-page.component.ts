@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { SharedConfig } from '../../config/shared-config';
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { FurtherHelpDialogComponent } from '../headphones-test/further-help-dialog/further-help-dialog.component';
+import { ApiClientService } from '../../api_client/api-client.service';
 
 @Component({
   selector: 'app-poll-page',
@@ -18,12 +19,17 @@ export class PollPageComponent implements OnInit {
   private answers: string[] = new Array(this.testCount);
   private selectedAudio: string[] = new Array(this.testCount);
   private wasAudioPlayed = false;
+  private startDate: Date;
 
   constructor(private router: Router, 
               public sharedConfig: SharedConfig, 
               public snackbar: MatSnackBar,
-              public dialog: MatDialog) {
+              public dialog: MatDialog,
+              public apiClient: ApiClientService) {
     this.testCount = sharedConfig.testCount;
+    
+    console.log('start poll');
+    this.startDate = new Date();
   }
 
   ngOnInit() {
@@ -110,7 +116,14 @@ export class PollPageComponent implements OnInit {
     this.currentTestIndex += 1;
 
     if (this.currentTestIndex === this.testCount) {
-      // save results
+      // save results 
+      let pollData: PollData = {
+        startDate: this.startDate,
+        endDate: new Date(),
+        answer: this.answers,
+        assignedSetId: 0
+      };
+      this.apiClient.sendPollData(pollData);
       this.audio.pause();
       this.router.navigate(['finish']);
       return;

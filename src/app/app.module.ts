@@ -17,7 +17,7 @@ import {
   MatSnackBarModule,
   MatDialogModule,
   MatListModule,
-  MatCheckboxModule
+  MatCheckboxModule,
 } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -35,6 +35,8 @@ import { FinishPageComponent } from './pages/finish-page/finish-page.component';
 import { PolicyPageComponent } from './pages/policy-page/policy-page.component';
 import { FurtherHelpDialogComponent } from './pages/headphones-test/further-help-dialog/further-help-dialog.component';
 import { ReportProblemPageComponent } from './pages/report-problem-page/report-problem-page.component';
+
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -71,7 +73,8 @@ import { ReportProblemPageComponent } from './pages/report-problem-page/report-p
     MatSnackBarModule,
     MatDialogModule,
     MatListModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    HttpClientModule
   ],
   providers: [],
   entryComponents: [
