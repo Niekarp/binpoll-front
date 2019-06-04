@@ -1,36 +1,106 @@
 import { Injectable } from '@angular/core';
 
+class AudioPlayerSet {
+
+  public headphonesTestPlayers: Map<String, HTMLAudioElement>;
+  public pollPlayers: HTMLAudioElement[];
+
+  constructor(pollPlayersCount: number){
+    this.headphonesTestPlayers = new Map<String, HTMLAudioElement>();
+    this.pollPlayers = new Array<HTMLAudioElement>(pollPlayersCount);
+
+    this.headphonesTestPlayers = new Map<String, HTMLAudioElement>();
+    this.headphonesTestPlayers.set('left', new Audio());
+    this.headphonesTestPlayers.set('right', new Audio());
+
+    for (let i = 0; i < pollPlayersCount; ++i) {
+      this.pollPlayers[i] = new Audio();
+    }
+  }
+}
+
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AudioService {
 
-  private audioPlayers: HTMLAudioElement[];
+  private audioPlayers: AudioPlayerSet;
 
-  constructor() { }
+  constructor() {
+    console.log('audio service created');
+    this.audioPlayers = new AudioPlayerSet(30);
+  }
 
-  private loadAudioPlayers() {
-    for(let i = 0; i < this.audioPlayers.length; ++i) {
-      this.audioPlayers[i] = new Audio();
+  public loadAudioPlayers() {
+    let baseUrl = './../../assets/headphones test sounds/';
+    let filename = '';
+
+    // load headset channel test audio
+    this.audioPlayers.headphonesTestPlayers.get('left').src = baseUrl + 'Hungarian_1_hrtf4_sector2.wav';
+    this.audioPlayers.headphonesTestPlayers.get('left').load();
+
+    this.audioPlayers.headphonesTestPlayers.get('right').src = baseUrl + 'Hungarian_1_hrtf4_sector4.wav';
+    this.audioPlayers.headphonesTestPlayers.get('right').load();
+
+    // get samples
+    let sampleUrls = this.soundsFilenames;
+
+    // load poll samples audio
+    for(let i = 0; i < this.audioPlayers.pollPlayers.length; ++i) {
+      this.audioPlayers.pollPlayers[i].src = sampleUrls[i];
+      this.audioPlayers.pollPlayers[i].load();
     }
   }
 
+  public testAudio() { 
+    console.log(this.audioPlayers.pollPlayers);
+
+    let playPromise = this.audioPlayers.pollPlayers[1].play();
+
+    /*
+    if (playPromise !== undefined) {
+      playPromise.then(_ => {
+        console.log('then executed');
+        this.audioPlayers.pollPlayers[1].pause();
+      })
+      .catch(error => {
+        console.log('error executed' + error);
+      });
+    }
+    */
+  }
+
   private soundsFilenames: string[] = [ 
-    "./../../assets/poll sounds/Place2Be_brir1_scene3_FF.wav",
-    "./../../assets/poll sounds/RumbaChonta_brir1_scene1_FB.wav",
-    "./../../assets/poll sounds/RumbaChonta_brir1_scene2_BF.wav",
-    "./../../assets/poll sounds/RumbaChonta_brir1_scene3_FF.wav",
-    "./../../assets/poll sounds/Scar_brir1_scene1_FB.wav",
-    "./../../assets/poll sounds/Scar_brir1_scene2_BF.wav",
-    "./../../assets/poll sounds/Scar_brir1_scene3_FF.wav",
-    "./../../assets/poll sounds/SchoolboyFascination_brir1_scene1_FB.wav",
-    "./../../assets/poll sounds/SchoolboyFascination_brir1_scene2_BF.wav",
-    "./../../assets/poll sounds/SchoolboyFascination_brir1_scene3_FF.wav",
-    "./../../assets/poll sounds/GhostlyBeard_brir1_scene1_FB.wav",
-    "./../../assets/poll sounds/GhostlyBeard_brir1_scene2_BF.wav",
-    "./../../assets/poll sounds/GhostlyBeard_brir1_scene3_FF.wav",
-    "./../../assets/poll sounds/Place2Be_brir1_scene1_FB.wav",
-    "./../../assets/poll sounds/Place2Be_brir1_scene2_BF.wav"];
+    "./../../../assets/poll sounds/Place2Be_brir1_scene3_FF.wav",
+    "./../../../assets/poll sounds/RumbaChonta_brir1_scene1_FB.wav",
+    "./../../../assets/poll sounds/RumbaChonta_brir1_scene2_BF.wav",
+    "./../../../assets/poll sounds/RumbaChonta_brir1_scene3_FF.wav",
+    "./../../../assets/poll sounds/Scar_brir1_scene1_FB.wav",
+    "./../../../assets/poll sounds/Scar_brir1_scene2_BF.wav",
+    "./../../../assets/poll sounds/Scar_brir1_scene3_FF.wav",
+    "./../../../assets/poll sounds/SchoolboyFascination_brir1_scene1_FB.wav",
+    "./../../../assets/poll sounds/SchoolboyFascination_brir1_scene2_BF.wav",
+    "./../../../assets/poll sounds/SchoolboyFascination_brir1_scene3_FF.wav",
+    "./../../../assets/poll sounds/GhostlyBeard_brir1_scene1_FB.wav",
+    "./../../../assets/poll sounds/GhostlyBeard_brir1_scene2_BF.wav",
+    "./../../../assets/poll sounds/GhostlyBeard_brir1_scene3_FF.wav",
+    "./../../../assets/poll sounds/Place2Be_brir1_scene1_FB.wav",
+    "./../../../assets/poll sounds/Place2Be_brir1_scene2_BF.wav",
+    "./../../../assets/poll sounds/Place2Be_brir1_scene3_FF.wav",
+    "./../../../assets/poll sounds/RumbaChonta_brir1_scene1_FB.wav",
+    "./../../../assets/poll sounds/RumbaChonta_brir1_scene2_BF.wav",
+    "./../../../assets/poll sounds/RumbaChonta_brir1_scene3_FF.wav",
+    "./../../../assets/poll sounds/Scar_brir1_scene1_FB.wav",
+    "./../../../assets/poll sounds/Scar_brir1_scene2_BF.wav",
+    "./../../../assets/poll sounds/Scar_brir1_scene3_FF.wav",
+    "./../../../assets/poll sounds/SchoolboyFascination_brir1_scene1_FB.wav",
+    "./../../../assets/poll sounds/SchoolboyFascination_brir1_scene2_BF.wav",
+    "./../../../assets/poll sounds/SchoolboyFascination_brir1_scene3_FF.wav",
+    "./../../../assets/poll sounds/GhostlyBeard_brir1_scene1_FB.wav",
+    "./../../../assets/poll sounds/GhostlyBeard_brir1_scene2_BF.wav",
+    "./../../../assets/poll sounds/GhostlyBeard_brir1_scene3_FF.wav",
+    "./../../../assets/poll sounds/Place2Be_brir1_scene1_FB.wav",
+    "./../../../assets/poll sounds/Place2Be_brir1_scene2_BF.wav"];
   /* [ " ./../../assets/poll sounds/AloneWithYou_brir1_scene1_FB.wav",
   " ./../../assets/poll sounds/AloneWithYou_brir1_scene1_FB.wav",
   " ./../../assets/poll sounds/AloneWithYou_brir1_scene2_BF.wav",

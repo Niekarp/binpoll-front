@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 import { SharedConfig } from '../../config/shared-config';
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { FurtherHelpDialogComponent } from '../headphones-test/further-help-dialog/further-help-dialog.component';
-import { ApiClientService } from '../../api_client/api-client.service';
+import { ApiClientService } from '../../services/api-client/api-client.service';
+import { AudioService } from 'src/app/services/audio/audio.service';
 
 @Component({
   selector: 'app-poll-page',
@@ -24,19 +25,23 @@ export class PollPageComponent implements OnInit {
               public sharedConfig: SharedConfig, 
               public snackbar: MatSnackBar,
               public dialog: MatDialog,
-              public apiClient: ApiClientService) {
+              public apiClient: ApiClientService,
+              public audio: AudioService) {
     this.testCount = sharedConfig.testCount;
     
     console.log('start poll');
     this.startDate = new Date();
   }
-
+  
+  ngOnInit() {}
+  /*
   ngOnInit() {
     for(let i = 0; i < this.testCount; ++i) {
       this.answers[i] = 'none';
     }
     this.selectedAudio = this.shuffle(this.soundsFilenames).concat(this.shuffle(this.soundsFilenames));
-
+  */
+    // below old comments
     /* let randedRands = new Array(15);
     for (let i = 0; i < 15;) {
       let newRand = this.soundsFilenames[Math.floor(Math.random() * this.soundsFilenames.length)];
@@ -59,7 +64,7 @@ export class PollPageComponent implements OnInit {
       }
     }
  */
-
+/*
     this.audio.loop = true;
     this.updateCurrentAudio();
   }
@@ -237,4 +242,5 @@ export class PollPageComponent implements OnInit {
   
     return array;
   }
+  */
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
+import { AudioService } from 'src/app/services/audio/audio.service';
 
 @Component({
   selector: 'app-finish-page',
@@ -10,12 +11,14 @@ export class FinishPageComponent implements OnInit {
 
   private isCommeentSend: boolean = false;
 
-  constructor(public snackbar: MatSnackBar) { }
+  constructor(public snackbar: MatSnackBar, public audio: AudioService) { }
 
   ngOnInit() {
   }
 
   onSendCommentButtonClick() {
+    this.audio.testAudio();
+
     if (this.isCommeentSend === false) {
       this.snackbar.open('comment has been sent', null, {
         duration: 2000,
