@@ -1,6 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
+import { AudioService } from 'src/app/services/audio/audio.service';
 
 export interface Age {
   value: String,
@@ -27,9 +28,10 @@ export class QuestionnairePageComponent implements OnInit {
     { value: 'Above 54', viewValue: 'Above 54' }
   ];
 
-  constructor(private router: Router, public snackbar: MatSnackBar) { }
+  constructor(private router: Router, public snackbar: MatSnackBar, public audio: AudioService) { }
 
   ngOnInit() {
+    this.audio.loadAudioPlayers();
   }
   
   // this.typedHeadphonesMakeAndModel == undefined ||
@@ -63,6 +65,7 @@ export class QuestionnairePageComponent implements OnInit {
   }
 
   gotoNextPage() {
+    this.audio.testAudio();
     this.router.navigate(['/poll-description']);
   }
 

@@ -1,23 +1,5 @@
 import { Injectable } from '@angular/core';
-
-class AudioPlayerSet {
-
-  public headphonesTestPlayers: Map<String, HTMLAudioElement>;
-  public pollPlayers: HTMLAudioElement[];
-
-  constructor(pollPlayersCount: number){
-    this.headphonesTestPlayers = new Map<String, HTMLAudioElement>();
-    this.pollPlayers = new Array<HTMLAudioElement>(pollPlayersCount);
-
-    this.headphonesTestPlayers = new Map<String, HTMLAudioElement>();
-    this.headphonesTestPlayers.set('left', new Audio());
-    this.headphonesTestPlayers.set('right', new Audio());
-
-    for (let i = 0; i < pollPlayersCount; ++i) {
-      this.pollPlayers[i] = new Audio();
-    }
-  }
-}
+import { AudioPlayerSet } from './audio-player-set';
 
 @Injectable({
   providedIn: 'root',
@@ -38,6 +20,7 @@ export class AudioService {
     // load headset channel test audio
     this.audioPlayers.headphonesTestPlayers.get('left').src = baseUrl + 'Hungarian_1_hrtf4_sector2.wav';
     this.audioPlayers.headphonesTestPlayers.get('left').load();
+    // this.audioPlayers.headphonesTestPlayers.get('left').preload = 'none';
 
     this.audioPlayers.headphonesTestPlayers.get('right').src = baseUrl + 'Hungarian_1_hrtf4_sector4.wav';
     this.audioPlayers.headphonesTestPlayers.get('right').load();
@@ -49,25 +32,43 @@ export class AudioService {
     for(let i = 0; i < this.audioPlayers.pollPlayers.length; ++i) {
       this.audioPlayers.pollPlayers[i].src = sampleUrls[i];
       this.audioPlayers.pollPlayers[i].load();
+      // this.audioPlayers.pollPlayers[i].preload = 'none';
     }
+  }
+
+  // headphones test audio methods
+  public pauseHeadphonesTestAudio() {
+    this.audioPlayers.headphonesTestPlayers.get('left').pause();
+    this.audioPlayers.headphonesTestPlayers.get('right').pause();
+  }
+
+  public toggleHeadphonesTestLeftChannelAudio() {
+    console.log('left channel preload = ' + this.audioPlayers.headphonesTestPlayers.get('left').preload);
+
+    if (this.audioPlayers.headphonesTestPlayers.get('left').paused)
+      this.audioPlayers.headphonesTestPlayers.get('left').play();
+    else
+      this.audioPlayers.headphonesTestPlayers.get('left').pause();
+  }
+
+  public toggleHeadphonesTestRightChannelAudio() {
+    if (this.audioPlayers.headphonesTestPlayers.get('right').paused)
+      this.audioPlayers.headphonesTestPlayers.get('right').play();
+    else
+      this.audioPlayers.headphonesTestPlayers.get('right').pause();
+  }
+
+  public get headphonesTestLeftChannelAudio(): HTMLAudioElement {
+    return this.audioPlayers.headphonesTestPlayers.get('left');
+  }
+
+  public get headphonesTestRightChannelAudio(): HTMLAudioElement {
+    return this.audioPlayers.headphonesTestPlayers.get('right');
   }
 
   public testAudio() { 
     console.log(this.audioPlayers.pollPlayers);
-
-    let playPromise = this.audioPlayers.pollPlayers[1].play();
-
-    /*
-    if (playPromise !== undefined) {
-      playPromise.then(_ => {
-        console.log('then executed');
-        this.audioPlayers.pollPlayers[1].pause();
-      })
-      .catch(error => {
-        console.log('error executed' + error);
-      });
-    }
-    */
+    this.audioPlayers.pollPlayers[29].play();
   }
 
   private soundsFilenames: string[] = [ 

@@ -37,6 +37,7 @@ import { FurtherHelpDialogComponent } from './pages/headphones-test/further-help
 import { ReportProblemPageComponent } from './pages/report-problem-page/report-problem-page.component';
 
 import { HttpClientModule } from '@angular/common/http';
+import { PlayAudioButtonComponent } from './common/ui-elements/play-audio-button/play-audio-button.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { HttpClientModule } from '@angular/common/http';
     FinishPageComponent,
     PolicyPageComponent,
     FurtherHelpDialogComponent,
-    ReportProblemPageComponent
+    ReportProblemPageComponent,
+    PlayAudioButtonComponent
   ],
   imports: [
     BrowserModule,
