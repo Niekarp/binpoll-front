@@ -20,7 +20,6 @@ export class AudioService {
     // load headset channel test audio
     this.audioPlayers.headphonesTestPlayers.get('left').src = baseUrl + 'Hungarian_1_hrtf4_sector2.wav';
     this.audioPlayers.headphonesTestPlayers.get('left').load();
-    // this.audioPlayers.headphonesTestPlayers.get('left').preload = 'none';
 
     this.audioPlayers.headphonesTestPlayers.get('right').src = baseUrl + 'Hungarian_1_hrtf4_sector4.wav';
     this.audioPlayers.headphonesTestPlayers.get('right').load();
