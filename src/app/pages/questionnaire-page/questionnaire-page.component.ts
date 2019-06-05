@@ -65,7 +65,7 @@ export class QuestionnairePageComponent implements OnInit {
   }
 
   gotoNextPage() {
-    this.audio.testAudio();
+    // this.audio.testAudio();
     this.router.navigate(['/poll-description']);
   }
 

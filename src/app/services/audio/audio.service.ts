@@ -17,10 +17,35 @@ export class AudioService {
     let baseUrl = './../../assets/headphones test sounds/';
     let filename = '';
 
+    let audio = this.audioPlayers.headphonesTestPlayers.get('left');
+    
+    let req = new XMLHttpRequest();
+    req.open('GET', 'https://cdn.glitch.com/21f22462-51ad-49b0-b379-48155d20b764%2Fsample.mp3', true);
+    req.responseType = 'blob';
+
+    req.onload = function() {
+      // Onload is triggered even on 404
+      // so we need to check the status code
+      if (this.status === 200) {
+         let audioBlob = this.response;
+         let audioUrl = URL.createObjectURL(audioBlob); // IE10+
+         // Video is now downloaded
+         // and we can set it as source on the video element
+         console.log('audio loaded: ' + audioUrl);
+         audio.src = audioUrl;
+         audio.load();
+      }
+   }
+   req.onerror = function() {
+      // Error
+   }
+   
+   req.send();
+   
+
     // load headset channel test audio
-    this.audioPlayers.headphonesTestPlayers.get('left').src = baseUrl + 'Hungarian_1_hrtf4_sector2.wav';
-    this.audioPlayers.headphonesTestPlayers.get('left').load();
-    // this.audioPlayers.headphonesTestPlayers.get('left').preload = 'none';
+    // this.audioPlayers.headphonesTestPlayers.get('left').src = baseUrl + 'Hungarian_1_hrtf4_sector2.wav';
+    // this.audioPlayers.headphonesTestPlayers.get('left').load();
 
     this.audioPlayers.headphonesTestPlayers.get('right').src = baseUrl + 'Hungarian_1_hrtf4_sector4.wav';
     this.audioPlayers.headphonesTestPlayers.get('right').load();
@@ -32,7 +57,6 @@ export class AudioService {
     for(let i = 0; i < this.audioPlayers.pollPlayers.length; ++i) {
       this.audioPlayers.pollPlayers[i].src = sampleUrls[i];
       this.audioPlayers.pollPlayers[i].load();
-      // this.audioPlayers.pollPlayers[i].preload = 'none';
     }
   }
 
@@ -43,8 +67,6 @@ export class AudioService {
   }
 
   public toggleHeadphonesTestLeftChannelAudio() {
-    console.log('left channel preload = ' + this.audioPlayers.headphonesTestPlayers.get('left').preload);
-
     if (this.audioPlayers.headphonesTestPlayers.get('left').paused)
       this.audioPlayers.headphonesTestPlayers.get('left').play();
     else
