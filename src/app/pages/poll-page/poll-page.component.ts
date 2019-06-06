@@ -84,7 +84,7 @@ export class PollPageComponent implements OnInit {
         startDate: this.startDate,
         endDate: new Date(),
         answer: this.answers,
-        assignedSetId: 0
+        assignedSetId: 1
       });
       this.audio.pauseAllPollAudio();
       this.router.navigate(['finish']);
