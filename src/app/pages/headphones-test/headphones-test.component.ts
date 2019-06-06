@@ -18,6 +18,7 @@ export class HeadphonesTestComponent implements OnInit {
   constructor(private router: Router, private dialog: MatDialog, private audio: AudioService) { }
 
   ngOnInit() {
+    this.audio.loadAudioPlayers();
     this.audio.headphonesTestLeftChannelAudio.onended = () => {
       console.log('left audio stopped');
       this.leftAudioButton.toggle();

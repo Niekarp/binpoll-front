@@ -33,59 +33,26 @@ export class PollPageComponent implements OnInit {
     this.startDate = new Date();
   }
   
-  ngOnInit() {}
-  /*
   ngOnInit() {
     for(let i = 0; i < this.testCount; ++i) {
       this.answers[i] = 'none';
     }
-    this.selectedAudio = this.shuffle(this.soundsFilenames).concat(this.shuffle(this.soundsFilenames));
-  */
-    // below old comments
-    /* let randedRands = new Array(15);
-    for (let i = 0; i < 15;) {
-      let newRand = this.soundsFilenames[Math.floor(Math.random() * this.soundsFilenames.length)];
-      console.log(newRand, '::', randedRands)
-      if (newRand.includes(newRand) === false) {
-        randedRands.push(newRand);
-        this.selectedAudio[i] = newRand;
-        ++i;
-        console.log(i);
-      }
-    }
-
-    randedRands = new Array(15);
-    for (let i = 15; i < 30; ++i) {
-      let newRand = this.soundsFilenames[Math.floor(Math.random() * this.soundsFilenames.length)];
-      if (newRand.includes(newRand) === false) {
-        randedRands.push(newRand);
-        this.selectedAudio[i] = newRand;
-        ++i;
-      }
-    }
- */
-/*
-    this.audio.loop = true;
+    this.audio.loadAudioPlayers();
     this.updateCurrentAudio();
   }
 
+  private showMessage(msg: string) {
+    this.snackbar.open(msg, null, {
+      duration: 2000,
+      verticalPosition: "top",
+      panelClass: ['my-snackbar'],
+    });
+  }
+
   public toggleAudio(): void {
-    if (this.audio.paused) {
-      this.audio.play();
-      this.wasAudioPlayed = true;
-      // this.audioOn = false;
-    }
-    else {
-      this.audio.pause();
-      // this.audioOn = true;
-    }
-    const iconId = 'audio-icon';
-    if (document.getElementById(iconId).textContent === 'play_circle_outline') {
-      document.getElementById(iconId).textContent = 'pause';
-    }
-    else {
-      document.getElementById(iconId).textContent = 'play_circle_outline';
-    }
+    this.audio.togglePollAudio(this.currentTestIndex);
+    this.wasAudioPlayed = true;
+    this.updateCurrentAudio()
   }
 
   public selectScene(selectedSceneButton: HTMLElement): void {
@@ -100,19 +67,11 @@ export class PollPageComponent implements OnInit {
 
   public goToNextTest(): void {
     if (this.answers[this.currentTestIndex] === 'none') {
-      this.snackbar.open('select acoustic scene', null, {
-        duration: 2000,
-        verticalPosition: "top",
-        panelClass: ['my-snackbar']
-      });
+      this.showMessage('select acoustic scene');
       return;
     }
     else if (this.wasAudioPlayed === false) {
-      this.snackbar.open("audio wasn't played", null, {
-        duration: 2000,
-        verticalPosition: "top",
-        panelClass: ['my-snackbar']
-      });
+      this.showMessage('audio wasn\'t played');
       return;
     }
 
@@ -121,26 +80,29 @@ export class PollPageComponent implements OnInit {
 
     if (this.currentTestIndex === this.testCount) {
       // save results 
-      let pollData: PollData = {
+      this.apiClient.sendPollData({
         startDate: this.startDate,
         endDate: new Date(),
         answer: this.answers,
         assignedSetId: 0
-      };
-      this.apiClient.sendPollData(pollData);
-      this.audio.pause();
+      });
+      this.audio.pauseAllPollAudio();
       this.router.navigate(['finish']);
       return;
+    } else if(this.currentTestIndex >= 1) {
+      if(!this.audio.getPollAudio(this.currentTestIndex - 1).paused) {
+        this.audio.playPollAudio(this.currentTestIndex);
+      }
     }
     this.updateCurrentAudio();
     
-    console.log(this.audio.paused);
+    console.log(this.audio.getPollAudio(this.currentTestIndex).paused);
     if (this.answers[this.currentTestIndex] !== 'none') {
       this.selectScene(document.getElementById(this.answers[this.currentTestIndex]));
       this.wasAudioPlayed = true;
       // console.log('if');
     }
-    else if (this.audio.paused === false) {
+    else if (this.audio.getPollAudio(this.currentTestIndex).paused === false) {
       this.wasAudioPlayed = true;
       // console.log('else if');
     }
@@ -156,9 +118,13 @@ export class PollPageComponent implements OnInit {
 
     if (this.currentTestIndex === -1) {
       // save results
-      this.audio.pause();
+      this.audio.pauseAllPollAudio();
       this.router.navigate(['headphones-test']);
       return;
+    } else {
+      if(!this.audio.getPollAudio(this.currentTestIndex + 1).paused) {
+        this.audio.playPollAudio(this.currentTestIndex);
+      }
     }
     this.updateCurrentAudio();
 
@@ -169,13 +135,12 @@ export class PollPageComponent implements OnInit {
   }
 
   private updateCurrentAudio(): void {
-    const state = this.audio.paused;
-    this.audio.pause();
-    this.audio.src = this.selectedAudio[this.currentTestIndex];
-    this.audio.load();
-  
-    if (state === false) {
-      this.audio.play();
+    const iconId = 'audio-icon';
+    if (this.audio.getPollAudio(this.currentTestIndex).paused) {
+      document.getElementById(iconId).textContent = 'play_circle_outline';
+    }
+    else {
+      document.getElementById(iconId).textContent = 'paused';
     }
   }
 
@@ -189,7 +154,7 @@ export class PollPageComponent implements OnInit {
   }
 
   private turnOffTheAudio() {
-    this.audio.pause();
+    this.audio.pauseAllPollAudio();
     document.getElementById('audio-icon').textContent = 'play_circle_outline';
   }
 
@@ -242,5 +207,4 @@ export class PollPageComponent implements OnInit {
   
     return array;
   }
-  */
 }
