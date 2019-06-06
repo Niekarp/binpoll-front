@@ -51,8 +51,9 @@ export class ApiClientService {
         return of(['']);
       } else {
         return this.http.get<string[]>(apiUrl + 'generate_set').pipe(
-          switchMap(urls => {
-            return of(urls['samples'].map(url => pollSoundsUrl + url));
+          switchMap(audioSet => {
+            audioSet['samples'] = audioSet['samples'].map(url => pollSoundsUrl + url)
+            return of(audioSet);
           }));
       }
     })).pipe(catchError(error => {

@@ -13,6 +13,7 @@ export class AudioService {
 
   private audioPlayers: AudioPlayerSet;
   private loaded = false;
+  private audioSetId = -1;
 
   constructor(private http: HttpClient, private api: ApiClientService) {
     console.log('audio service created');
@@ -37,13 +38,18 @@ export class AudioService {
     this.loadAudioPlayer(rightTestUrl, rightTestPlayer);
 
     // get samples
-    this.api.getSampleSet().subscribe(sampleUrls => {
+    this.api.getSampleSet().subscribe(audioSet => {
+      this.audioSetId = audioSet['id'];
       // load poll samples audio
       for(let i = 0; i < this.audioPlayers.pollPlayers.length; ++i) {
-        this.loadAudioPlayer(sampleUrls[i], this.audioPlayers.pollPlayers[i]);
+        this.loadAudioPlayer(audioSet['samples'][i], this.audioPlayers.pollPlayers[i]);
         this.audioPlayers.pollPlayers[i].loop = true;
       }
     });
+  }
+
+  public get pollAudioSetId() {
+    return this.audioSetId;
   }
 
   private loadAudioPlayer(url: string, audio: HTMLAudioElement) {
