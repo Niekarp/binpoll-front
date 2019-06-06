@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http'
 import { ConfigService } from '../../config/config.service'
-import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Observable, of, Subject } from 'rxjs';
+import { catchError, switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +17,7 @@ export class ApiClientService {
       this.configObservable = configService.getConfig();
     }
 
+  
   public sendPollData(pollData: PollData): void {
     this.configObservable.subscribe(config => {
       let url: string = config['apiUrl'];
@@ -30,7 +31,7 @@ export class ApiClientService {
           'assigned_set_id': pollData.assignedSetId,
           'answer': pollData.answer.join(',')
         }).pipe(
-          catchError((err: HttpErrorResponse) => {
+          catchError((err) => {
             console.error(err);
             return of({})
           })).subscribe(response => {
@@ -39,5 +40,24 @@ export class ApiClientService {
           });
       }
     });
+  }
+
+  public getSampleSet(): Observable<string[]> {
+    return this.configObservable.pipe(switchMap(config => {
+      let apiUrl = config['apiUrl'];
+      let pollSoundsUrl = config['pollSoundsUrl'];
+      if(apiUrl == null || pollSoundsUrl == null) {
+        console.error('apiUrl property not found');
+        return of(['']);
+      } else {
+        return this.http.get<string[]>(apiUrl + 'generate_set').pipe(
+          switchMap(urls => {
+            return of(urls['samples'].map(url => pollSoundsUrl + url));
+          }));
+      }
+    })).pipe(catchError(error => {
+      console.error(error);
+      return of(['']);
+    }));
   }
 }

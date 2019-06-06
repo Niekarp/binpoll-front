@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AudioPlayerSet } from './audio-player-set';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http'
+import { ApiClientService } from '../api-client/api-client.service';
+
+//config
+//"apiUrl": "http://audio.wi.pb.edu.pl:8000/"
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +14,7 @@ export class AudioService {
   private audioPlayers: AudioPlayerSet;
   private loaded = false;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private api: ApiClientService) {
     console.log('audio service created');
     this.audioPlayers = new AudioPlayerSet(30);
   }
@@ -19,8 +23,9 @@ export class AudioService {
     if(this.loaded) {
       return;
     }
+    this.loaded = true;
 
-    let baseUrl = './../../assets/headphones test sounds/';
+    let baseUrl = '/assets/headphones test sounds/';
     let filename = '';
 
     let leftTestUrl = baseUrl + 'Hungarian_1_hrtf4_sector4.wav';
@@ -32,15 +37,13 @@ export class AudioService {
     this.loadAudioPlayer(rightTestUrl, rightTestPlayer);
 
     // get samples
-    let sampleUrls = this.soundsFilenames;
-
-    // load poll samples audio
-    for(let i = 0; i < this.audioPlayers.pollPlayers.length; ++i) {
-      this.loadAudioPlayer(sampleUrls[i], this.audioPlayers.pollPlayers[i]);
-      this.audioPlayers.pollPlayers[i].loop = true;
-    }
-
-    this.loaded = true;
+    this.api.getSampleSet().subscribe(sampleUrls => {
+      // load poll samples audio
+      for(let i = 0; i < this.audioPlayers.pollPlayers.length; ++i) {
+        this.loadAudioPlayer(sampleUrls[i], this.audioPlayers.pollPlayers[i]);
+        this.audioPlayers.pollPlayers[i].loop = true;
+      }
+    });
   }
 
   private loadAudioPlayer(url: string, audio: HTMLAudioElement) {
