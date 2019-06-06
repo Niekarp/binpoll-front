@@ -1,4 +1,4 @@
 {
-    "apiUrl": "http://127.0.0.1:8000/",
-    "pollSoundsUrl": "http://127.0.0.1:8000/static/poll sounds/"
+    "apiUrl": "http://audio.wi.pb.edu.pl:8000/",
+    "pollSoundsUrl": "http://audio.wi.pb.edu.pl:8000/static/poll sounds/"
 }
