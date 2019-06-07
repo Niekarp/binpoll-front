@@ -12,17 +12,20 @@ export class AudioService {
   private audioPlayers: AudioPlayerSet;
   private loaded = false;
   private audioSetId = -1;
+  private loadedCount = 0;
 
   constructor(private http: HttpClient, private api: ApiClientService) {
     console.log('audio service created');
     this.audioPlayers = new AudioPlayerSet(30);
   }
 
+  // load audio methods
   public loadAudioPlayers() {
     if(this.loaded) {
       return;
     }
     this.loaded = true;
+    this.loadedCount = 0;
 
     let baseUrl = '/assets/headphones test sounds/';
     let filename = '';
@@ -50,20 +53,25 @@ export class AudioService {
     return this.audioSetId;
   }
 
-  private loadAudioPlayer(url: string, audio: HTMLAudioElement) {
-    this.http.get(url, {responseType: 'blob'}).subscribe(response => {
-      let audioBlob = response;
-      let audioUrl = URL.createObjectURL(audioBlob);
-      console.log('audio loaded: ' + audioUrl);
-      audio.src = audioUrl;
-      audio.load();
-    });
+  public isAllAudioLoaded() {
+    return (this.loadedCount === 32);
   }
 
-  private toggleAudio(audio: HTMLAudioElement): boolean {
-    if (audio.paused) audio.play();
-    else audio.pause();
-    return !audio.paused;
+  public notifyOnAllAudioLoaded(onLoaded: () => {}, onTimeout) {
+    let waitPeriod = 5;
+    let waitEndTime = new Date();
+    waitEndTime.setMinutes(waitEndTime.getMinutes() + waitPeriod);
+
+    let intervalID = setInterval(() => {
+      if (this.isAllAudioLoaded()) {
+        clearInterval(intervalID);
+        onLoaded();
+      }
+      else if (waitEndTime > new Date() ) {
+        clearInterval(intervalID);
+        onTimeout();
+      }
+    }, 2000);
   }
 
   // headphones test audio methods
@@ -88,11 +96,7 @@ export class AudioService {
     return this.audioPlayers.headphonesTestPlayers.get('right');
   }
 
-  public testAudio() { 
-    console.log(this.audioPlayers.pollPlayers);
-    this.audioPlayers.pollPlayers[29].play();
-  }
-
+  // poll audio methods
   public togglePollAudio(audioIndex: number): boolean {
     if (this.audioPlayers.pollPlayers[audioIndex].paused) {
       this.playPollAudio(audioIndex);
@@ -116,5 +120,28 @@ export class AudioService {
     for(let audio of this.audioPlayers.pollPlayers) {
       audio.pause();
     }
+  }
+
+  public testAudio() { 
+    console.log(this.audioPlayers.pollPlayers);
+    this.audioPlayers.pollPlayers[29].play();
+  }
+
+  private toggleAudio(audio: HTMLAudioElement): boolean {
+    if (audio.paused) audio.play();
+    else audio.pause();
+    return !audio.paused;
+  }
+
+  private loadAudioPlayer(url: string, audio: HTMLAudioElement) {
+    this.http.get(url, {responseType: 'blob'}).subscribe(response => {
+      let audioBlob = response;
+      let audioUrl = URL.createObjectURL(audioBlob);
+      console.log('audio loaded: ' + audioUrl);
+      audio.src = audioUrl;
+      audio.load();
+      this.loadedCount += 1;
+      console.log('loaded count: ' + this.loadedCount);
+    });
   }
 }
