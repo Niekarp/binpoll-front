@@ -1,0 +1,5 @@
+{
+    "apiUrl": "http://audio.wi.pb.edu.pl:8000/",
+    "pollSoundsUrl": "http://audio.wi.pb.edu.pl:8000/static/poll_sounds/"
+}
+
