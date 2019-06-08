@@ -108,7 +108,7 @@ export class PollPageComponent implements OnInit {
         endDate: new Date(),
         answer: this.answers,
         assignedSetId: this.audio.pollAudioSetId
-      });
+      }, JSON.parse(sessionStorage.getItem('questionnaire')));
       this.router.navigate(['finish']);
       return;
     } 

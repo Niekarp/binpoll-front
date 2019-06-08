@@ -2,6 +2,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import { AudioService } from 'src/app/services/audio/audio.service';
+import { Questionnaire } from 'src/app/models/questionnaire';
 
 export interface Age {
   value: String,
@@ -15,10 +16,12 @@ export interface Age {
 })
 export class QuestionnairePageComponent implements OnInit {
   
-  public selectedAge: string;
-  public selectedHearingDifficulties: boolean;
-  public selectedListeningTestParticipation: boolean;
-  public typedHeadphonesMakeAndModel: string;
+  public model = new Questionnaire();
+
+  // public selectedAge: string;
+  // public selectedHearingDifficulties: boolean;
+  // public selectedListeningTestParticipation: boolean;
+  // public typedHeadphonesMakeAndModel: string;
   public ages: Age[] = [
     { value: 'Under 18', viewValue: 'Under 18' },
     { value: '18-24', viewValue: '18-24' },
@@ -38,9 +41,9 @@ export class QuestionnairePageComponent implements OnInit {
   // this.typedHeadphonesMakeAndModel == "" || 
   // this.typedHeadphonesMakeAndModel.replace(/\s/g, '').length == 0
   public validateForm(): boolean {
-    if (this.selectedAge == undefined || 
-        this.selectedHearingDifficulties == undefined ||
-        this.selectedListeningTestParticipation == undefined)
+    if (this.model.age == '' || 
+        this.model.hearingDifficulties == '' ||
+        this.model.listeningTestParticipation == '')
     {
         this.snackbar.open('the first three fields are required', null, {
           duration: 2000,
@@ -56,6 +59,7 @@ export class QuestionnairePageComponent implements OnInit {
 
   goToNextPageIfFormIsValid() {
     if (this.validateForm()) {
+      sessionStorage.setItem('questionnaire', JSON.stringify(this.model));
       this.gotoNextPage();
     }
   }
