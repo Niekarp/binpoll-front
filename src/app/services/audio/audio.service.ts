@@ -12,7 +12,8 @@ export class AudioService {
   private audioPlayers: AudioPlayerSet;
   private loaded = false;
   private audioSetId = -1;
-  private loadedCount = 0;
+  private pollLoadedCount = 0;
+  private testLoadedCount = 0;
 
   constructor(private http: HttpClient, private api: ApiClientService) {
     console.log('audio service created');
@@ -25,7 +26,8 @@ export class AudioService {
       return;
     }
     this.loaded = true;
-    this.loadedCount = 0;
+    this.testLoadedCount = 0;
+    this.pollLoadedCount = 0;
 
     let baseUrl = '/assets/headphones test sounds/';
     let filename = '';
@@ -35,15 +37,15 @@ export class AudioService {
     let leftTestPlayer = this.audioPlayers.headphonesTestPlayers.get('left');
     let rightTestPlayer = this.audioPlayers.headphonesTestPlayers.get('right');
 
-    this.loadAudioPlayer(leftTestUrl, leftTestPlayer);
-    this.loadAudioPlayer(rightTestUrl, rightTestPlayer);
+    this.loadTestAudioPlayer(leftTestUrl, leftTestPlayer);
+    this.loadTestAudioPlayer(rightTestUrl, rightTestPlayer);
 
     // get samples
     this.api.getSampleSet().subscribe(audioSet => {
       this.audioSetId = audioSet['id'];
       // load poll samples audio
       for(let i = 0; i < this.audioPlayers.pollPlayers.length; ++i) {
-        this.loadAudioPlayer(audioSet['samples'][i], this.audioPlayers.pollPlayers[i]);
+        this.loadPollAudioPlayer(audioSet['samples'][i], this.audioPlayers.pollPlayers[i]);
         this.audioPlayers.pollPlayers[i].loop = true;
       }
     });
@@ -53,15 +55,23 @@ export class AudioService {
     return this.audioSetId;
   }
 
-  public isAllAudioLoaded(): boolean {
-    return (this.loadedCount === 32);
+  public isAllTestAudioLoaded(): boolean {
+    return (this.testLoadedCount === 2);
   }
 
-  public getLoadingProgressPercentage(): number {
-    return Math.floor((this.loadedCount / 32) * 100);
+  public isAllPollAudioLoaded(): boolean {
+    return (this.pollLoadedCount === 30);
   }
 
-  public notifyOnAllAudioLoaded(onLoaded: () => void, onUpdate: () => void, onTimeout: () => void) {
+  public getTestLoadingProgressPercentage(): number {
+    return Math.floor((this.testLoadedCount / 2) * 100);
+  }
+  
+  public getPollLoadingProgressPercentage(): number {
+    return Math.floor((this.pollLoadedCount / 30) * 100);
+  } 
+
+  public notifyOnAllTestAudioLoaded(onLoaded: () => void, onUpdate: () => void, onTimeout: () => void) {
     let waitPeriod = 5;
     let waitEndTime = new Date();
     waitEndTime.setMinutes(waitEndTime.getMinutes() + waitPeriod);
@@ -69,7 +79,26 @@ export class AudioService {
     let intervalID = setInterval(() => {
       onUpdate();
 
-      if (this.isAllAudioLoaded()) {
+      if (this.isAllTestAudioLoaded()) {
+        clearInterval(intervalID);
+        onLoaded();
+      }
+      else if (new Date() > waitEndTime) {
+        clearInterval(intervalID);
+        onTimeout();
+      }
+    }, 2000);
+  }
+
+  public notifyOnAllPollAudioLoaded(onLoaded: () => void, onUpdate: () => void, onTimeout: () => void) {
+    let waitPeriod = 5;
+    let waitEndTime = new Date();
+    waitEndTime.setMinutes(waitEndTime.getMinutes() + waitPeriod);
+
+    let intervalID = setInterval(() => {
+      onUpdate();
+
+      if (this.isAllPollAudioLoaded()) {
         clearInterval(intervalID);
         onLoaded();
       }
@@ -139,15 +168,29 @@ export class AudioService {
     return !audio.paused;
   }
 
-  private loadAudioPlayer(url: string, audio: HTMLAudioElement) {
+  private loadAudioPlayer(url: string, audio: HTMLAudioElement, onLoaded: () => void) {
     this.http.get(url, {responseType: 'blob'}).subscribe(response => {
       let audioBlob = response;
       let audioUrl = URL.createObjectURL(audioBlob);
       console.log('audio loaded: ' + audioUrl);
       audio.src = audioUrl;
       audio.load();
-      this.loadedCount += 1;
-      console.log('loaded count: ' + this.loadedCount);
+      
+      onLoaded();
+    });
+  }
+
+  private loadTestAudioPlayer(url: string, audio: HTMLAudioElement) {
+    this.loadAudioPlayer(url, audio, () => { 
+      this.testLoadedCount += 1;
+      console.log('test loaded count: ' + this.testLoadedCount); 
+    });
+  }
+
+  private loadPollAudioPlayer(url: string, audio: HTMLAudioElement) {
+    this.loadAudioPlayer(url, audio, () => { 
+      this.pollLoadedCount += 1; 
+      console.log('poll loaded count: ' + this.pollLoadedCount); 
     });
   }
 }

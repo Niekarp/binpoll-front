@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { SharedConfig } from '../../config/shared-config';
 import { MatSnackBar, MatDialog } from '@angular/material';
@@ -6,6 +6,7 @@ import { FurtherHelpDialogComponent } from '../headphones-test/further-help-dial
 import { ApiClientService } from '../../services/api-client/api-client.service';
 import { AudioService } from 'src/app/services/audio/audio.service';
 import { PlayAudioButtonComponent } from 'src/app/common/ui-elements/play-audio-button/play-audio-button.component';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-poll-page',
@@ -15,6 +16,7 @@ import { PlayAudioButtonComponent } from 'src/app/common/ui-elements/play-audio-
 export class PollPageComponent implements OnInit {
 
   @ViewChild('audioButton') audioButton: PlayAudioButtonComponent;
+  @ViewChild('spinnerText') spinnerText: ElementRef;
 
   public testCount: number;
   public currentTestIndex: number = 0;
@@ -24,12 +26,13 @@ export class PollPageComponent implements OnInit {
   private wasAudioPlayed = false;
   private startDate: Date;
 
-  constructor(private router: Router, 
-              public sharedConfig: SharedConfig, 
+  constructor(public sharedConfig: SharedConfig, 
               public snackbar: MatSnackBar,
               public dialog: MatDialog,
               public apiClient: ApiClientService,
-              public audio: AudioService) {
+              public audio: AudioService,
+              private router: Router,
+              private spinner: NgxSpinnerService) {
     this.testCount = sharedConfig.testCount;
     
     console.log('start poll');
@@ -41,6 +44,21 @@ export class PollPageComponent implements OnInit {
       this.answers[i] = 'none';
     }
     this.audio.loadAudioPlayers();
+
+    if (this.audio.isAllPollAudioLoaded() === false) {
+      setTimeout(() => {
+        this.spinner.show();
+      }, 100);
+
+      this.audio.notifyOnAllPollAudioLoaded(() => { 
+        console.log('audio loaded'); 
+        this.spinner.hide();
+      }, () => { 
+        this.spinnerText.nativeElement.innerText = this.audio.getPollLoadingProgressPercentage() + '%';
+      }, () => {
+        console.error('loading audio timeout') 
+      });
+    }
   }
 
   public onAudioButtonClick() {
