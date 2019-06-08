@@ -43,6 +43,7 @@ export class ApiClientService {
             console.log('poll data sent: ', url);
             console.log(pollData);
             
+            sessionStorage.setItem('id', response['id']);
             // console.log(JSON.stringify(response));
           });
       }
@@ -67,5 +68,27 @@ export class ApiClientService {
       console.error(error);
       return of(['']);
     }));
+  }
+
+  public sendComment(comment: string, onSend: () => void): void {
+    this.configObservable.subscribe(config => {
+      let url: string = config['apiUrl'];
+      if(url == null) {
+        console.error('apiUrl property not found');
+      } else {
+        url += 'comment/';
+        this.http.post(url, {
+          'poll_data': sessionStorage.getItem('id'),
+          'message': comment
+        }).pipe(
+          catchError((err) => {
+            console.error(err);
+            return of({})
+          })).subscribe(response => {
+            console.log('comment sent: ', url);
+            onSend();
+          });
+      }
+    });
   }
 }
