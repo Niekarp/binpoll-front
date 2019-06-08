@@ -93,6 +93,8 @@ export class HeadphonesTestComponent implements OnInit {
 
   @HostListener('window:keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {
+    if (this.audio.isAllTestAudioLoaded() === false) return;
+
     if (event.key === 'ArrowLeft')       this.goToPreviousPage();
     else if (event.key === 'ArrowRight') this.gotoNextPage();
   }
