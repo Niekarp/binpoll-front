@@ -189,6 +189,12 @@ export class PollPageComponent implements OnInit {
       this.goToNextTest();
     }
     else if (event.key === ' ') {
+      this.audioButton.blur();
+
+      for (let i = 0; i < document.getElementsByClassName('scene-select-button').length; ++i) {
+        (document.getElementsByClassName('scene-select-button').item(i) as HTMLElement).blur();
+      }
+
       this.onAudioButtonClick();
     }
   }

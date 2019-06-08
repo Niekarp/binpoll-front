@@ -34,4 +34,8 @@ export class PlayAudioButtonComponent implements OnInit {
   public pause() {
     this.buttonIcon._elementRef.nativeElement.textContent = 'pause';
   }
+
+  public blur() {
+    document.getElementById('audio-button').blur();
+  }
 }
