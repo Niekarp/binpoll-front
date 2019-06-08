@@ -9,6 +9,7 @@ import { AudioService } from 'src/app/services/audio/audio.service';
 })
 export class FinishPageComponent implements OnInit {
 
+  private comment: string;
   private isCommeentSend: boolean = false;
 
   constructor(public snackbar: MatSnackBar, public audio: AudioService) { }
@@ -17,9 +18,9 @@ export class FinishPageComponent implements OnInit {
   }
 
   onSendCommentButtonClick() {
-    this.audio.testAudio();
-
     if (this.isCommeentSend === false) {
+      
+
       this.snackbar.open('comment has been sent', null, {
         duration: 2000,
         verticalPosition: "top",

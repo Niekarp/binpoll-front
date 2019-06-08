@@ -42,6 +42,8 @@ export class ApiClientService {
           })).subscribe(response => {
             console.log('poll data sent: ', url);
             console.log(pollData);
+            
+            // console.log(JSON.stringify(response));
           });
       }
     });

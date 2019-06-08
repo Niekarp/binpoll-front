@@ -41,9 +41,9 @@ export class QuestionnairePageComponent implements OnInit {
   // this.typedHeadphonesMakeAndModel == "" || 
   // this.typedHeadphonesMakeAndModel.replace(/\s/g, '').length == 0
   public validateForm(): boolean {
-    if (this.model.age == '' || 
-        this.model.hearingDifficulties == '' ||
-        this.model.listeningTestParticipation == '')
+    if (this.model.age == undefined || 
+        this.model.hearingDifficulties == undefined ||
+        this.model.listeningTestParticipation == undefined)
     {
         this.snackbar.open('the first three fields are required', null, {
           duration: 2000,
@@ -59,6 +59,7 @@ export class QuestionnairePageComponent implements OnInit {
 
   goToNextPageIfFormIsValid() {
     if (this.validateForm()) {
+      console.log(JSON.stringify(this.model));
       sessionStorage.setItem('questionnaire', JSON.stringify(this.model));
       this.gotoNextPage();
     }
