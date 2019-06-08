@@ -25,14 +25,13 @@ export class HeadphonesTestComponent implements OnInit {
   ngOnInit() {
     this.audio.loadAudioPlayers();
 
-    if (this.audio.isAllAudioLoaded() === false)
-    {
+    if (this.audio.isAllAudioLoaded() === false) {
       setTimeout(() => {
         this.spinner.show();
       }, 100);
 
       this.audio.notifyOnAllAudioLoaded(() => { 
-        console.log('audio logged'); 
+        console.log('audio loaded'); 
         this.spinner.hide();
       }, () => { 
         this.spinnerText.nativeElement.innerText = this.audio.getLoadingProgressPercentage() + '%';

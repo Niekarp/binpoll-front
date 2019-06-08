@@ -100,7 +100,6 @@ export class PollPageComponent implements OnInit {
       }
     }
     
-    // console.log(this.audio.getPollAudio(this.currentTestIndex).paused);
     if (this.answers[this.currentTestIndex] !== 'none') {
       this.selectScene(document.getElementById(this.answers[this.currentTestIndex]));
       this.wasAudioPlayed = true;
