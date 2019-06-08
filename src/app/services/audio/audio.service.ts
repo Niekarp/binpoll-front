@@ -53,21 +53,27 @@ export class AudioService {
     return this.audioSetId;
   }
 
-  public isAllAudioLoaded() {
+  public isAllAudioLoaded(): boolean {
     return (this.loadedCount === 32);
   }
 
-  public notifyOnAllAudioLoaded(onLoaded: () => {}, onTimeout) {
+  public getLoadingProgressPercentage(): number {
+    return Math.floor((this.loadedCount / 32) * 100);
+  }
+
+  public notifyOnAllAudioLoaded(onLoaded: () => void, onUpdate: () => void, onTimeout: () => void) {
     let waitPeriod = 5;
     let waitEndTime = new Date();
     waitEndTime.setMinutes(waitEndTime.getMinutes() + waitPeriod);
 
     let intervalID = setInterval(() => {
+      onUpdate();
+
       if (this.isAllAudioLoaded()) {
         clearInterval(intervalID);
         onLoaded();
       }
-      else if (waitEndTime > new Date() ) {
+      else if (new Date() > waitEndTime) {
         clearInterval(intervalID);
         onTimeout();
       }

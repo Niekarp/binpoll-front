@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { 
   MatIconModule,
@@ -35,9 +36,10 @@ import { FinishPageComponent } from './pages/finish-page/finish-page.component';
 import { PolicyPageComponent } from './pages/policy-page/policy-page.component';
 import { FurtherHelpDialogComponent } from './pages/headphones-test/further-help-dialog/further-help-dialog.component';
 import { ReportProblemPageComponent } from './pages/report-problem-page/report-problem-page.component';
-
-import { HttpClientModule } from '@angular/common/http';
 import { PlayAudioButtonComponent } from './common/ui-elements/play-audio-button/play-audio-button.component';
+
+import { NgxSpinnerModule } from 'ngx-spinner';
+
 
 @NgModule({
   declarations: [
@@ -76,7 +78,8 @@ import { PlayAudioButtonComponent } from './common/ui-elements/play-audio-button
     MatDialogModule,
     MatListModule,
     MatCheckboxModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxSpinnerModule
   ],
   providers: [],
   entryComponents: [

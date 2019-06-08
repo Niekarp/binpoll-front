@@ -1,10 +1,11 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { SharedConfig } from '../../config/shared-config';
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { FurtherHelpDialogComponent } from '../headphones-test/further-help-dialog/further-help-dialog.component';
 import { ApiClientService } from '../../services/api-client/api-client.service';
 import { AudioService } from 'src/app/services/audio/audio.service';
+import { PlayAudioButtonComponent } from 'src/app/common/ui-elements/play-audio-button/play-audio-button.component';
 
 @Component({
   selector: 'app-poll-page',
@@ -12,6 +13,8 @@ import { AudioService } from 'src/app/services/audio/audio.service';
   styleUrls: ['./poll-page.component.scss']
 })
 export class PollPageComponent implements OnInit {
+
+  @ViewChild('audioButton') audioButton: PlayAudioButtonComponent;
 
   public testCount: number;
   public currentTestIndex: number = 0;
@@ -38,26 +41,17 @@ export class PollPageComponent implements OnInit {
       this.answers[i] = 'none';
     }
     this.audio.loadAudioPlayers();
-    this.updateCurrentAudio();
   }
 
-  private showMessage(msg: string) {
-    this.snackbar.open(msg, null, {
-      duration: 2000,
-      verticalPosition: "top",
-      panelClass: ['my-snackbar'],
-    });
-  }
-
-  public toggleAudio(): void {
+  public onAudioButtonClick() {
+    this.audioButton.toggle();
     this.audio.togglePollAudio(this.currentTestIndex);
     this.wasAudioPlayed = true;
-    this.updateCurrentAudio()
   }
 
   public selectScene(selectedSceneButton: HTMLElement): void {
     this.unselectScenes();
-    // selectedSceneButton.style.backgroundColor = 'green';
+
     selectedSceneButton.getElementsByTagName('img').item(0).classList.remove('grayscale');
     selectedSceneButton.getElementsByTagName('img').item(0).classList.add('selected-border');
 
@@ -65,7 +59,15 @@ export class PollPageComponent implements OnInit {
     this.answers[this.currentTestIndex] = this.selectedScene;
   }
 
-  public goToNextTest(): void {
+  public unselectScenes() {
+    let selectSceneButtons = document.getElementsByClassName('scene-select-button');
+    for (let i = 0; i < selectSceneButtons.length; ++i) {
+      selectSceneButtons.item(i).getElementsByTagName('img').item(0).classList.add('grayscale');
+      selectSceneButtons.item(i).getElementsByTagName('img').item(0).classList.remove('selected-border');
+    }
+  }
+
+  public goToNextTest() {
     if (this.answers[this.currentTestIndex] === 'none') {
       this.showMessage('select acoustic scene');
       return;
@@ -75,7 +77,10 @@ export class PollPageComponent implements OnInit {
       return;
     }
 
+    let isAudioPlaying = !this.audio.getPollAudio(this.currentTestIndex).paused;
+
     this.unselectScenes();
+    this.audio.pauseAllPollAudio();
     this.currentTestIndex += 1;
 
     if (this.currentTestIndex === this.testCount) {
@@ -86,78 +91,51 @@ export class PollPageComponent implements OnInit {
         answer: this.answers,
         assignedSetId: this.audio.pollAudioSetId
       });
-      this.audio.pauseAllPollAudio();
       this.router.navigate(['finish']);
       return;
-    } else if(this.currentTestIndex >= 1) {
-      if(!this.audio.getPollAudio(this.currentTestIndex - 1).paused) {
+    } 
+    else {
+      if(isAudioPlaying) {
         this.audio.playPollAudio(this.currentTestIndex);
       }
     }
-    this.updateCurrentAudio();
     
-    console.log(this.audio.getPollAudio(this.currentTestIndex).paused);
+    // console.log(this.audio.getPollAudio(this.currentTestIndex).paused);
     if (this.answers[this.currentTestIndex] !== 'none') {
       this.selectScene(document.getElementById(this.answers[this.currentTestIndex]));
       this.wasAudioPlayed = true;
-      // console.log('if');
     }
     else if (this.audio.getPollAudio(this.currentTestIndex).paused === false) {
       this.wasAudioPlayed = true;
-      // console.log('else if');
     }
     else {
       this.wasAudioPlayed = false;
-      // console.log('else');
     }
   }
 
   public goToPreviousTest(): void {
+    let isAudioPlaying = !this.audio.getPollAudio(this.currentTestIndex).paused;
+
     this.unselectScenes();
+    this.audio.pauseAllPollAudio();
     this.currentTestIndex -= 1;
 
     if (this.currentTestIndex === -1) {
       // save results
-      this.audio.pauseAllPollAudio();
       this.router.navigate(['headphones-test']);
       return;
-    } else {
-      if(!this.audio.getPollAudio(this.currentTestIndex + 1).paused) {
+    } 
+    else {
+      if(isAudioPlaying) {
         this.audio.playPollAudio(this.currentTestIndex);
       }
     }
-    this.updateCurrentAudio();
 
     if (this.answers[this.currentTestIndex] !== 'none') {
       this.selectScene(document.getElementById(this.answers[this.currentTestIndex]));
       this.wasAudioPlayed = true;
     }
   }
-
-  private updateCurrentAudio(): void {
-    const iconId = 'audio-icon';
-    if (this.audio.getPollAudio(this.currentTestIndex).paused) {
-      document.getElementById(iconId).textContent = 'play_circle_outline';
-    }
-    else {
-      document.getElementById(iconId).textContent = 'paused';
-    }
-  }
-
-  private unselectScenes(): void {
-    let selectSceneButtons = document.getElementsByClassName('scene-select-button');
-    for (let i = 0; i < selectSceneButtons.length; ++i) {
-      // selectSceneButtons.item(i).setAttribute('style', 'background-color: gray');
-      selectSceneButtons.item(i).getElementsByTagName('img').item(0).classList.add('grayscale');
-      selectSceneButtons.item(i).getElementsByTagName('img').item(0).classList.remove('selected-border');
-    }
-  }
-
-  private turnOffTheAudio() {
-    this.audio.pauseAllPollAudio();
-    document.getElementById('audio-icon').textContent = 'play_circle_outline';
-  }
-
 
   public onFurtherHelpClick() {
     this.turnOffTheAudio();
@@ -166,8 +144,20 @@ export class PollPageComponent implements OnInit {
       width: '400px',
     });
     dialogRef.afterClosed().subscribe(() => {
-      // this.audio.pause();
       this.turnOffTheAudio();
+    });
+  }
+
+  private turnOffTheAudio() {
+    this.audioButton.pause();
+    this.audio.pauseAllPollAudio();
+  }
+
+  private showMessage(msg: string) {
+    this.snackbar.open(msg, null, {
+      duration: 2000,
+      verticalPosition: "top",
+      panelClass: ['my-snackbar'],
     });
   }
 
@@ -180,31 +170,7 @@ export class PollPageComponent implements OnInit {
       this.goToNextTest();
     }
     else if (event.key === ' ') {
-      document.getElementById('audio-button').blur();
-      
-      for (let i = 0; i < document.getElementsByClassName('scene-select-button').length; ++i) {
-        (document.getElementsByClassName('scene-select-button').item(i) as HTMLElement).blur();
-      }
-      this.toggleAudio();
+      this.onAudioButtonClick();
     }
-  }
-
-  private shuffle(array): Array<any> {
-    var currentIndex = array.length, temporaryValue, randomIndex;
-  
-    // While there remain elements to shuffle...
-    while (0 !== currentIndex) {
-  
-      // Pick a remaining element...
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-  
-      // And swap it with the current element.
-      temporaryValue = array[currentIndex];
-      array[currentIndex] = array[randomIndex];
-      array[randomIndex] = temporaryValue;
-    }
-  
-    return array;
   }
 }

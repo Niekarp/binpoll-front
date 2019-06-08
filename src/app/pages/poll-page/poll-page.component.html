@@ -10,9 +10,7 @@
 </header>
 <section class="page-content">
   <div id="audio-toggle-button-container">
-    <button mat-stroked-button id="audio-button" class="navigation-button" (click)="toggleAudio()">
-      <mat-icon id="audio-icon" class="play-icon">play_circle_outline</mat-icon>
-    </button>
+    <app-play-audio-button #audioButton (onClick)="onAudioButtonClick()"></app-play-audio-button>
   </div>
   <div id="scene-select-container" fxLayout="row">
     <div fxFlex="33%" fxLayoutAlign="center center">
