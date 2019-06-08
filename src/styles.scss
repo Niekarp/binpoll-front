@@ -75,8 +75,14 @@
 	background-color: gray;
 }
 
-.spinner-text {
-	color: white;
-	padding: 50px;
-	font-size: 25px;
+.loading-text {
+	position: absolute;
+	top: 50% !important;
+	left: 50% !important;
+	padding-top: 190px;
+
+	.spinner-text {
+		color: white;
+		font-size: 25px;
+	}
 }
