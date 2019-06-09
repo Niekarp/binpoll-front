@@ -66,12 +66,12 @@ export class QuestionnairePageComponent implements OnInit {
   }
 
   goToPreviousPage() {
-    this.router.navigate(['/']);
+    this.router.navigateByUrl('/', { skipLocationChange: true });
   }
 
   gotoNextPage() {
     // this.audio.testAudio();
-    this.router.navigate(['/poll-description']);
+    this.router.navigateByUrl('/poll-description', { skipLocationChange: true });
   }
 
   @HostListener('window:keydown', ['$event'])

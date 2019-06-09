@@ -14,7 +14,7 @@ export class PolicyPageComponent implements OnInit {
   }
 
   goToPreviousPage() {
-    this.router.navigate(['/']);
+    this.router.navigateByUrl('/', { skipLocationChange: true });
   }
 
   @HostListener('window:keydown', ['$event'])

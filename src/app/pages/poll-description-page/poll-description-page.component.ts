@@ -19,11 +19,11 @@ export class PollDescriptionPageComponent implements OnInit {
   }
 
   goToPreviousPage() {
-    this.router.navigate(['/questionnaire']);
+    this.router.navigateByUrl('/questionnaire', { skipLocationChange: true });
   }
 
   gotoNextPage() {
-    this.router.navigate(['/terms-front-scene']);
+    this.router.navigateByUrl('/terms-front-scene', { skipLocationChange: true });
   }
 
   @HostListener('window:keydown', ['$event'])

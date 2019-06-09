@@ -14,11 +14,11 @@ export class TermsSoundsPageComponent implements OnInit {
   }
 
   goToPreviousPage() {
-    this.router.navigate(['/poll-description']);
+    this.router.navigateByUrl('/poll-description', { skipLocationChange: true });
   }
 
   gotoNextPage() {
-    this.router.navigate(['/terms-front-scene']);
+    this.router.navigateByUrl('/terms-front-scene', { skipLocationChange: true });
   }
 
   @HostListener('window:keydown', ['$event'])

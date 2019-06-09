@@ -14,11 +14,11 @@ export class TermsAllAroundScenePageComponent implements OnInit {
   }
 
   goToPreviousPage() {
-    this.router.navigate(['/terms-back-scene']);
+    this.router.navigateByUrl('/terms-back-scene', { skipLocationChange: true });
   }
 
   gotoNextPage() {
-    this.router.navigate(['/headphones-test']);
+    this.router.navigateByUrl('/headphones-test', { skipLocationChange: true });
   }
 
   @HostListener('window:keydown', ['$event'])

@@ -26,10 +26,11 @@ const routes: Routes = [
   { path: 'poll', component: PollPageComponent },
   { path: 'finish', component: FinishPageComponent },
   { path: 'report-problem', component: ReportProblemPageComponent },
+  { path: '**', component: WelcomePageComponent },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { initialNavigation: false })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

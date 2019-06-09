@@ -83,12 +83,12 @@ export class HeadphonesTestComponent implements OnInit {
 
   goToPreviousPage() {
     this.audio.pauseHeadphonesTestAudio();
-    this.router.navigate(['/terms-all-around-scene']);
+    this.router.navigateByUrl('/terms-all-around-scene', { skipLocationChange: true });
   }
 
   gotoNextPage() {
     this.audio.pauseHeadphonesTestAudio();
-    this.router.navigate(['/poll']);
+    this.router.navigateByUrl('/poll', { skipLocationChange: true });
   }
 
   @HostListener('window:keydown', ['$event'])

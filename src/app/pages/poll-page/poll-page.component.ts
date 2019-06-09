@@ -109,7 +109,7 @@ export class PollPageComponent implements OnInit {
         answer: this.answers,
         assignedSetId: this.audio.pollAudioSetId
       }, JSON.parse(sessionStorage.getItem('questionnaire')));
-      this.router.navigate(['finish']);
+      this.router.navigateByUrl('finish', { skipLocationChange: true });
       return;
     } 
     else {
@@ -139,7 +139,7 @@ export class PollPageComponent implements OnInit {
 
     if (this.currentTestIndex === -1) {
       // save results
-      this.router.navigate(['headphones-test']);
+      this.router.navigateByUrl('headphones-test', { skipLocationChange: true });
       return;
     } 
     else {

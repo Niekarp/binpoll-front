@@ -20,6 +20,8 @@ export class WelcomePageComponent implements OnInit {
    }
 
   ngOnInit() {
+    console.log('test');
+    this.router.initialNavigation();
     sessionStorage.clear();
   }
 
@@ -46,7 +48,7 @@ export class WelcomePageComponent implements OnInit {
   }
 
   gotoNextPage() {
-    this.router.navigate(['/questionnaire']);
+    this.router.navigateByUrl('/questionnaire', { skipLocationChange: true });
   }
 
   @HostListener('window:keydown', ['$event'])

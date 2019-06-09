@@ -24,6 +24,6 @@ export class FurtherHelpDialogComponent implements OnInit {
 
   onReportProblemClick() {
     this.dialogRef.close();
-    this.router.navigate(['/report-problem']);
+    this.router.navigateByUrl('/report-problem', { skipLocationChange: true });
   }
 }
