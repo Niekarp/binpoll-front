@@ -20,7 +20,6 @@ export class WelcomePageComponent implements OnInit {
    }
 
   ngOnInit() {
-    console.log('test');
     this.router.initialNavigation();
     sessionStorage.clear();
   }
