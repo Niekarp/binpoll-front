@@ -40,7 +40,7 @@
 	border: 1px solid $textarea-border-color;
 	textarea {
 		height: 60px;
-		resize: none;
+		resize: none !important;
 	}
 	.mat-form-field {
 		width: 90%;

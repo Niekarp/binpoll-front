@@ -10,24 +10,23 @@
 	font-size: 18px;
 }
 
-/* #headphones-answer-area {
-	width: 100%;
-	height: 90%;
-	padding: 0px;
-	background-color: $textarea-background-color;
-	border: 1px solid $textarea-border-color;
+#headphones-answer-area {
 	textarea {
 		height: 60px;
 		resize: none;
 	}
-	.mat-form-field {
+	/* width: 100%;
+	height: 90%;
+	padding: 0px;
+	background-color: $textarea-background-color;
+	border: 1px solid $textarea-border-color; */
+/* 	.mat-form-field {
 		width: 90%;
 		height: 100%;
 		padding: 20px;
 		font-size: 24px;
 	}
-} */
-.textarea {
+	*/
 }
 
 .mat-radio-button ~ .mat-radio-button {
