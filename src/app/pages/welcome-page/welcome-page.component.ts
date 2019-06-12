@@ -42,7 +42,7 @@ export class WelcomePageComponent implements OnInit {
       this.snackbar.open('terms and policy must be accepted', null, {
         duration: 2000,
         verticalPosition: "top",
-        panelClass: ['my-snackbar']
+        panelClass: ['my-snackbar-problem']
       });
     }
   }

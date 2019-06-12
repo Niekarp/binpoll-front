@@ -174,7 +174,7 @@ export class PollPageComponent implements OnInit {
     this.snackbar.open(msg, null, {
       duration: 2000,
       verticalPosition: "top",
-      panelClass: ['my-snackbar'],
+      panelClass: ['my-snackbar-problem'],
     });
   }
 

@@ -10,44 +10,10 @@
 	font-size: 18px;
 }
 
-#headphones-answer-area {
-	textarea {
-		height: 60px;
-		resize: none;
-	}
-	/* width: 100%;
-	height: 90%;
-	padding: 0px;
-	background-color: $textarea-background-color;
-	border: 1px solid $textarea-border-color; */
-/* 	.mat-form-field {
-		width: 90%;
-		height: 100%;
-		padding: 20px;
-		font-size: 24px;
-	}
-	*/
-}
-
 .mat-radio-button ~ .mat-radio-button {
   margin-left: 24px;
 }
 
 ::ng-deep mat-grid-tile:last-of-type > .mat-figure {
 	align-items: baseline !important;
-}
-
-::ng-deep .my-snackbar {
-	min-width: 250px !important;
-	height: 50px;
-	display: block;
-	margin-top: 330px !important;
-	background: tomato;
-	text-align: center;
-}
-
-::ng-deep .my-snackbar .mat-simple-snackbar {
-	justify-content: center;
-	font-size: 24px;
-	color: white;
 }

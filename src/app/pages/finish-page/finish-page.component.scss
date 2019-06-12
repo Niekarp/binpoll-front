@@ -24,18 +24,3 @@
 		font-size: 24px;
 	}
 }
-
-::ng-deep .my-snackbar {
-	min-width: 250px !important;
-	height: 50px;
-	display: block;
-	margin-top: 330px !important;
-	background: green;
-	text-align: center;
-}
-
-::ng-deep .my-snackbar .mat-simple-snackbar {
-	justify-content: center;
-	font-size: 24px;
-	color: white;
-}

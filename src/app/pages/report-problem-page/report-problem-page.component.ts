@@ -20,7 +20,7 @@ export class ReportProblemPageComponent implements OnInit {
       this.snackbar.open('report has been sent', null, {
         duration: 2000,
         verticalPosition: "top",
-        panelClass: ['my-snackbar']
+        panelClass: ['my-snackbar-confirm']
       });
       (document.getElementsByClassName('navigation-button').item(0) as HTMLElement).style.backgroundColor = 'gray';
       this.isReportSend = true;

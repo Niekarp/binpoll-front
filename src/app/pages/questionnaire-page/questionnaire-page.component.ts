@@ -48,7 +48,7 @@ export class QuestionnairePageComponent implements OnInit {
         this.snackbar.open('the first three fields are required', null, {
           duration: 2000,
           verticalPosition: "top",
-          panelClass: ['my-snackbar']
+          panelClass: ['my-snackbar-problem']
         });
         return false;
     }

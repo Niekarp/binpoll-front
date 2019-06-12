@@ -30,21 +30,6 @@
 	font-size: 23px;
 }
 
-::ng-deep .my-snackbar {
-	min-width: 500px !important;
-	height: 50px;
-	display: block;
-	margin-top: 330px !important;
-	background: tomato;
-	text-align: center;
-}
-
-::ng-deep .my-snackbar .mat-simple-snackbar {
-	justify-content: center;
-	font-size: 24px;
-	color: white;
-}
-
 ::ng-deep .mat-checkbox-inner-container-no-side-margin {
 	transform: scale(1.8) translate(6px, 4px) !important;
 }
