@@ -2,6 +2,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { SharedConfig } from '../../config/shared-config';
 import { Router } from '@angular/router';
 import { MatCheckboxChange, MatSnackBar } from '@angular/material';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-welcome-page',
@@ -20,16 +21,15 @@ export class WelcomePageComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.router.initialNavigation();
     sessionStorage.clear();
   }
 
   public onConsentCheckboxChange(change: MatCheckboxChange) {
     if (change.checked) {
-      (document.getElementsByClassName('navigation-button').item(0) as HTMLElement).style.backgroundColor = 'rgb(91, 155, 213)';
+      $(".navigation-button").css('backgroundColor', 'rgb(91, 155, 213)');
     }
     else {
-      (document.getElementsByClassName('navigation-button').item(0) as HTMLElement).style.backgroundColor = 'gray';
+      $(".navigation-button").css('backgroundColor', 'gray');
     }
   }
 

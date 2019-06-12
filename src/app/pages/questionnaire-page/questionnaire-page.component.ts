@@ -18,10 +18,6 @@ export class QuestionnairePageComponent implements OnInit {
   
   public model = new Questionnaire();
 
-  // public selectedAge: string;
-  // public selectedHearingDifficulties: boolean;
-  // public selectedListeningTestParticipation: boolean;
-  // public typedHeadphonesMakeAndModel: string;
   public ages: Age[] = [
     { value: 'Under 18', viewValue: 'Under 18' },
     { value: '18-24', viewValue: '18-24' },
@@ -37,9 +33,6 @@ export class QuestionnairePageComponent implements OnInit {
     this.audio.loadAudioPlayers();
   }
   
-  // this.typedHeadphonesMakeAndModel == undefined ||
-  // this.typedHeadphonesMakeAndModel == "" || 
-  // this.typedHeadphonesMakeAndModel.replace(/\s/g, '').length == 0
   public validateForm(): boolean {
     if (this.model.age == undefined || 
         this.model.hearingDifficulties == undefined ||
@@ -59,7 +52,6 @@ export class QuestionnairePageComponent implements OnInit {
 
   goToNextPageIfFormIsValid() {
     if (this.validateForm()) {
-      console.log(JSON.stringify(this.model));
       sessionStorage.setItem('questionnaire', JSON.stringify(this.model));
       this.gotoNextPage();
     }
@@ -70,7 +62,6 @@ export class QuestionnairePageComponent implements OnInit {
   }
 
   gotoNextPage() {
-    // this.audio.testAudio();
     this.router.navigateByUrl('/poll-description', { skipLocationChange: true });
   }
 

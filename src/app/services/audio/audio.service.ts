@@ -30,7 +30,6 @@ export class AudioService {
     this.pollLoadedCount = 0;
 
     let baseUrl = '/assets/headphones test sounds/';
-    let filename = '';
 
     let leftTestUrl = baseUrl + 'Hungarian_1_hrtf4_sector4.wav';
     let rightTestUrl = baseUrl + 'Hungarian_1_hrtf4_sector2.wav';
@@ -183,14 +182,14 @@ export class AudioService {
   private loadTestAudioPlayer(url: string, audio: HTMLAudioElement) {
     this.loadAudioPlayer(url, audio, () => { 
       this.testLoadedCount += 1;
-      console.log('test loaded count: ' + this.testLoadedCount); 
+      console.log('headset-test loaded audio count: ' + this.testLoadedCount); 
     });
   }
 
   private loadPollAudioPlayer(url: string, audio: HTMLAudioElement) {
     this.loadAudioPlayer(url, audio, () => { 
       this.pollLoadedCount += 1; 
-      console.log('poll loaded count: ' + this.pollLoadedCount); 
+      console.log('poll loaded audio count: ' + this.pollLoadedCount); 
     });
   }
 }
