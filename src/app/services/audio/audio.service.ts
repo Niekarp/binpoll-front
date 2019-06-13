@@ -31,8 +31,8 @@ export class AudioService {
 
     let baseUrl = '/assets/headphones test sounds/';
 
-    let leftTestUrl = baseUrl + 'Hungarian_1_hrtf4_sector4.wav';
-    let rightTestUrl = baseUrl + 'Hungarian_1_hrtf4_sector2.wav';
+    let leftTestUrl = baseUrl + 'Hungarian_1_hrtf4_sector2.wav';
+    let rightTestUrl = baseUrl + 'Hungarian_1_hrtf4_sector4.wav';
     let leftTestPlayer = this.audioPlayers.headphonesTestPlayers.get('left');
     let rightTestPlayer = this.audioPlayers.headphonesTestPlayers.get('right');
 
