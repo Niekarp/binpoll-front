@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,5 +11,10 @@ export class AppComponent {
   
   constructor(router:Router) {
     router.navigate(['/'], { replaceUrl: true });
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  displayDialogWithWarning($event) {
+    $event.returnValue = true;
   }
 }
