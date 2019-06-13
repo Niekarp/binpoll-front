@@ -33,6 +33,10 @@
 	}
 }
 
+app-navigation-button ~ app-navigation-button {
+	margin-right: 16px;
+}
+
 .mat-raised-button ~ .mat-raised-button {
 	margin-right: 16px;
 }

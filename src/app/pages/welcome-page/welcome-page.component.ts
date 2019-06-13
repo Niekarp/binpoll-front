@@ -15,7 +15,7 @@ export class WelcomePageComponent implements OnInit {
   public testCount: number;
   public appVersion: string;
 
-  constructor(private router: Router, public sharedConfig: SharedConfig, public snackbar: MatSnackBar) { 
+  constructor(public sharedConfig: SharedConfig, public snackbar: MatSnackBar) { 
     this.appVersion = sharedConfig.appVersion;
     this.testCount = sharedConfig.testCount;
    }
@@ -23,36 +23,18 @@ export class WelcomePageComponent implements OnInit {
   ngOnInit() {
   }
 
-  public onConsentCheckboxChange(change: MatCheckboxChange) {
-    if (change.checked) {
-      $(".navigation-button").css('backgroundColor', 'rgb(91, 155, 213)');
-    }
-    else {
-      $(".navigation-button").css('backgroundColor', 'gray');
-    }
-  }
-
-  goToNextPageIfConsentIsGiven() {
-    if (this.consentChecked) {
-      this.gotoNextPage();
-    }
-    else {
-      this.snackbar.open('terms and policy must be accepted', null, {
-        duration: 2000,
-        verticalPosition: "top",
-        panelClass: ['my-snackbar-problem']
-      });
-    }
-  }
-
-  gotoNextPage() {
-    this.router.navigateByUrl('/questionnaire', { skipLocationChange: true });
+  public showProblemMessage() {
+    this.snackbar.open('terms and policy must be accepted', null, {
+      duration: 2000,
+      verticalPosition: "top",
+      panelClass: ['my-snackbar-problem']
+    });
   }
 
   @HostListener('window:keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {
     if (event.key === 'ArrowRight') {
-      this.goToNextPageIfConsentIsGiven();
+      // this.goToNextPageIfConsentIsGiven();
     }
   }
 }

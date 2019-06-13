@@ -17,8 +17,7 @@ export class HeadphonesTestComponent implements OnInit {
   @ViewChild('rightAudioButton') rightAudioButton: PlayAudioButtonComponent;
   @ViewChild('spinnerText') spinnerText: ElementRef;
 
-  constructor(private router: Router,
-              private dialog: MatDialog,
+  constructor(private dialog: MatDialog,
               private audio: AudioService,
               private spinner: NgxSpinnerService) { }
 
@@ -82,21 +81,15 @@ export class HeadphonesTestComponent implements OnInit {
     });
   }
 
-  goToPreviousPage() {
+  stopAudio() {
     this.audio.pauseHeadphonesTestAudio();
-    this.router.navigateByUrl('/terms-all-around-scene', { skipLocationChange: true });
-  }
-
-  gotoNextPage() {
-    this.audio.pauseHeadphonesTestAudio();
-    this.router.navigateByUrl('/poll', { skipLocationChange: true });
   }
 
   @HostListener('window:keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {
     if (this.audio.isAllTestAudioLoaded() === false) return;
 
-    if (event.key === 'ArrowLeft')       this.goToPreviousPage();
-    else if (event.key === 'ArrowRight') this.gotoNextPage();
+    // if (event.key === 'ArrowLeft')       this.goToPreviousPage();
+    // else if (event.key === 'ArrowRight') this.gotoNextPage();
   }
 }

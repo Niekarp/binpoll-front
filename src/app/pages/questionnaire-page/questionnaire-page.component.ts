@@ -28,8 +28,7 @@ export class QuestionnairePageComponent implements OnInit {
     { value: 'Above 54', viewValue: 'Above 54' }
   ];
 
-  constructor(private router: Router,
-              public snackbar: MatSnackBar, 
+  constructor(public snackbar: MatSnackBar, 
               public audio: AudioService,
               public data: DataService) { }
 
@@ -37,36 +36,19 @@ export class QuestionnairePageComponent implements OnInit {
     this.audio.loadAudioPlayers();
     this.model = this.data.questionnaire;
   }
+
+  public get formValid() {
+    return this.model.age !== undefined &&
+           this.model.hearingDifficulties !== undefined &&
+           this.model.listeningTestParticipation !== undefined 
+  }
   
-  public validateForm(): boolean {
-    if (this.model.age == undefined || 
-        this.model.hearingDifficulties == undefined ||
-        this.model.listeningTestParticipation == undefined)
-    {
-        this.snackbar.open('the first three fields are required', null, {
-          duration: 2000,
-          verticalPosition: "top",
-          panelClass: ['my-snackbar-problem']
-        });
-        return false;
-    }
-    else {
-      return true;
-    }
-  }
-
-  goToNextPageIfFormIsValid() {
-    if (this.validateForm()) {
-      this.gotoNextPage();
-    }
-  }
-
-  goToPreviousPage() {
-    this.router.navigateByUrl('/', { skipLocationChange: true });
-  }
-
-  gotoNextPage() {
-    this.router.navigateByUrl('/poll-description', { skipLocationChange: true });
+  public showProblemMessage() {
+    this.snackbar.open('the first three fields are required', null, {
+      duration: 2000,
+      verticalPosition: "top",
+      panelClass: ['my-snackbar-problem']
+    });
   }
 
   @HostListener('window:keydown', ['$event'])
@@ -75,11 +57,11 @@ export class QuestionnairePageComponent implements OnInit {
       return;
     }
     if (event.key === 'ArrowLeft') {
-      this.goToPreviousPage();
+      // this.goToPreviousPage();
     }
     else if (event.key === 'ArrowRight') {
-      if (this.validateForm()) {
-        this.gotoNextPage();
+      if (this.formValid) {
+        // this.gotoNextPage();
       }
     }
   }
