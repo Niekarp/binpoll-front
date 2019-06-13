@@ -56,7 +56,8 @@ export class PollPageComponent implements OnInit {
         console.log('audio loaded'); 
         this.spinner.hide();
       }, () => { 
-        this.spinnerText.nativeElement.innerText = this.audio.getPollLoadingProgressPercentage() + '%';
+        this.spinnerText.nativeElement.innerText = 'loading audio' 
+                                                    + ' (' + this.audio.getPollLoadingProgressPercentage() + '%)';
       }, () => {
         console.error('loading audio timeout') 
       });

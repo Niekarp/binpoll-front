@@ -34,7 +34,8 @@ export class HeadphonesTestComponent implements OnInit {
         console.log('audio loaded'); 
         this.spinner.hide();
       }, () => { 
-        this.spinnerText.nativeElement.innerText = this.audio.getTestLoadingProgressPercentage() + '%';
+        this.spinnerText.nativeElement.innerText = 'loading audio' 
+                                                    + '(' + this.audio.getTestLoadingProgressPercentage() + '%)';
       }, () => {
         console.error('loading audio timeout') 
       });
