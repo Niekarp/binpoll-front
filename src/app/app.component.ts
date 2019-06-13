@@ -10,6 +10,6 @@ export class AppComponent {
   title = 'binpoll-front';
   
   constructor(router:Router) {
-    router.navigate(['/']);
+    router.navigate(['/'], { replaceUrl: true });
   }
 }
