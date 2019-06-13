@@ -3,6 +3,7 @@ import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import { AudioService } from 'src/app/services/audio/audio.service';
 import { Questionnaire } from 'src/app/models/questionnaire';
+import { DataService } from 'src/app/services/data/data.service';
 
 export interface Age {
   value: String,
@@ -16,7 +17,7 @@ export interface Age {
 })
 export class QuestionnairePageComponent implements OnInit {
   
-  public model = new Questionnaire();
+  public model: Questionnaire;
 
   public ages: Age[] = [
     { value: 'Under 18', viewValue: 'Under 18' },
@@ -27,10 +28,14 @@ export class QuestionnairePageComponent implements OnInit {
     { value: 'Above 54', viewValue: 'Above 54' }
   ];
 
-  constructor(private router: Router, public snackbar: MatSnackBar, public audio: AudioService) { }
+  constructor(private router: Router,
+              public snackbar: MatSnackBar, 
+              public audio: AudioService,
+              public data: DataService) { }
 
   ngOnInit() {
     this.audio.loadAudioPlayers();
+    this.model = this.data.questionnaire;
   }
   
   public validateForm(): boolean {
@@ -52,7 +57,6 @@ export class QuestionnairePageComponent implements OnInit {
 
   goToNextPageIfFormIsValid() {
     if (this.validateForm()) {
-      sessionStorage.setItem('questionnaire', JSON.stringify(this.model));
       this.gotoNextPage();
     }
   }

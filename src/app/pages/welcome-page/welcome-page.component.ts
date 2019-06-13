@@ -21,7 +21,6 @@ export class WelcomePageComponent implements OnInit {
    }
 
   ngOnInit() {
-    sessionStorage.clear();
   }
 
   public onConsentCheckboxChange(change: MatCheckboxChange) {

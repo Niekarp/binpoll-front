@@ -7,6 +7,7 @@ import { ApiClientService } from '../../services/api-client/api-client.service';
 import { AudioService } from 'src/app/services/audio/audio.service';
 import { PlayAudioButtonComponent } from 'src/app/common/ui-elements/play-audio-button/play-audio-button.component';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { DataService } from 'src/app/services/data/data.service';
 
 @Component({
   selector: 'app-poll-page',
@@ -31,10 +32,11 @@ export class PollPageComponent implements OnInit {
               public dialog: MatDialog,
               public apiClient: ApiClientService,
               public audio: AudioService,
+              public data: DataService,
               private router: Router,
               private spinner: NgxSpinnerService) {
     this.testCount = sharedConfig.testCount;
-    
+
     console.log('start poll');
     this.startDate = new Date();
   }
@@ -108,7 +110,7 @@ export class PollPageComponent implements OnInit {
         endDate: new Date(),
         answer: this.answers,
         assignedSetId: this.audio.pollAudioSetId
-      }, JSON.parse(sessionStorage.getItem('questionnaire')));
+      }, this.data.questionnaire);
       this.router.navigateByUrl('finish', { skipLocationChange: true });
       return;
     } 

@@ -4,6 +4,7 @@ import { ConfigService } from '../../config/config.service'
 import { Observable, of, Subject } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
 import { Questionnaire } from 'src/app/models/questionnaire';
+import { DataService } from '../data/data.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ export class ApiClientService {
   private configObservable: Observable<any>;
 
   constructor(
+    public data: DataService,
     private http: HttpClient,
     private configService: ConfigService) { 
       this.configObservable = configService.getConfig();
@@ -43,7 +45,7 @@ export class ApiClientService {
             console.log('poll data sent: ', url);
             console.log(pollData);
             
-            sessionStorage.setItem('id', response['id']);
+            this.data.dataResponseId = response['id'];
             // console.log(JSON.stringify(response));
           });
       }
@@ -78,7 +80,7 @@ export class ApiClientService {
       } else {
         url += 'comment/';
         this.http.post(url, {
-          'poll_data': sessionStorage.getItem('id'),
+          'poll_data': this.data.dataResponseId,
           'message': comment
         }).pipe(
           catchError((err) => {
