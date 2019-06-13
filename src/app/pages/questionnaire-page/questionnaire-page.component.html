@@ -46,8 +46,11 @@
   </mat-grid-list>
 </section>
 <nav class="page-navigation">
-  <a mat-raised-button class="navigation-button" (click)="goToNextPageIfFormIsValid()">Next</a>
-  <a mat-raised-button class="navigation-button" (click)="goToPreviousPage()">Previous</a>
+  <app-navigation-button text="Next" destinationUrl="/poll-description" [condition]="formValid" 
+                         (failure)="showProblemMessage()">
+  </app-navigation-button>
+  <app-navigation-button text="Previous" destinationUrl="/">
+  </app-navigation-button>
 </nav>
 
 <!-- 

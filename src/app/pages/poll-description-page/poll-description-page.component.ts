@@ -11,28 +11,20 @@ export class PollDescriptionPageComponent implements OnInit {
 
   private testCount: number;
 
-  constructor(private router: Router, public sharedConfig: SharedConfig) {
+  constructor(public sharedConfig: SharedConfig) {
     this.testCount = sharedConfig.testCount;
   }
 
   ngOnInit() {
   }
 
-  goToPreviousPage() {
-    this.router.navigateByUrl('/questionnaire', { skipLocationChange: true });
-  }
-
-  gotoNextPage() {
-    this.router.navigateByUrl('/terms-front-scene', { skipLocationChange: true });
-  }
-
   @HostListener('window:keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {
     if (event.key === 'ArrowLeft') {
-      this.goToPreviousPage();
+      // this.goToPreviousPage();
     }
     else if (event.key === 'ArrowRight') {
-      this.gotoNextPage();
+      // this.gotoNextPage();
     }
   }
 }

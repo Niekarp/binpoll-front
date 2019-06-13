@@ -39,6 +39,7 @@ import { ReportProblemPageComponent } from './pages/report-problem-page/report-p
 import { PlayAudioButtonComponent } from './common/ui-elements/play-audio-button/play-audio-button.component';
 
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { NavigationButtonComponent } from './common/ui-elements/navigation-button/navigation-button.component';
 
 
 @NgModule({
@@ -57,7 +58,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     PolicyPageComponent,
     FurtherHelpDialogComponent,
     ReportProblemPageComponent,
-    PlayAudioButtonComponent
+    PlayAudioButtonComponent,
+    NavigationButtonComponent
   ],
   imports: [
     BrowserModule,

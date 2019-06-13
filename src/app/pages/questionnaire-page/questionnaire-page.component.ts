@@ -3,6 +3,7 @@ import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import { AudioService } from 'src/app/services/audio/audio.service';
 import { Questionnaire } from 'src/app/models/questionnaire';
+import { DataService } from 'src/app/services/data/data.service';
 
 export interface Age {
   value: String,
@@ -16,7 +17,7 @@ export interface Age {
 })
 export class QuestionnairePageComponent implements OnInit {
   
-  public model = new Questionnaire();
+  public model: Questionnaire;
 
   public ages: Age[] = [
     { value: 'Under 18', viewValue: 'Under 18' },
@@ -27,42 +28,27 @@ export class QuestionnairePageComponent implements OnInit {
     { value: 'Above 54', viewValue: 'Above 54' }
   ];
 
-  constructor(private router: Router, public snackbar: MatSnackBar, public audio: AudioService) { }
+  constructor(public snackbar: MatSnackBar, 
+              public audio: AudioService,
+              public data: DataService) { }
 
   ngOnInit() {
     this.audio.loadAudioPlayers();
+    this.model = this.data.questionnaire;
+  }
+
+  public get formValid() {
+    return this.model.age !== undefined &&
+           this.model.hearingDifficulties !== undefined &&
+           this.model.listeningTestParticipation !== undefined 
   }
   
-  public validateForm(): boolean {
-    if (this.model.age == undefined || 
-        this.model.hearingDifficulties == undefined ||
-        this.model.listeningTestParticipation == undefined)
-    {
-        this.snackbar.open('the first three fields are required', null, {
-          duration: 2000,
-          verticalPosition: "top",
-          panelClass: ['my-snackbar-problem']
-        });
-        return false;
-    }
-    else {
-      return true;
-    }
-  }
-
-  goToNextPageIfFormIsValid() {
-    if (this.validateForm()) {
-      sessionStorage.setItem('questionnaire', JSON.stringify(this.model));
-      this.gotoNextPage();
-    }
-  }
-
-  goToPreviousPage() {
-    this.router.navigateByUrl('/', { skipLocationChange: true });
-  }
-
-  gotoNextPage() {
-    this.router.navigateByUrl('/poll-description', { skipLocationChange: true });
+  public showProblemMessage() {
+    this.snackbar.open('the first three fields are required', null, {
+      duration: 2000,
+      verticalPosition: "top",
+      panelClass: ['my-snackbar-problem']
+    });
   }
 
   @HostListener('window:keydown', ['$event'])
@@ -71,11 +57,11 @@ export class QuestionnairePageComponent implements OnInit {
       return;
     }
     if (event.key === 'ArrowLeft') {
-      this.goToPreviousPage();
+      // this.goToPreviousPage();
     }
     else if (event.key === 'ArrowRight') {
-      if (this.validateForm()) {
-        this.gotoNextPage();
+      if (this.formValid) {
+        // this.gotoNextPage();
       }
     }
   }

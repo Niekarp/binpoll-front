@@ -8,26 +8,18 @@ import { Router } from '@angular/router';
 })
 export class TermsBackScenePageComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor() { }
 
   ngOnInit() {
-  }
-
-  goToPreviousPage() {
-    this.router.navigateByUrl('/terms-front-scene', { skipLocationChange: true });
-  }
-
-  gotoNextPage() {
-    this.router.navigateByUrl('/terms-all-around-scene', { skipLocationChange: true });
   }
 
   @HostListener('window:keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {
     if (event.key === 'ArrowLeft') {
-      this.goToPreviousPage();
+      // this.goToPreviousPage();
     }
     else if (event.key === 'ArrowRight') {
-      this.gotoNextPage();
+      // this.gotoNextPage();
     }
   }
 }

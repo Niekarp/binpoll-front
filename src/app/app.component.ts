@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,6 +10,11 @@ export class AppComponent {
   title = 'binpoll-front';
   
   constructor(router:Router) {
-    router.navigate(['/']);
+    router.navigate(['/'], { replaceUrl: true });
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  displayDialogWithWarning($event) {
+    $event.returnValue = true;
   }
 }

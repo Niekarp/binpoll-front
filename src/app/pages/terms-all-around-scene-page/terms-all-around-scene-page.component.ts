@@ -13,21 +13,13 @@ export class TermsAllAroundScenePageComponent implements OnInit {
   ngOnInit() {
   }
 
-  goToPreviousPage() {
-    this.router.navigateByUrl('/terms-back-scene', { skipLocationChange: true });
-  }
-
-  gotoNextPage() {
-    this.router.navigateByUrl('/headphones-test', { skipLocationChange: true });
-  }
-
   @HostListener('window:keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {
     if (event.key === 'ArrowLeft') {
-      this.goToPreviousPage();
+      // this.goToPreviousPage();
     }
     else if (event.key === 'ArrowRight') {
-      this.gotoNextPage();
+      // this.gotoNextPage();
     }
   }
 }
