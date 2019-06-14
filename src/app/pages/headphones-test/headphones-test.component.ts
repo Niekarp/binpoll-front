@@ -24,6 +24,7 @@ export class HeadphonesTestComponent implements OnInit {
               public keyboardNav: KeyboardNavigationService) { }
 
   ngOnInit() {
+    this.keyboardNav.active = true;
     this.keyboardNav.goBackCondition = () => { return this.audio.isAllTestAudioLoaded(); }
     this.keyboardNav.goNextCondition = () => { return this.audio.isAllTestAudioLoaded(); };
 

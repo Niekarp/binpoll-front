@@ -40,8 +40,10 @@ export class KeyboardNavigationService {
           this.onGoBackConditionOK();
           this.router.navigateByUrl(this.router.config[currentRouteIndex - 1].path, { skipLocationChange: true });
         }
-        else
+        else {
           this.onGoBackConditionFail();
+        }
+        event.stopPropagation();
       }
       else if (event.key === 'ArrowRight') {
         // console.log('right arrow down');
@@ -50,11 +52,12 @@ export class KeyboardNavigationService {
           this.onGoNextConditionOK();
           this.router.navigateByUrl(this.router.config[currentRouteIndex + 1].path, { skipLocationChange: true });
         }
-        else
+        else {
           this.onGoNextConditionFail();
+        }        
+        event.stopPropagation();
       }
-      event.stopPropagation();
-      });
+    });
   }
   /*
   onKeyDown(event: KeyboardEvent) {
