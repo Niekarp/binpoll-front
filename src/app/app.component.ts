@@ -1,6 +1,7 @@
 import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { KeyboardNavigationService } from './services/keyboard-navigation/keyboard-navigation.service';
+import { DataService } from './services/data/data.service';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,7 @@ import { KeyboardNavigationService } from './services/keyboard-navigation/keyboa
 export class AppComponent {
   title = 'binpoll-front';
   
-  constructor(public router: Router, public keyboardNav: KeyboardNavigationService) {
+  constructor(public router: Router, public keyboardNav: KeyboardNavigationService, public data: DataService) {
     this.router.navigate(['/'], { replaceUrl: true });
     this.keyboardNav.router = this.router;
     this.keyboardNav.active = true;
@@ -20,8 +21,8 @@ export class AppComponent {
 
   onActivate($event)
 	{
-		console.log('onActivate called');
-    console.log($event);
+		// console.log('onActivate called');
+    // console.log($event);
     
     this.keyboardNav.goBackCondition = () => { return false };
     this.keyboardNav.goNextCondition = () => { return false };
@@ -30,6 +31,9 @@ export class AppComponent {
 
   @HostListener('window:beforeunload', ['$event'])
   displayDialogWithWarning($event) {
-    $event.returnValue = true;
+    if (this.data.stupidThing)
+      $event.returnValue = true;
+    else
+      $event = undefined;
   }
 }

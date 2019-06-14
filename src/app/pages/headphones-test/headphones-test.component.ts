@@ -27,6 +27,9 @@ export class HeadphonesTestComponent implements OnInit {
     this.keyboardNav.goBackCondition = () => { return this.audio.isAllTestAudioLoaded(); }
     this.keyboardNav.goNextCondition = () => { return this.audio.isAllTestAudioLoaded(); };
 
+    this.keyboardNav.onGoNextConditionOK = () => { this.audio.pauseHeadphonesTestAudio(); }
+    this.keyboardNav.onGoBackConditionOK = () => { this.audio.pauseHeadphonesTestAudio(); }
+
     this.audio.loadAudioPlayers();
 
     if (this.audio.isAllTestAudioLoaded() === false) {

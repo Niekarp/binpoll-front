@@ -15,7 +15,11 @@ export class KeyboardNavigationService {
   public goBackCondition: () => boolean;
   public goNextCondition: () => boolean;
 
+  public onGoNextConditionOK = () => {};
   public onGoNextConditionFail = () => {};
+
+  public onGoBackConditionOK = () => {};
+  public onGoBackConditionFail = () => {};
 
   constructor() { 
     // window.addEventListener('keydown', this.onKeyDown); 
@@ -31,14 +35,20 @@ export class KeyboardNavigationService {
     // console.log('idx: ' + currentRouteIndex);
 
     if (event.key === 'ArrowLeft') {
-      if (this.goBackCondition()) 
+      if (this.goBackCondition()) {
+        this.onGoBackConditionOK();
         this.router.navigateByUrl(this.router.config[currentRouteIndex - 1].path, { skipLocationChange: true });
+      }
+      else
+        this.onGoBackConditionFail();
     }
     else if (event.key === 'ArrowRight') {
       // console.log('right arrow down');
       // console.log(this.goNextCondition());
-      if (this.goNextCondition()) 
+      if (this.goNextCondition()) {
+        this.onGoNextConditionOK();
         this.router.navigateByUrl(this.router.config[currentRouteIndex + 1].path, { skipLocationChange: true });
+      }
       else
         this.onGoNextConditionFail();
     }
