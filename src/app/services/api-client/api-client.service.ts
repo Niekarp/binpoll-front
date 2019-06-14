@@ -21,7 +21,7 @@ export class ApiClientService {
     }
 
   
-  public sendPollData(pollData: PollData, questionnaire: Questionnaire): void {
+  public sendPollData(pollData: PollData): void {
     this.configObservable.subscribe(config => {
       let url: string = config['apiUrl'];
       if(url == null) {
@@ -33,10 +33,7 @@ export class ApiClientService {
           'end_date': pollData.endDate.toISOString(),
           'assigned_set_id': pollData.assignedSetId,
           'answer': pollData.answer.join(','),
-          'age': questionnaire.age,
-          'hearing_difficulties': questionnaire.hearingDifficulties,
-          'listening_test_participated': questionnaire.listeningTestParticipation,
-          'headphones_make_and_model': questionnaire.typedHeadphonesMakeAndModel
+          'user_info': pollData.userInfo
         }).pipe(
           catchError((err) => {
             console.error(err);

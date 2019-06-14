@@ -110,8 +110,14 @@ export class PollPageComponent implements OnInit {
         startDate: this.startDate,
         endDate: new Date(),
         answer: this.answers,
-        assignedSetId: this.audio.pollAudioSetId
-      }, this.data.questionnaire);
+        assignedSetId: this.audio.pollAudioSetId,
+        userInfo: {
+          age: this.data.questionnaire.age,
+          hearing_difficulties: this.data.questionnaire.hearingDifficulties,
+          headphones_make_and_model: this.data.questionnaire.typedHeadphonesMakeAndModel,
+          listening_test_participated: this.data.questionnaire.listeningTestParticipation
+        }
+      });
       this.router.navigateByUrl('finish', { skipLocationChange: true });
       return;
     } 
