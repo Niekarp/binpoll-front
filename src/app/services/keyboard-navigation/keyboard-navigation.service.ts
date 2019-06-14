@@ -25,6 +25,7 @@ export class KeyboardNavigationService {
     // window.addEventListener('keydown', this.onKeyDown); 
 
     fromEvent(document, 'keydown').subscribe((event: KeyboardEvent) => {
+      console.log('navigation keydown');
     if (this.active === false) return;
     // console.log('activated');
 
@@ -52,6 +53,7 @@ export class KeyboardNavigationService {
       else
         this.onGoNextConditionFail();
     }
+    event.stopPropagation();
     });
   }
   /*
