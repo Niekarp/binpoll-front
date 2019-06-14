@@ -26,35 +26,35 @@ export class KeyboardNavigationService {
 
     fromEvent(document, 'keydown').subscribe((event: KeyboardEvent) => {
       console.log('navigation keydown');
-    if (this.active === false) return;
-    // console.log('activated');
+      if (this.active === false) return;
+      // console.log('activated');
 
-    let currentRouteIndex = this.router.config.findIndex((route: any) => {
-      // console.log(this.router.url + '===' + route.path);
-      return this.router.url === '/' + route.path;
-    });
-    // console.log('idx: ' + currentRouteIndex);
+      let currentRouteIndex = this.router.config.findIndex((route: any) => {
+        // console.log(this.router.url + '===' + route.path);
+        return this.router.url === '/' + route.path;
+      });
+      // console.log('idx: ' + currentRouteIndex);
 
-    if (event.key === 'ArrowLeft') {
-      if (this.goBackCondition()) {
-        this.onGoBackConditionOK();
-        this.router.navigateByUrl(this.router.config[currentRouteIndex - 1].path, { skipLocationChange: true });
+      if (event.key === 'ArrowLeft') {
+        if (this.goBackCondition()) {
+          this.onGoBackConditionOK();
+          this.router.navigateByUrl(this.router.config[currentRouteIndex - 1].path, { skipLocationChange: true });
+        }
+        else
+          this.onGoBackConditionFail();
       }
-      else
-        this.onGoBackConditionFail();
-    }
-    else if (event.key === 'ArrowRight') {
-      // console.log('right arrow down');
-      // console.log(this.goNextCondition());
-      if (this.goNextCondition()) {
-        this.onGoNextConditionOK();
-        this.router.navigateByUrl(this.router.config[currentRouteIndex + 1].path, { skipLocationChange: true });
+      else if (event.key === 'ArrowRight') {
+        // console.log('right arrow down');
+        // console.log(this.goNextCondition());
+        if (this.goNextCondition()) {
+          this.onGoNextConditionOK();
+          this.router.navigateByUrl(this.router.config[currentRouteIndex + 1].path, { skipLocationChange: true });
+        }
+        else
+          this.onGoNextConditionFail();
       }
-      else
-        this.onGoNextConditionFail();
-    }
-    event.stopPropagation();
-    });
+      event.stopPropagation();
+      });
   }
   /*
   onKeyDown(event: KeyboardEvent) {

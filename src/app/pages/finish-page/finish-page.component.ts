@@ -11,7 +11,7 @@ import { DataService } from 'src/app/services/data/data.service';
 })
 export class FinishPageComponent implements OnInit {
 
-  private comment: string;
+  private comment: string = '';
   private isCommeentSend: boolean = false;
 
   constructor(public snackbar: MatSnackBar, public audio: AudioService, public apiClient: ApiClientService, public data: DataService) {
@@ -23,6 +23,7 @@ export class FinishPageComponent implements OnInit {
   }
 
   onSendCommentButtonClick() {
+    console.log(this.comment);
     if (this.isCommeentSend === false && this.comment !== '') {
       this.apiClient.sendComment(this.comment, () => {
         this.snackbar.open('comment has been sent', null, {
