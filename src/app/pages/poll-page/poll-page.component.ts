@@ -8,6 +8,7 @@ import { AudioService } from 'src/app/services/audio/audio.service';
 import { PlayAudioButtonComponent } from 'src/app/common/ui-elements/play-audio-button/play-audio-button.component';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { DataService } from 'src/app/services/data/data.service';
+import { KeyboardNavigationService } from 'src/app/services/keyboard-navigation/keyboard-navigation.service';
 
 @Component({
   selector: 'app-poll-page',
@@ -33,6 +34,7 @@ export class PollPageComponent implements OnInit {
               public apiClient: ApiClientService,
               public audio: AudioService,
               public data: DataService,
+              public keyboardNav: KeyboardNavigationService,
               private router: Router,
               private spinner: NgxSpinnerService) {
     this.testCount = sharedConfig.testCount;
@@ -42,6 +44,8 @@ export class PollPageComponent implements OnInit {
   }
   
   ngOnInit() {
+    this.keyboardNav.active = false;
+
     for(let i = 0; i < this.testCount; ++i) {
       this.answers[i] = 'none';
     }
