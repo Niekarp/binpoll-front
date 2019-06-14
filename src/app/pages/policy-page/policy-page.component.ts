@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class PolicyPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(public router: Router) { }
 
   ngOnInit() {
   }
@@ -16,7 +16,7 @@ export class PolicyPageComponent implements OnInit {
   @HostListener('window:keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {
     if (event.key === 'ArrowLeft') {
-      // this.goToPreviousPage();
+      this.router.navigate(['/'], { replaceUrl: true });
     }
   }
 }

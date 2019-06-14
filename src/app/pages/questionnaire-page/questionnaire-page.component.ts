@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AudioService } from 'src/app/services/audio/audio.service';
 import { Questionnaire } from 'src/app/models/questionnaire';
 import { DataService } from 'src/app/services/data/data.service';
+import { KeyboardNavigationService } from 'src/app/services/keyboard-navigation/keyboard-navigation.service';
 
 export interface Age {
   value: String,
@@ -30,9 +31,14 @@ export class QuestionnairePageComponent implements OnInit {
 
   constructor(public snackbar: MatSnackBar, 
               public audio: AudioService,
-              public data: DataService) { }
+              public data: DataService,
+              public keyboardNav: KeyboardNavigationService) { }
 
   ngOnInit() {
+    this.keyboardNav.goBackCondition = () => { return true; }
+    this.keyboardNav.goNextCondition = () => { return this.formValid };
+    this.keyboardNav.onGoNextConditionFail = () => { this.showProblemMessage(); }
+
     this.audio.loadAudioPlayers();
     this.model = this.data.questionnaire;
   }
@@ -49,20 +55,5 @@ export class QuestionnairePageComponent implements OnInit {
       verticalPosition: "top",
       panelClass: ['my-snackbar-problem']
     });
-  }
-
-  @HostListener('window:keydown', ['$event'])
-  onKeyDown(event: KeyboardEvent) {
-    if ((event.target as HTMLTextAreaElement).localName === 'textarea') {
-      return;
-    }
-    if (event.key === 'ArrowLeft') {
-      // this.goToPreviousPage();
-    }
-    else if (event.key === 'ArrowRight') {
-      if (this.formValid) {
-        // this.gotoNextPage();
-      }
-    }
   }
 }

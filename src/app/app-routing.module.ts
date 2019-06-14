@@ -15,16 +15,15 @@ import { ReportProblemPageComponent } from './pages/report-problem-page/report-p
 
 const routes: Routes = [
   { path: '', component: WelcomePageComponent },
-  { path: 'policy', component: PolicyPageComponent },
   { path: 'questionnaire', component: QuestionnairePageComponent },
   { path: 'poll-description', component: PollDescriptionPageComponent },
-  { path: 'terms-sounds', component: TermsSoundsPageComponent },
   { path: 'terms-front-scene', component: TermsFrontScenePageComponent },
   { path: 'terms-back-scene', component: TermsBackScenePageComponent },
   { path: 'terms-all-around-scene', component: TermsAllAroundScenePageComponent },
   { path: 'headphones-test', component: HeadphonesTestComponent },
   { path: 'poll', component: PollPageComponent },
   { path: 'finish', component: FinishPageComponent },
+  { path: 'policy', component: PolicyPageComponent },
   { path: 'report-problem', component: ReportProblemPageComponent },
   { path: '**', component: WelcomePageComponent },
 ];

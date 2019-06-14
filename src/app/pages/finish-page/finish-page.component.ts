@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { AudioService } from 'src/app/services/audio/audio.service';
 import { ApiClientService } from 'src/app/services/api-client/api-client.service';
@@ -30,5 +30,10 @@ export class FinishPageComponent implements OnInit {
         this.isCommeentSend = true;
       })
     }
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  displayDialogWithWarning($event) {
+    $event.returnValue = false;
   }
 }

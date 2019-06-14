@@ -1,5 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
+import { KeyboardNavigationService } from 'src/app/services/keyboard-navigation/keyboard-navigation.service';
 
 @Component({
   selector: 'app-terms-front-scene-page',
@@ -8,18 +9,10 @@ import { Router } from '@angular/router';
 })
 export class TermsFrontScenePageComponent implements OnInit {
 
-  constructor() { }
+  constructor(public keyboardNav: KeyboardNavigationService) { }
 
   ngOnInit() {
-  }
-
-  @HostListener('window:keydown', ['$event'])
-  onKeyDown(event: KeyboardEvent) {
-    if (event.key === 'ArrowLeft') {
-      // this.goToPreviousPage();
-    }
-    else if (event.key === 'ArrowRight') {
-      // this.gotoNextPage();
-    }
+    this.keyboardNav.goBackCondition = () => { return true; }
+    this.keyboardNav.goNextCondition = () => { return true };
   }
 }

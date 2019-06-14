@@ -1,6 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { SharedConfig } from 'src/app/config/shared-config';
+import { KeyboardNavigationService } from 'src/app/services/keyboard-navigation/keyboard-navigation.service';
 
 @Component({
   selector: 'app-poll-description-page',
@@ -11,20 +12,12 @@ export class PollDescriptionPageComponent implements OnInit {
 
   private testCount: number;
 
-  constructor(public sharedConfig: SharedConfig) {
+  constructor(public sharedConfig: SharedConfig, public keyboardNav: KeyboardNavigationService) {
     this.testCount = sharedConfig.testCount;
   }
 
   ngOnInit() {
-  }
-
-  @HostListener('window:keydown', ['$event'])
-  onKeyDown(event: KeyboardEvent) {
-    if (event.key === 'ArrowLeft') {
-      // this.goToPreviousPage();
-    }
-    else if (event.key === 'ArrowRight') {
-      // this.gotoNextPage();
-    }
+    this.keyboardNav.goBackCondition = () => { return true; }
+    this.keyboardNav.goNextCondition = () => { return true };
   }
 }

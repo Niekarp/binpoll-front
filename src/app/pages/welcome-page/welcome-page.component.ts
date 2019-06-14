@@ -22,14 +22,11 @@ export class WelcomePageComponent implements OnInit {
               public keyboardNav: KeyboardNavigationService) { 
     this.appVersion = sharedConfig.appVersion;
     this.testCount = sharedConfig.testCount;
-   }
+  }
 
   ngOnInit() {
-    console.log(this.router);
-    this.keyboardNav.router = this.router;
-    this.keyboardNav.active = true;
-    console.log('inited');
-    this.keyboardNav.onKeyDown(null);
+    this.keyboardNav.goNextCondition = () => { return this.consentChecked };
+    this.keyboardNav.onGoNextConditionFail = () => { this.showProblemMessage(); }
   }
 
   public showProblemMessage() {
@@ -38,12 +35,5 @@ export class WelcomePageComponent implements OnInit {
       verticalPosition: "top",
       panelClass: ['my-snackbar-problem']
     });
-  }
-
-  @HostListener('window:keydown', ['$event'])
-  onKeyDown(event: KeyboardEvent) {
-    if (event.key === 'ArrowRight') {
-      // this.goToNextPageIfConsentIsGiven();
-    }
   }
 }

@@ -5,6 +5,7 @@ import { FurtherHelpDialogComponent } from './further-help-dialog/further-help-d
 import { AudioService } from 'src/app/services/audio/audio.service';
 import { PlayAudioButtonComponent } from 'src/app/common/ui-elements/play-audio-button/play-audio-button.component';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { KeyboardNavigationService } from 'src/app/services/keyboard-navigation/keyboard-navigation.service';
 
 @Component({
   selector: 'app-headphones-test',
@@ -19,9 +20,13 @@ export class HeadphonesTestComponent implements OnInit {
 
   constructor(private dialog: MatDialog,
               private audio: AudioService,
-              private spinner: NgxSpinnerService) { }
+              private spinner: NgxSpinnerService,
+              public keyboardNav: KeyboardNavigationService) { }
 
   ngOnInit() {
+    this.keyboardNav.goBackCondition = () => { return this.audio.isAllTestAudioLoaded(); }
+    this.keyboardNav.goNextCondition = () => { return this.audio.isAllTestAudioLoaded(); };
+
     this.audio.loadAudioPlayers();
 
     if (this.audio.isAllTestAudioLoaded() === false) {
@@ -83,13 +88,5 @@ export class HeadphonesTestComponent implements OnInit {
 
   stopAudio() {
     this.audio.pauseHeadphonesTestAudio();
-  }
-
-  @HostListener('window:keydown', ['$event'])
-  onKeyDown(event: KeyboardEvent) {
-    if (this.audio.isAllTestAudioLoaded() === false) return;
-
-    // if (event.key === 'ArrowLeft')       this.goToPreviousPage();
-    // else if (event.key === 'ArrowRight') this.gotoNextPage();
   }
 }
