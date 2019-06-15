@@ -1,5 +1,5 @@
 
-class PollData {
+export class PollData {
     public startDate: Date;
     public endDate: Date;
     public assignedSetId: number;

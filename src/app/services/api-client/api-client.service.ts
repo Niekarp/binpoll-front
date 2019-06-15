@@ -5,6 +5,8 @@ import { Observable, of, Subject } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
 import { Questionnaire } from 'src/app/models/questionnaire';
 import { DataService } from '../data/data.service';
+import { PollData } from "../../models/PollData"
+import { ProblemReport } from "../../models/ProblemReport"
 
 @Injectable({
   providedIn: 'root'
@@ -43,10 +45,28 @@ export class ApiClientService {
             console.log(pollData);
             
             this.data.dataResponseId = response['id'];
-            // console.log(JSON.stringify(response));
           });
       }
     });
+  }
+
+  public reportProblem(report: ProblemReport): Observable<{}> {
+    return this.configObservable.pipe(switchMap(config => {
+      let url: string = config['apiUrl'];
+      if(url == null) {
+        console.error('apiUrl property not found');
+      } else {
+        url += 'problem/';
+        return this.http.post(url, report).pipe(switchMap(() => {
+          console.log('problem reported: ', url);
+          console.log(report);
+          return of({})
+        }));
+      }
+    })).pipe(catchError((err) => {
+      console.error(err);
+      return of({})
+    }));
   }
 
   public getSampleSet(): Observable<string[]> {
