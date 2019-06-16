@@ -44,8 +44,6 @@ export class PollPageComponent implements OnInit {
   }
   
   ngOnInit() {
-    this.keyboardNav.active = false;
-
     for(let i = 0; i < this.testCount; ++i) {
       this.answers[i] = 'none';
     }
@@ -151,7 +149,7 @@ export class PollPageComponent implements OnInit {
     this.currentTestIndex -= 1;
 
     if (this.currentTestIndex === -1) {
-      // save results
+      this.keyboardNav.active = true;
       this.router.navigateByUrl('headphones-test', { skipLocationChange: true });
       return;
     } 

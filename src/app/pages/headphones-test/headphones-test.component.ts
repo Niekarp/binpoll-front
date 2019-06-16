@@ -24,12 +24,11 @@ export class HeadphonesTestComponent implements OnInit {
               public keyboardNav: KeyboardNavigationService) { }
 
   ngOnInit() {
-    this.keyboardNav.active = true;
-    this.keyboardNav.goBackCondition = () => { return this.audio.isAllTestAudioLoaded(); }
+    this.keyboardNav.goBackCondition = () => { return this.audio.isAllTestAudioLoaded(); };
     this.keyboardNav.goNextCondition = () => { return this.audio.isAllTestAudioLoaded(); };
-
-    this.keyboardNav.onGoNextConditionOK = () => { this.audio.pauseHeadphonesTestAudio(); }
-    this.keyboardNav.onGoBackConditionOK = () => { this.audio.pauseHeadphonesTestAudio(); }
+    this.keyboardNav.onGoNextConditionOK = () => { this.audio.pauseHeadphonesTestAudio(); };
+    this.keyboardNav.onGoBackConditionOK = () => { this.audio.pauseHeadphonesTestAudio(); };
+    this.keyboardNav.deactivateOnNext = true;
 
     this.audio.loadAudioPlayers();
 
@@ -80,6 +79,8 @@ export class HeadphonesTestComponent implements OnInit {
 
   public onFurtherHelpClick() {
     this.audio.pauseHeadphonesTestAudio();
+    this.leftAudioButton.pause();
+    this.rightAudioButton.pause();
 
     const dialogRef = this.dialog.open(FurtherHelpDialogComponent, {
       height: '600px',

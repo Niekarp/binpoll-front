@@ -25,6 +25,7 @@ export class WelcomePageComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.keyboardNav.active = true;
     this.keyboardNav.goNextCondition = () => { return this.consentChecked };
     this.keyboardNav.onGoNextConditionFail = () => { this.showProblemMessage(); }
   }
@@ -35,5 +36,9 @@ export class WelcomePageComponent implements OnInit {
       verticalPosition: "top",
       panelClass: ['my-snackbar-problem']
     });
+  }
+
+  public onPolicyClick() {
+    this.keyboardNav.active = false;
   }
 }

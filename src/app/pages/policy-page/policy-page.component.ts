@@ -1,5 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
+import { KeyboardNavigationService } from 'src/app/services/keyboard-navigation/keyboard-navigation.service';
 
 @Component({
   selector: 'app-policy-page',
@@ -8,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class PolicyPageComponent implements OnInit {
 
-  constructor(public router: Router) { }
+  constructor(public router: Router, public keyboardNav: KeyboardNavigationService) { }
 
   ngOnInit() {
   }
@@ -16,6 +17,7 @@ export class PolicyPageComponent implements OnInit {
   @HostListener('window:keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {
     if (event.key === 'ArrowLeft') {
+      this.keyboardNav.active = true;
       this.router.navigate(['/'], { replaceUrl: true });
     }
   }

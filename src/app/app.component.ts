@@ -19,14 +19,8 @@ export class AppComponent {
 
   ngOnInit() { }
 
-  onActivate($event)
-	{
-		// console.log('onActivate called');
-    // console.log($event);
-    
-    this.keyboardNav.goBackCondition = () => { return false };
-    this.keyboardNav.goNextCondition = () => { return false };
-    this.keyboardNav.onGoNextConditionFail = () => { };
+  onActivate($event) {    
+    this.keyboardNav.restart();
   }
 
   @HostListener('window:beforeunload', ['$event'])

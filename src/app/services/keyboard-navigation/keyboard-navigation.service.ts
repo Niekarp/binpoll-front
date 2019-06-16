@@ -7,77 +7,78 @@ import { fromEvent } from 'rxjs';
   providedIn: 'root'
 })
 export class KeyboardNavigationService {
-
+  // back & next mean navigation directions
+  
+  // iserted automatically on application start
   public router: Router;
-
+  
+  // options
   public active = false;
-
+  public deactivateOnNext = false;
+  
+  // navigation condition (restarted after each navigation)
   public goBackCondition: () => boolean;
   public goNextCondition: () => boolean;
-
+  
+  // events
   public onGoNextConditionOK = () => {};
   public onGoNextConditionFail = () => {};
-
+  
   public onGoBackConditionOK = () => {};
   public onGoBackConditionFail = () => {};
-
+  
   constructor() { 
-    // window.addEventListener('keydown', this.onKeyDown); 
-
-    fromEvent(document, 'keydown').subscribe((event: KeyboardEvent) => {
-      console.log('navigation keydown');
-      if (this.active === false) return;
-      // console.log('activated');
-
-      let currentRouteIndex = this.router.config.findIndex((route: any) => {
-        // console.log(this.router.url + '===' + route.path);
-        return this.router.url === '/' + route.path;
-      });
-      // console.log('idx: ' + currentRouteIndex);
-
-      if (event.key === 'ArrowLeft') {
-        if (this.goBackCondition()) {
-          this.onGoBackConditionOK();
-          this.router.navigateByUrl(this.router.config[currentRouteIndex - 1].path, { skipLocationChange: true });
-        }
-        else {
-          this.onGoBackConditionFail();
-        }
-        event.stopPropagation();
-      }
-      else if (event.key === 'ArrowRight') {
-        // console.log('right arrow down');
-        // console.log(this.goNextCondition());
-        if (this.goNextCondition()) {
-          this.onGoNextConditionOK();
-          this.router.navigateByUrl(this.router.config[currentRouteIndex + 1].path, { skipLocationChange: true });
-        }
-        else {
-          this.onGoNextConditionFail();
-        }        
-        event.stopPropagation();
-      }
-    });
+    fromEvent(document, 'keydown').subscribe((event: KeyboardEvent) => { this.onKeydown(event); });
   }
-  /*
-  onKeyDown(event: KeyboardEvent) {
-    console.log('keyboardNav: key down!');
-    console.log('router: ' + this.router);
-    console.log('activate: ' + this.active);
+
+  public restart() {
+    this.goBackCondition = () => { return false };
+    this.goNextCondition = () => { return false };
+    this.onGoNextConditionOK = () => { };
+    this.onGoNextConditionFail = () => { };
+    this.onGoBackConditionOK = () => { };
+    this.onGoBackConditionFail = () => { };
+    this.deactivateOnNext = false;
+  }
+  
+  private onKeydown(event: KeyboardEvent): void {
+    console.log('navigation keydown');
+    
     if (this.active === false) return;
-
-    let currentRouteIndex = this.router.config.findIndex((route: Route) => {
-      return this.router.url === route
+    
+    let currentRouteIndex = this.router.config.findIndex((route: any) => {
+      return this.router.url === '/' + route.path;
     });
-
-    if (event.key === 'ArrowLeft') {
-      if (this.goBackCondition) 
+    
+    if (event.key === 'ArrowLeft')
+    {
+      if (this.goBackCondition())
+      {
+        this.onGoBackConditionOK();
         this.router.navigateByUrl(this.router.config[currentRouteIndex - 1].path, { skipLocationChange: true });
+      }
+      else
+      {
+        this.onGoBackConditionFail();
+      }
+      event.stopPropagation();
     }
-    else if (event.key === 'ArrowRight') {
-      if (this.goNextCondition) 
+    else if (event.key === 'ArrowRight')
+    {
+      if (this.goNextCondition())
+      {
+        this.onGoNextConditionOK();
+        if (this.deactivateOnNext)
+        {
+          this.active = false;
+        }
         this.router.navigateByUrl(this.router.config[currentRouteIndex + 1].path, { skipLocationChange: true });
+      }
+      else
+      {
+        this.onGoNextConditionFail();
+      }        
+      event.stopPropagation();
     }
   }
-  */
 }
