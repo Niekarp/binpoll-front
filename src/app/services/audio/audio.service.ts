@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AudioPlayerSet } from './audio-player-set';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http'
 import { ApiClientService } from '../api-client/api-client.service';
+import { Subscription } from 'rxjs';
 
 
 @Injectable({
@@ -14,6 +15,8 @@ export class AudioService {
   private audioSetId = -1;
   private pollLoadedCount = 0;
   private testLoadedCount = 0;
+
+  private audioRequests = new Array<Subscription>();
 
   constructor(private http: HttpClient, private api: ApiClientService) {
     console.log('audio service created');
@@ -47,6 +50,12 @@ export class AudioService {
         this.loadPollAudioPlayer(audioSet['samples'][i], this.audioPlayers.pollPlayers[i]);
         this.audioPlayers.pollPlayers[i].loop = true;
       }
+    });
+  }
+
+  public stopAudioLoading() {
+    this.audioRequests.forEach((subscription: Subscription) => {
+      subscription.unsubscribe();
     });
   }
 
@@ -168,7 +177,7 @@ export class AudioService {
   }
 
   private loadAudioPlayer(url: string, audio: HTMLAudioElement, onLoaded: () => void) {
-    this.http.get(url, {responseType: 'blob'}).subscribe(response => {
+    const request = this.http.get(url, {responseType: 'blob'}).subscribe(response => {
       let audioBlob = response;
       let audioUrl = URL.createObjectURL(audioBlob);
       console.log('audio loaded: ' + audioUrl);
@@ -177,6 +186,8 @@ export class AudioService {
       
       onLoaded();
     });
+
+    this.audioRequests.push(request);
   }
 
   private loadTestAudioPlayer(url: string, audio: HTMLAudioElement) {

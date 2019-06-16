@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { ApiClientService } from 'src/app/services/api-client/api-client.service';
 import { DataService } from 'src/app/services/data/data.service';
+import { AudioService } from 'src/app/services/audio/audio.service';
 
 @Component({
   selector: 'app-report-problem-page',
@@ -12,11 +13,14 @@ export class ReportProblemPageComponent implements OnInit {
   public message: string;
   private isReportSend: boolean = false;
 
-  constructor(public snackbar: MatSnackBar,
+  constructor(
+    public snackbar: MatSnackBar,
+    public audio: AudioService,
     private api: ApiClientService,
     private data: DataService) { }
 
   ngOnInit() {
+    this.audio.stopAudioLoading();
   }
 
   onSendCommentButtonClick() {
