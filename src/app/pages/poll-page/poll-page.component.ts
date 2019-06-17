@@ -27,6 +27,7 @@ export class PollPageComponent implements OnInit {
   private selectedAudio: string[] = new Array(this.testCount);
   private wasAudioPlayed = false;
   private startDate: Date;
+  private enableKeyboard = true;
 
   constructor(public sharedConfig: SharedConfig, 
               public snackbar: MatSnackBar,
@@ -167,12 +168,13 @@ export class PollPageComponent implements OnInit {
 
   public onFurtherHelpClick() {
     this.turnOffTheAudio();
+    this.enableKeyboard = false;
     const dialogRef = this.dialog.open(FurtherHelpDialogComponent, {
       height: '600px',
       width: '400px',
     });
     dialogRef.afterClosed().subscribe(() => {
-      this.turnOffTheAudio();
+      this.enableKeyboard = true;
     });
   }
 
@@ -192,6 +194,7 @@ export class PollPageComponent implements OnInit {
   @HostListener('window:keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {
     console.log('poll key');
+    if (this.enableKeyboard === false) return;
     if (this.audio.isAllPollAudioLoaded() === false) return;
 
     if (event.key === 'ArrowLeft') {
