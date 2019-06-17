@@ -81,13 +81,14 @@ export class HeadphonesTestComponent implements OnInit {
     this.audio.pauseHeadphonesTestAudio();
     this.leftAudioButton.pause();
     this.rightAudioButton.pause();
+    this.keyboardNav.active = false;
 
     const dialogRef = this.dialog.open(FurtherHelpDialogComponent, {
       height: '600px',
       width: '400px',
     });
     dialogRef.afterClosed().subscribe(() => {
-      this.audio.pauseHeadphonesTestAudio();
+      this.keyboardNav.active = true;
     });
   }
 
