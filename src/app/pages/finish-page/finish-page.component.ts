@@ -23,8 +23,14 @@ export class FinishPageComponent implements OnInit {
   }
 
   onSendCommentButtonClick() {
-    console.log(this.comment);
-    if (this.isCommeentSend === false && this.comment !== '') {
+    if (this.isCommeentSend) {
+      this.snackbar.open('comment already sent', null, {
+        duration: 2000,
+        verticalPosition: "top",
+        panelClass: ['my-snackbar-confirm']
+      });
+    }
+    else if (this.isCommeentSend === false && /\S/.test(this.comment)) {
       this.apiClient.sendComment(this.comment, () => {
         this.snackbar.open('comment has been sent', null, {
           duration: 2000,
@@ -34,6 +40,13 @@ export class FinishPageComponent implements OnInit {
         (document.getElementsByClassName('navigation-button').item(0) as HTMLElement).style.backgroundColor = 'gray';
         this.isCommeentSend = true;
       })
+    }
+    else {
+      this.snackbar.open('comment field must not be empty', null, {
+        duration: 2000,
+        verticalPosition: "top",
+        panelClass: ['my-snackbar-problem']
+      });
     }
   }
 }

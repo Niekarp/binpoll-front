@@ -10,7 +10,7 @@ import { AudioService } from 'src/app/services/audio/audio.service';
   styleUrls: ['./report-problem-page.component.scss']
 })
 export class ReportProblemPageComponent implements OnInit {
-  public message: string;
+  public message: string = '';
   private isReportSend: boolean = false;
 
   constructor(
@@ -25,7 +25,14 @@ export class ReportProblemPageComponent implements OnInit {
   }
 
   onSendCommentButtonClick() {
-    if (this.isReportSend === false) {
+    if (this.isReportSend) {
+      this.snackbar.open('report already sent', null, {
+        duration: 2000,
+        verticalPosition: "top",
+        panelClass: ['my-snackbar-confirm']
+      });
+    }
+    else if (this.isReportSend === false && /\S/.test(this.message)) {
       this.api.reportProblem({
         user_info: {
           headphones_make_and_model: this.data.questionnaire.typedHeadphonesMakeAndModel,
@@ -42,6 +49,13 @@ export class ReportProblemPageComponent implements OnInit {
         });
         (document.getElementsByClassName('navigation-button').item(0) as HTMLElement).style.backgroundColor = 'gray';
         this.isReportSend = true;
+      });
+    }
+    else {
+      this.snackbar.open('report field must not be empty', null, {
+        duration: 2000,
+        verticalPosition: "top",
+        panelClass: ['my-snackbar-problem']
       });
     }
   }
