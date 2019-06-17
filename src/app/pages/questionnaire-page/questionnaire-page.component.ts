@@ -39,6 +39,8 @@ export class QuestionnairePageComponent implements OnInit {
     this.keyboardNav.goNextCondition = () => { return this.formValid };
     this.keyboardNav.onGoNextConditionFail = () => { this.showProblemMessage(); }
 
+    this.data.stupidThing = true;
+
     this.audio.loadAudioPlayers();
     this.model = this.data.questionnaire;
   }

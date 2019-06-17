@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Output, EventEmitter, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import * as $ from 'jquery';
+import { MatAnchor } from '@angular/material';
 
 @Component({
   selector: 'app-navigation-button',
@@ -9,8 +10,8 @@ import * as $ from 'jquery';
 })
 export class NavigationButtonComponent implements OnInit {
 
-  // @ViewChild('anchor')
-  // public anchor: HTMLAnchorElement;
+  @ViewChild('button')
+  public button: MatAnchor;
 
   @Input()
   public text: string;
@@ -23,8 +24,14 @@ export class NavigationButtonComponent implements OnInit {
 
   @Input()
   set disabled(b: boolean) {
-    if (b) $(".navigation-button").css('backgroundColor', 'gray');
-    else   $(".navigation-button").css('backgroundColor', 'rgb(91, 155, 213)');
+    console.log(this.button);
+    if (b) this.button._elementRef.nativeElement.style.backgroundColor  = 'gray';
+    else   this.button._elementRef.nativeElement.style.backgroundColor = 'rgb(91, 155, 213)';
+
+    // if (b) this.button.style.backgroundColor = 'gray';
+    // else   this.button.style.backgroundColor = 'rgb(91, 155, 213)';
+    // $(".navigation-button").css('backgroundColor', 'gray');
+    // $(".navigation-button").css('backgroundColor', 'rgb(91, 155, 213)');
   }
 
   @Output()

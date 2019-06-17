@@ -9,7 +9,7 @@ export class DataService {
   public questionnaire = new Questionnaire();
   public dataResponseId = null;
 
-  public stupidThing = true;
+  public stupidThing = false;
 
   constructor() { }
 }
