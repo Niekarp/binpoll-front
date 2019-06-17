@@ -24,7 +24,7 @@ export class NavigationButtonComponent implements OnInit {
 
   @Input()
   set disabled(b: boolean) {
-    if (b) this.button._elementRef.nativeElement.style.backgroundColor  = 'gray';
+    if (b) this.button._elementRef.nativeElement.style.backgroundColor = 'gray';
     else   this.button._elementRef.nativeElement.style.backgroundColor = 'rgb(91, 155, 213)';
   }
 
@@ -38,7 +38,7 @@ export class NavigationButtonComponent implements OnInit {
 
   ngOnInit() { }
 
-  onNavigationButtonClick() {
+  navigate() {
     if (this.condition || this.condition === undefined) {
       this.success.emit();
       this.router.navigateByUrl(this.destinationUrl, { skipLocationChange: true });
@@ -48,4 +48,13 @@ export class NavigationButtonComponent implements OnInit {
     }
   }
 
+  onNavigationButtonClick() {
+    this.navigate();
+  }
+
+  onNavigationButtonKeydown(event: KeyboardEvent) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      this.navigate();
+    }
+  }
 }
