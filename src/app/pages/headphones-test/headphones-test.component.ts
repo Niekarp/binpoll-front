@@ -92,6 +92,10 @@ export class HeadphonesTestComponent implements OnInit {
     });
   }
 
+  onNavigationButtonSuccess() {
+    this.keyboardNav.active = false;
+  }
+
   stopAudio() {
     this.audio.pauseHeadphonesTestAudio();
   }
