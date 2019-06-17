@@ -1,5 +1,5 @@
-import { Component, OnInit, HostListener } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
+import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular/core';
+import { MatSnackBar, MatSelect } from '@angular/material';
 import { Router } from '@angular/router';
 import { AudioService } from 'src/app/services/audio/audio.service';
 import { Questionnaire } from 'src/app/models/questionnaire';
@@ -17,7 +17,7 @@ export interface Age {
   styleUrls: ['./questionnaire-page.component.scss']
 })
 export class QuestionnairePageComponent implements OnInit {
-  
+
   public model: Questionnaire;
 
   public ages: Age[] = [
@@ -57,5 +57,10 @@ export class QuestionnairePageComponent implements OnInit {
       verticalPosition: "top",
       panelClass: ['my-snackbar-problem']
     });
+  }
+
+  public blur() {
+    console.log(event);
+    event.stopPropagation();
   }
 }

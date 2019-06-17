@@ -32,7 +32,7 @@ export class PlayAudioButtonComponent implements OnInit {
   }
 
   public pause() {
-    this.buttonIcon._elementRef.nativeElement.textContent = 'pause';
+    this.buttonIcon._elementRef.nativeElement.textContent = 'play_circle_outline';
   }
 
   public blur() {

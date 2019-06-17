@@ -77,7 +77,7 @@ export class KeyboardNavigationService {
       else
       {
         this.onGoNextConditionFail();
-      }        
+      }
       event.stopPropagation();
     }
   }
