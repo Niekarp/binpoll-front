@@ -24,14 +24,8 @@ export class NavigationButtonComponent implements OnInit {
 
   @Input()
   set disabled(b: boolean) {
-    console.log(this.button);
     if (b) this.button._elementRef.nativeElement.style.backgroundColor  = 'gray';
     else   this.button._elementRef.nativeElement.style.backgroundColor = 'rgb(91, 155, 213)';
-
-    // if (b) this.button.style.backgroundColor = 'gray';
-    // else   this.button.style.backgroundColor = 'rgb(91, 155, 213)';
-    // $(".navigation-button").css('backgroundColor', 'gray');
-    // $(".navigation-button").css('backgroundColor', 'rgb(91, 155, 213)');
   }
 
   @Output()
