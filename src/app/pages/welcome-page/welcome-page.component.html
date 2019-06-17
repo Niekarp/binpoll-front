@@ -11,7 +11,7 @@
   </p>
   <div id="checkbox-container" fxLayour="row">
     <div fxFlex="10%">
-      <mat-checkbox [(ngModel)]="consentChecked" disableRipple="true"></mat-checkbox>
+      <mat-checkbox [(ngModel)]="data.consentChecked" disableRipple="true"></mat-checkbox>
     </div>
     <div class="smaller-font">
       I hereby grant my consent to participate in the listening test and agree to 
@@ -22,8 +22,8 @@
   <div id="navigation-info">To begin click the Start button or use keyboard arrows.</div>
 </section>
 <nav class="page-navigation">
-  <app-navigation-button text="Start" destinationUrl="/questionnaire" [condition]="consentChecked" 
-                         [disabled]="!consentChecked" (failure)="showProblemMessage()">
+  <app-navigation-button text="Start" destinationUrl="/questionnaire" [condition]="data.consentChecked" 
+                         [disabled]="!data.consentChecked" (failure)="showProblemMessage()">
   </app-navigation-button>
 </nav>
 

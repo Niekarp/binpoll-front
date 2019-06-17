@@ -6,6 +6,8 @@ import { Questionnaire } from 'src/app/models/questionnaire';
 })
 export class DataService {
 
+  public consentChecked = false;
+
   public questionnaire = new Questionnaire();
   public dataResponseId = null;
 
