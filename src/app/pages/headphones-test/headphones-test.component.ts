@@ -94,6 +94,7 @@ export class HeadphonesTestComponent implements OnInit {
 
   onNavigationButtonSuccess() {
     this.keyboardNav.active = false;
+    this.stopAudio();
   }
 
   stopAudio() {
