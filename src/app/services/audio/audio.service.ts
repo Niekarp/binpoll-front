@@ -12,7 +12,7 @@ export class AudioService {
 
   private audioPlayers: AudioPlayerSet;
   private loaded = false;
-  private audioSetId = -1;
+  private audioSet = { id: -1, samples: Array<string>() };
   private pollLoadedCount = 0;
   private testLoadedCount = 0;
 
@@ -44,10 +44,12 @@ export class AudioService {
 
     // get samples
     this.api.getSampleSet().subscribe(audioSet => {
-      this.audioSetId = audioSet['id'];
+      this.audioSet.id = audioSet['id'];
+      this.audioSet.samples = audioSet['samples'];
+      debugger;
       // load poll samples audio
       for(let i = 0; i < this.audioPlayers.pollPlayers.length; ++i) {
-        this.loadPollAudioPlayer(audioSet['samples'][i], this.audioPlayers.pollPlayers[i]);
+        this.loadPollAudioPlayer(this.audioSet.samples[i], this.audioPlayers.pollPlayers[i]);
         this.audioPlayers.pollPlayers[i].loop = true;
       }
     });
@@ -60,7 +62,7 @@ export class AudioService {
   }
 
   public get pollAudioSetId() {
-    return this.audioSetId;
+    return this.audioSet.id;
   }
 
   public isAllTestAudioLoaded(): boolean {
@@ -153,6 +155,7 @@ export class AudioService {
   public playPollAudio(audioIndex: number) {
     this.pauseAllPollAudio();
     this.audioPlayers.pollPlayers[audioIndex].play();
+    console.log('playing: ' + this.audioSet.samples[audioIndex].split('/').reverse()[0]);
   }
 
   public getPollAudio(audioIndex: number): HTMLAudioElement {
