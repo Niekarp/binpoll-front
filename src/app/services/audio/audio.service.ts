@@ -46,7 +46,7 @@ export class AudioService {
     this.api.getSampleSet().subscribe(audioSet => {
       this.audioSet.id = audioSet['id'];
       this.audioSet.samples = audioSet['samples'];
-      debugger;
+      
       // load poll samples audio
       for(let i = 0; i < this.audioPlayers.pollPlayers.length; ++i) {
         this.loadPollAudioPlayer(this.audioSet.samples[i], this.audioPlayers.pollPlayers[i]);

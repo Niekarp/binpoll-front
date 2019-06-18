@@ -193,10 +193,10 @@ export class PollPageComponent implements OnInit {
 
   @HostListener('window:keydown', ['$event'])
   onKeyDown(event: KeyboardEvent) {
-    console.log('poll key');
+    // console.log('poll key');
     if (this.enableKeyboard === false) return;
     if (this.audio.isAllPollAudioLoaded() === false) return;
-    console.log('poll key active');
+    // console.log('poll key active');
 
     if (event.key === 'ArrowLeft') {
       this.goToPreviousTest();
