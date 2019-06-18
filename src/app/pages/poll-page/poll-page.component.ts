@@ -109,11 +109,17 @@ export class PollPageComponent implements OnInit {
 
     if (this.currentTestIndex === this.testCount) {
       // save results 
+      let answer = {};
+      this.audio.pollAudioSet.samples.forEach((sampleUrl, index) => { 
+        let sampleFilename = sampleUrl.split('/').reverse()[0];
+        answer[sampleFilename] = this.answers[index];
+      });
+
       this.apiClient.sendPollData({
         startDate: this.startDate,
         endDate: new Date(),
-        answer: this.answers,
-        assignedSetId: this.audio.pollAudioSetId,
+        answer: answer,
+        assignedSetId: this.audio.pollAudioSet.id,
         userInfo: {
           age: this.data.questionnaire.age,
           hearing_difficulties: this.data.questionnaire.hearingDifficulties,

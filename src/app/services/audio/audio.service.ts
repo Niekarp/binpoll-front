@@ -61,8 +61,8 @@ export class AudioService {
     });
   }
 
-  public get pollAudioSetId() {
-    return this.audioSet.id;
+  public get pollAudioSet() {
+    return this.audioSet;
   }
 
   public isAllTestAudioLoaded(): boolean {
