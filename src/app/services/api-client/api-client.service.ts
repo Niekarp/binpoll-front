@@ -34,7 +34,7 @@ export class ApiClientService {
           'start_date': pollData.startDate.toISOString(),
           'end_date': pollData.endDate.toISOString(),
           'assigned_set_id': pollData.assignedSetId,
-          'answer': pollData.answer,
+          'answers': pollData.answer,
           'user_info': pollData.userInfo
         }).pipe(
           catchError((err) => {
