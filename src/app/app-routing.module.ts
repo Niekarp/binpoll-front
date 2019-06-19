@@ -12,8 +12,10 @@ import { PollPageComponent } from './pages/poll-page/poll-page.component';
 import { FinishPageComponent } from './pages/finish-page/finish-page.component';
 import { PolicyPageComponent } from './pages/policy-page/policy-page.component';
 import { ReportProblemPageComponent } from './pages/report-problem-page/report-problem-page.component';
+import { CreditsPageComponent } from './pages/credits-page/credits-page.component';
 
 const routes: Routes = [
+  { path: 'credits', component: CreditsPageComponent },
   { path: '', component: WelcomePageComponent },
   { path: 'questionnaire', component: QuestionnairePageComponent },
   { path: 'poll-description', component: PollDescriptionPageComponent },
